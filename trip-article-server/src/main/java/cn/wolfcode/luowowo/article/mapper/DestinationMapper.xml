@@ -179,4 +179,18 @@
 
     </select>
 
+
+
+
+
+
+    <select id="selectByIdOfNameAndId" resultType="cn.wolfcode.luowowo.article.domain.Destination">
+        SELECT
+        id,
+        name
+        FROM destination
+        WHERE id = #{id}
+    </select>
+
+
 </mapper>

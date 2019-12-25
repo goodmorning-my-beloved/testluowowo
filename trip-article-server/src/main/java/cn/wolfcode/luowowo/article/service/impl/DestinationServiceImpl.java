@@ -204,4 +204,18 @@ public class DestinationServiceImpl implements IDestinationService {
         return destinationMapper.selectByPrimaryKey(destId);
     }
 
+
+
+
+
+
+
+
+    @Override
+    public Destination getByIdOfNameAndId(Long id) {
+        return destinationMapper.selectByIdOfNameAndId(id);
+    }
+
+
+
 }

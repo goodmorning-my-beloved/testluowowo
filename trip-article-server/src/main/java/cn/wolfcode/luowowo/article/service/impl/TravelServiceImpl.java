@@ -94,6 +94,24 @@ public class TravelServiceImpl implements ITravelService {
         return travelMapper.selectAll();
     }
 
+
+
+    /**
+     * 按目的地分组,再查出每一组的最高阅读量,进行组的排行,
+     * 获得排行靠前十的目的地id,
+     *
+     * @return
+     */
+    @Override
+    public List<Travel> getHotTravelsByViewnum() {
+        return travelMapper.selectHotTravelsByViewnum();
+    }
+
+
+
+
+
+
     @Override
     public List<Travel> selectByAuthorId(Long authorId) {
 

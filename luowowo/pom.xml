@@ -22,6 +22,8 @@
         <module>../trip-comment-server</module>
         <module>../trip-search-api</module>
         <module>../trip-search-server</module>
+        <module>../trip-hotel-api</module>
+        <module>../trip-hotel-server</module>
     </modules>
 
     <parent>
@@ -75,6 +77,11 @@
             <dependency>
                 <groupId>cn.wolfcode.luowowo</groupId>
                 <artifactId>trip-search-api</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.wolfcode.luowowo</groupId>
+                <artifactId>trip-hotel-api</artifactId>
                 <version>1.0.0</version>
             </dependency>
         </dependencies>

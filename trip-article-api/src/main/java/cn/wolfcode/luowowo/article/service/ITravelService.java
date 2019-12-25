@@ -78,4 +78,40 @@ public interface ITravelService {
      * @return
      */
     PageInfo queryByAuthId(TravelQuery qo, Long id);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 按目的地分组,再查出每一组的最高阅读量,进行组的排行,
+     * 获得排行靠前十的游记
+     * @return
+     */
+    List<Travel> getHotTravelsByViewnum();
+
+
+
+
+
+
+
+
 }
