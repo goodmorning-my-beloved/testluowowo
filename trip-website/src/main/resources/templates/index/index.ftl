@@ -134,7 +134,7 @@
                     最地道的玩法体验
                 </div>
             </a>
-            <a class="sales-entrys-item entrys-bg-flight" href="javascript:;">
+            <a class="sales-entrys-item entrys-bg-flight" href="/flight">
                 <div class="sales-entrys-title">
                     机票
                 </div>
