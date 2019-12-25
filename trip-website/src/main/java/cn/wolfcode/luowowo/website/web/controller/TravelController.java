@@ -146,5 +146,20 @@ public class TravelController {
         return "travel/commentTpl";
     }
 
+    @RequestMapping("/travelThumbup")
+    @ResponseBody
+    public Object travelThumbup(Long sid, @UserParam UserInfo userInfo) {
+        AjaxResult ajaxResult = new AjaxResult();
+        if (userInfo == null) {
+            ajaxResult = new AjaxResult(false, "请先登录");
+            ajaxResult.setCode(102);
+            return ajaxResult;
+        }
+        boolean b = travelStatisVOredisService.Thumbup(sid, userInfo.getId());
+        ajaxResult.setData(travelStatisVOredisService.selecttravelStatisVOById(sid));
+        ajaxResult.setSuccess(b);
+
+        return ajaxResult;
+    }
 
 }

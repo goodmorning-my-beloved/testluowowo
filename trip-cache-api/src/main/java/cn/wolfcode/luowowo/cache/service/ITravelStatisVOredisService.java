@@ -29,4 +29,19 @@ public interface ITravelStatisVOredisService {
      * @return
      */
     int selectUserCommentNum(Long id);
+
+    /**
+     * 点赞操作
+     * @param sid
+     * @param id
+     * @return
+     */
+    boolean Thumbup(Long sid, Long id);
+
+    /**
+     * 根据游记id查游记vo
+     * @param sid
+     * @return
+     */
+    TravelStatisVO selecttravelStatisVOById(Long sid);
 }

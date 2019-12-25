@@ -17,7 +17,7 @@
                 var sid = $(this).data("sid");
                 $.get("/travel/travelThumbup", {sid:sid}, function (data) {
                     if(data.success){
-                        $("#topvote12894894").html(data.data.thumbsupnum);
+                        $("#thumbnum").html(data.data.thumbsupnum);
                         popup("顶成功啦"); //
                     }else{
                         if(data.code == 102){
@@ -280,7 +280,7 @@
                                         <dd>
                                             <div class="note_title clearfix">
                                                 <div class="MDing">
-                                                    <span id="topvote12894894">${map.travel.thumbsupnum}</span><a role="button" class="_j_support_btn"
+                                                    <span id="thumbnum">${(map.travelStatisVO.thumbsupnum)!}</span><a role="button" class="_j_support_btn"
                                                         data-japp="articleding" rel="nofollow" data-sid="${map.travel.id!}"
                                                         data-vote="0" title="顶一下">顶</a>
                                                 </div>

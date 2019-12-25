@@ -6,8 +6,9 @@
     <title></title>
     <link href="./styles/base.css" rel="stylesheet" type="text/css">
     <link href="./styles/mytravelnotes.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="./js/jquery.js"></script>
-    <script type="text/javascript" src="./js/common.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/js/system/common.js"></script>
+
 </head>
 
 <body style="position: relative;">
@@ -146,11 +147,11 @@
                     <div class="common_title clearfix">
                         <div class="MAvaMore clearfix">
                             <div class="MAvaNums">
-                                <strong>${pageInfo.size}</strong>
+                                <strong>${count}</strong>
                                 <p>游记</p>
                             </div>
                             <div class="MAvaNums">
-                                <strong>0</strong>
+                                <strong>${reply}</strong>
                                 <p>回复</p>
                             </div>
                             <div class="MAvaNums last">
@@ -162,44 +163,49 @@
                     <div id="article_list">
                         <div class="notes_list">
                             <ul>
-                                <#list pageInfo.list as travel>
+                               <#list travels as map>
                                 <li data-order="1" data-top="0">
                                     <dl>
                                         <dt>
                                             <a href="javascript:;" target="_blank" id="_j_coverlink_12894894"><img
-                                                    src="${travel.coverUrl}"
+                                                    src="${map.travel.coverUrl!}"
                                                     height="400" width="680" alt="封面"></a>
                                             <div class="hover_item">
                                                 <div class="thumb_description">
-                                                    <strong>${travel.dest.name}/</strong>
-                                                    <span>中国/</span>
+                                                    <strong>${(map.travel.dest.name)!}/</strong>
+                                                    <span>${map.parentDest.name}/</span>
                                                 </div>
                                             </div>
                                         </dt>
                                         <dd>
                                             <div class="note_title clearfix">
                                                 <div class="MDing">
-                                                    <span id="topvote12894894">0</span><a role="button"
-                                                        data-japp="articleding" rel="nofollow" data-iid="12894894"
-                                                        data-vote="0" title="顶一下">顶</a>
+                                                    <span id="topvote12894894">${(map.travelStatisVO.thumbsupnum)!}</span>
+                                                    <a role="button" class="_j_support_btn"
+                                                       data-japp="articleding" rel="nofollow" data-sid="${map.travel.id!}"
+                                                       data-vote="0" title="顶一下">顶</a>
                                                 </div>
                                                 <div class="note_info">
                                                     <h3>
-                                                        <a href="javascript:;" target="_blank" title="游记1">${travel.title}</a>
+                                                        <a href="javascript:;" target="_blank" title="游记1">${map.travel.title}</a>
                                                     </h3>
                                                     <div class="note_more">
 
                                                         <span class="MInfoNum"><i
                                                                 class="MIcoView"></i><em>0/0</em></span>
 
-                                                        <span class="MInfoNum"><i class="MIcoStar"></i><em>${travel.favornum}</em></span>
-                                                        <span class="time">${travel.releaseTime?string('yyyy-MM-dd')}</span>
+                                                        <span class="MInfoNum"><i class="MIcoStar"></i><em>${map.travel.favornum}</em></span>
+                                                        <span class="time">${map.travel.releaseTime?string('yyyy-MM-dd')}</span>
                                                     </div>
 
                                                 </div>
                                             </div>
                                             <div class="note_word">
-                                                sfs
+                                                <#list map.travelComments as travelContent>
+                                                    <img src="${travelContent.headUrl}" height="48" width="48"/>
+                                                    ${travelContent.username}:
+                                                    ${travelContent.content}<br/>
+                                                </#list>
                                             </div>
                                         </dd>
                                     </dl>
@@ -209,7 +215,6 @@
                         </div>
                     </div>
                     <div align="right" class="m-pagination _j_pager_content">
-                        <#include "../common/page.ftl">
                     </div>
                 </div>
             </div>
@@ -315,6 +320,29 @@
         </div>
 
     </div>
+    <script>
+        $(function () {
+            //顶
+            //顶：点赞
+            $("._j_support_btn").click(function () {
+                var sid = $(this).data("sid");
+                $.get("/travel/travelThumbup", {sid:sid}, function (data) {
+                    if(data.success){
+                        popup("顶成功啦"); //
+                        $("#topvote12894894").text(data.data.thumbsupnum + "");
+                    }else{
+                        if(data.code == 102){
+                            popup(data.msg);
+                        }else{
+                            popup("今天你已经定过了"); //
+                        }
+                    }
+                });
+            })
+
+        })
+
+    </script>
 </body>
 
 </html>
