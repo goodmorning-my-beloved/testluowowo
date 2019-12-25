@@ -1,17 +1,6 @@
 $(function () {
     $('#_js_loginBtn').click(function () {
         var val = $('#inputPassword').val();
-
-        //js 正则表达语法:
-        //    / /g  : 正则表达式对象
-        // ^1  以1开头
-        //  \d 数字 0-9 数字中一个
-        //  {10}  重复个数   \d{10} 表示10个数字
-        // $  以xx结束
-        //  [3456789]  代码 3 4 5 6 7 8 9 中一个数
-
-        //   /^1[3456789]\d{9}$/
-
         if (/^1\d{10}$/g.test(val)) {
 
             $.get("/checkPhone", {phone:val}, function (data) {
@@ -51,8 +40,6 @@ $(function () {
 
             var phone = $("#phone").val();
             $.get("/sendVerifyCode", {phone:phone}, function (data) {
-
-                console.log(data);
                 if(data.success){
                     popup("发送成功")
                 }else{
