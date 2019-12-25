@@ -53,6 +53,33 @@ public class TravelStatisVORedisImpl implements ITravelStatisVOredisService {
 
     }
 
+    @Override
+    public void userTravelCommentAddNum(Long id) {
+        //用户点评游记时,为这个用户保存一个点评数
+        String key = RedisKeys.USER_TRAVEL_COMMENT.join(Long.toString(id));
+
+        String sValue = template.opsForValue().get(key);
+        if(sValue==null){
+            //如果点评数不存在,创建出来,加1
+            template.opsForValue().set(key,String.valueOf(1));
+        }else{
+        //如果存在,加一
+        template.opsForValue().set(key,String.valueOf(Integer.parseInt(sValue)+1));
+        }
+    }
+
+    @Override
+    public int selectUserCommentNum(Long id) {
+        //查询用户点评过的游记数
+        String key = RedisKeys.USER_TRAVEL_COMMENT.join(Long.toString(id));
+        String sNum = template.opsForValue().get(key);
+        //如果是null,返回0
+        if(sNum==null){
+            return 0;
+        }
+        return Integer.parseInt(sNum);
+    }
+
     public TravelStatisVO getByKeyUtil(String key){
         String s = template.opsForValue().get(key);
         return JSON.parseObject(s, TravelStatisVO.class);

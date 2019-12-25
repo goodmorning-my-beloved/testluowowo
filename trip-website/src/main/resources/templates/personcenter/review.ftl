@@ -117,9 +117,9 @@
                         </div>
                     </div>
                     <ul class="flt2">
-                        <li><a class="tags_link" href="./homepage.html" title="我的窝">我的窝</a></li>
-                        <li><a class="tags_link" href="./mytravelnotes.html" title="我的游记">我的游记</a></li>
-                        <li class="on"><a class="tags_link" href="./review.html" title="我的点评">我的点评</a></li>
+                        <li><a class="tags_link" href="/mine/home" title="我的窝">我的窝</a></li>
+                        <li><a class="tags_link" href="/mytravelnotes" title="我的游记">我的游记</a></li>
+                        <li class="on"><a class="tags_link" href="/review" title="我的点评">我的点评</a></li>
                         <li id="_j_pathnav"><a class="tags_link" href="./travelcollection.html" title="我的收藏">我的收藏</a>
                         </li>
                         <li><a class="tags_link" href="javascript:;" title="我的订单">我的订单</a></li>
@@ -139,7 +139,7 @@
                         </li>
                         <li class="num-reviews _j_filter on" data-filter="0">
                             <a role="button">
-                                <b>2</b><br>点评<span class="split"></span>
+                                <b>${commentNum}</b><br>点评<span class="split"></span>
                             </a>
                         </li>
                         <li class="num-ding _j_filter" data-filter="1">
@@ -158,69 +158,7 @@
 
                 <div class="reviews-list">
                     <div id="_j_poilist">
-                        <div class="poi-item  have _j_poiitem _j_poiitem_5422742 _j_commentitem_191713354"
-                            data-lng="98.2974353" data-lat="8.0902522" data-typeid="3" data-itemid="191713354">
-                            <span class="cover">
-                                <a href="javascript:;" target="_blank"><img
-                                        src="http://n3-q.mafengwo.net/s6/M00/B7/6F/wKgB4lKyW6SAbKw4AAOCFQ2cSXw78.jpeg?imageMogr2%2Fthumbnail%2F%21120x120r%2Fgravity%2FCenter%2Fcrop%2F%21120x120%2Fquality%2F90"
-                                        style="width: 120px;height: 120px;"></a>
-                            </span>
-                            <div class="poi-detail">
-                                <span class="s-ding">
-                                    <a class="icon-ding disabled"></a>
-                                    <span class="_j_dingnum hide">0</span>
-                                </span>
-                                <h3 class="title"><a href="javascript:;"
-                                        target="_blank">斯里纳斯国家海洋公园<br><span>SirinatMarineNationalPark</span></a></h3>
-                                <div class="rating" data-star="3" data-originstar="3">
-                                    <div class="review-score" data-japp="comment_dialog" data-jappconf="path"
-                                        data-source="24" data-poi_id="5422742" data-commentid="191713354"
-                                        data-typeid="3">
-                                        <span class="star3"></span>
-                                    </div>
-                                    <div class="info">
-                                        <span class="tip" style="margin-left:0">一般般</span>
-
-                                        <span>公共服务3</span>
-                                        <span>风光3</span> <span>当地特色3</span>
-                                    </div>
-                                </div>
-                                <div class="poi-rev _j_comment">
-                                    ggg斯里纳斯国家海洋公园斯里纳斯国家海洋公园斯里纳斯国家海洋公园f<br>
-                                    斯里纳斯国家海洋公园斯里纳斯国家海洋公园
-                                </div>
-                            </div>
-                            <div class="poi-btns">
-                                <div class="option" id="_j_pluplader_btn_container_1">
-                                    <a class="btn-addPhoto _j_addimg" data-poiid="5422742" data-poiname="斯里纳斯国家海洋公园"
-                                        data-commentid="191713354" role="button" title="添加图片"
-                                        style="position: relative;"></a> <a class="btn-modfiy"
-                                        data-japp="comment_dialog" data-jappconf="path" role="button" data-source="24"
-                                        data-poi_id="5422742" data-commentid="191713354" data-typeid="3" title="编辑"></a>
-                                    <div id="html5_1dbk80mdq6b91fgd1jsjo0999e3_container"
-                                        class="moxie-shim moxie-shim-html5"
-                                        style="position: absolute; top: 0px; left: 0px; width: 21px; height: 18px; overflow: hidden; z-index: -1;">
-                                        <input id="html5_1dbk80mdq6b91fgd1jsjo0999e3" type="file"
-                                            style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;"
-                                            multiple="" accept="image/jpeg,image/gif,image/png,.JPEG"></div>
-                                </div>
-                            </div>
-                            <div class="poi-btns">
-                                <span class="time">2019-05-22 17:53:36</span> </div>
-                            <div class="reply hide">
-                                <ul>
-
-                                </ul>
-                                <div class="more _j_morereply hide"><a>还有-2条回复</a></div>
-                                <div class="add _j_editreply hide">
-                                    <textarea></textarea>
-                                    <div>
-                                        <a class="btn btn-cancel _j_cancel">取消</a>
-                                        <a class="btn btn-submit _j_sunmitreply" data-commentid="191713354">回复</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <#list comments as comment>
                         <div class="poi-item  have _j_poiitem _j_poiitem_6553036 _j_commentitem_191713351"
                             data-lng="98.30631" data-lat="8.0986" data-typeid="2" data-itemid="191713351">
                             <span class="cover">
@@ -284,6 +222,7 @@
                                 </div>
                             </div>
                         </div>
+                        </#list>
                     </div>
                 </div>
             </div>

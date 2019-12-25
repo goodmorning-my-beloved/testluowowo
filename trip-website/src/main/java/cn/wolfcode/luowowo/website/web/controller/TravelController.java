@@ -141,6 +141,8 @@ public class TravelController {
         //floor第几楼的处理,无非就是当前游记有多少个评论
         model.addAttribute("floor",travelCommentService.selectCountByTravelid(comment.getTravelId()));
         model.addAttribute("c",comment);
+        //评论游记的时候,在redis中保存这个用户点评数加一
+        travelStatisVOredisService.userTravelCommentAddNum(userInfo.getId());
         return "travel/commentTpl";
     }
 

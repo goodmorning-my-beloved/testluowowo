@@ -273,7 +273,7 @@
                                             <div class="hover_item">
                                                 <div class="thumb_description">
                                                     <strong>${(map.travel.dest.name)!}/</strong>
-                                                    <span>中国/</span>
+                                                    <span>${map.parentDest.name}/</span>
                                                 </div>
                                             </div>
                                         </dt>

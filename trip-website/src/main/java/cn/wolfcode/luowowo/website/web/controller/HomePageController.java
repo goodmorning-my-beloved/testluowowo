@@ -1,5 +1,6 @@
 package cn.wolfcode.luowowo.website.web.controller;
 
+import cn.wolfcode.luowowo.article.domain.Destination;
 import cn.wolfcode.luowowo.article.domain.Travel;
 import cn.wolfcode.luowowo.article.service.IDestinationService;
 import cn.wolfcode.luowowo.article.service.ITravelService;
@@ -31,7 +32,6 @@ public class HomePageController {
     @RequireLogin
     @RequestMapping("/home")
     public String home(Model model,@UserParam UserInfo userInfo){
-        //todo 目的地不是写死中国,点评过的游记
 
         //右边我的游记
         List<Travel> list=travelService.selectByAuthorId(userInfo.getId());
@@ -42,6 +42,9 @@ public class HomePageController {
             List<TravelComment> travelComments = travelCommentService.selectCommentByTravelId(travel.getId());
             map.put("travel",travel);
             map.put("travelComments",travelComments);
+            //每篇游记对应的父目的地
+            Destination parentDest = destinationService.getToasts(travel.getDest().getId()).get(0);
+            map.put("parentDest",parentDest);
             travel2Comment.add(map);
         }
         model.addAttribute("travels",travel2Comment);

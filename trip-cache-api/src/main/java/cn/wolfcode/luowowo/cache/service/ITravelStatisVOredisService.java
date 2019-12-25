@@ -16,4 +16,17 @@ public interface ITravelStatisVOredisService {
      * @return
      */
     TravelStatisVO selectById(Long id);
+
+    /**
+     * 用户游记点评数量添加
+     * @param id
+     */
+    void userTravelCommentAddNum(Long id);
+
+    /**
+     * 查询用户点评过的游记数
+     * @param id
+     * @return
+     */
+    int selectUserCommentNum(Long id);
 }

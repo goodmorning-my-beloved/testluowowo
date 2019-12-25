@@ -5,6 +5,8 @@ import cn.wolfcode.luowowo.comment.domain.TravelComment;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * MongoDB 操作攻略评论的crud接口, 功能类似于mybatis中 Mapper
  * 但是功能更加强大, 因为依赖spring-data-jpa这个
@@ -18,4 +20,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ITravelCommentRepository extends MongoRepository<TravelComment, String> {
+    List<TravelComment> findByUserId(Long id);
 }
