@@ -96,25 +96,6 @@ public class TravelServiceImpl implements ITravelService {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * 按目的地分组,再查出每一组的最高阅读量,进行组的排行,
      * 获得排行靠前十的目的地id,
@@ -129,5 +110,13 @@ public class TravelServiceImpl implements ITravelService {
 
 
 
+
+
+    @Override
+    public List<Travel> selectByAuthorId(Long authorId) {
+
+        return travelMapper.selectByAuthorId(authorId);
+
+    }
 
 }

@@ -96,6 +96,21 @@
            })
 
            //分享
+           //分享到qq空间
+           $(".zone").click(function () {
+               var title = $(this).attr("title")
+               var pic = $(this).data("pic")
+               var url = $(this).data("url")
+               window.location.href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?summary="+ title +"&url=" + url + "&pics=" + pic
+           })
+
+           //分享到微博
+           $(".sina").click(function () {
+               var title = $(this).attr("title")
+               var pic = $(this).data("pic")
+               var url = $(this).data("url")
+               window.location.href="http://v.t.sina.com.cn/share/share.php?title="+ title +"&url="+ url +"&content=utf-8&sourceUrl=&pic=" + pic
+           })
        })
 
     </script>

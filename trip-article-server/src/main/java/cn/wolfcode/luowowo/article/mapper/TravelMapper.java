@@ -38,4 +38,6 @@ public interface TravelMapper {
 
 
 
+
+    List<Travel> selectByAuthorId(Long authorId);
 }
