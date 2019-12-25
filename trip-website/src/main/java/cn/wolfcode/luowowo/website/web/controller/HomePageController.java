@@ -1,8 +1,11 @@
 package cn.wolfcode.luowowo.website.web.controller;
 
+import cn.wolfcode.luowowo.article.domain.Destination;
 import cn.wolfcode.luowowo.article.domain.Travel;
 import cn.wolfcode.luowowo.article.service.IDestinationService;
 import cn.wolfcode.luowowo.article.service.ITravelService;
+import cn.wolfcode.luowowo.cache.domain.TravelStatisVO;
+import cn.wolfcode.luowowo.cache.service.ITravelStatisVOredisService;
 import cn.wolfcode.luowowo.comment.domain.TravelComment;
 import cn.wolfcode.luowowo.comment.service.ITravelCommentService;
 import cn.wolfcode.luowowo.member.domain.UserInfo;
@@ -28,10 +31,11 @@ public class HomePageController {
     private IDestinationService destinationService;
     @Reference
     private ITravelCommentService travelCommentService;
+    @Reference
+    private ITravelStatisVOredisService travelStatisVOredisService;
     @RequireLogin
     @RequestMapping("/home")
     public String home(Model model,@UserParam UserInfo userInfo){
-        //todo 目的地不是写死中国,点评过的游记
 
         //右边我的游记
         List<Travel> list=travelService.selectByAuthorId(userInfo.getId());
@@ -42,6 +46,12 @@ public class HomePageController {
             List<TravelComment> travelComments = travelCommentService.selectCommentByTravelId(travel.getId());
             map.put("travel",travel);
             map.put("travelComments",travelComments);
+            //每篇游记对应的父目的地
+            Destination parentDest = destinationService.getToasts(travel.getDest().getId()).get(0);
+            //每篇游记的点赞数
+            TravelStatisVO travelStatisVO = travelStatisVOredisService.selecttravelStatisVOById(travel.getId());
+            map.put("travelStatisVO",travelStatisVO);
+            map.put("parentDest",parentDest);
             travel2Comment.add(map);
         }
         model.addAttribute("travels",travel2Comment);

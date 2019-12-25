@@ -6,6 +6,9 @@ import cn.wolfcode.luowowo.article.mapper.DestinationMapper;
 import cn.wolfcode.luowowo.article.query.DestinationQuery;
 import cn.wolfcode.luowowo.article.service.IDestinationService;
 import cn.wolfcode.luowowo.article.service.IRegionService;
+import cn.wolfcode.luowowo.hotel.domain.HotelTheme;
+import cn.wolfcode.luowowo.hotel.service.IHotelThemeServie;
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -24,6 +27,9 @@ public class DestinationServiceImpl implements IDestinationService {
     @Autowired
     private IRegionService regionService;
 
+    // 注入住宿主题服务
+    @Reference
+    private IHotelThemeServie hotelThemeServie;
 
     @Override
     public List<Destination> getDestsByDeep(int deep) {
@@ -206,16 +212,25 @@ public class DestinationServiceImpl implements IDestinationService {
 
 
 
-
-
-
-
-
     @Override
     public Destination getByIdOfNameAndId(Long id) {
         return destinationMapper.selectByIdOfNameAndId(id);
     }
 
 
+    /**
+     * 根据酒住宿,查找到符合主题住宿的目的地集
+     * @param themeId 酒店主题id
+     * @return
+     */
+    @Override
+    public List<Destination> getByHotelThemeId(Long themeId) {
+        HotelTheme hotelTheme = hotelThemeServie.getHotelTheme(themeId);
+        Long[] destIds = hotelTheme.getRefIds();
+        //根据数组去查目的地集合
+        List<Destination> list = destinationMapper.queryByDestIds(destIds);
+
+        return list;
+    }
 
 }
