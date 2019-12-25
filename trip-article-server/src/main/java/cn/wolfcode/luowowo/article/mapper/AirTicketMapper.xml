@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.luowowo.article.mapper.AirTicketMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.luowowo.article.domain.AirTicket" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="aircode" property="aircode" jdbcType="VARCHAR" />
+    <result column="startCityId" property="startCity.id" jdbcType="VARCHAR" />
+    <result column="startDate" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="startTime" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="arriveCityId" property="arriveCity.id" jdbcType="VARCHAR" />
+    <result column="arriveDate" property="arriveDate" jdbcType="TIMESTAMP" />
+    <result column="arriveTime" property="arriveTime" jdbcType="TIMESTAMP" />
+    <result column="planeType" property="planeType" jdbcType="VARCHAR" />
+    <result column="ishot" property="ishot" jdbcType="BIT" />
+
+    <association property="startCity" javaType="cn.wolfcode.luowowo.article.domain.AirCity" columnPrefix="sac_">
+      <id column="id" property="id"/>
+      <result column="name" property="name"/>
+      <result column="airport" property="airport"/>
+      <result column="pinyin" property="pinyin"/>
+      <result column="ICAOCode" property="ICAOCode"/>
+    </association>
+
+    <association property="arriveCity" javaType="cn.wolfcode.luowowo.article.domain.AirCity" columnPrefix="aac_">
+      <id column="id" property="id"/>
+      <result column="name" property="name"/>
+      <result column="airport" property="airport"/>
+      <result column="pinyin" property="pinyin"/>
+      <result column="ICAOCode" property="ICAOCode"/>
+    </association>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from air_ticket
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.wolfcode.luowowo.article.domain.AirTicket" useGeneratedKeys="true" keyProperty="id" >
+    insert into air_ticket (aircode, startCityId,
+      startDate, arriveCityId,
+      arriveDate, planeType, ishot
+      )
+    values (#{aircode,jdbcType=VARCHAR},#{startCity.id,jdbcType=VARCHAR},
+      #{startDate,jdbcType=TIMESTAMP}, #{arriveCity.id,jdbcType=VARCHAR},
+      #{arriveDate,jdbcType=TIMESTAMP}, #{planeType,jdbcType=VARCHAR}, #{ishot,jdbcType=BIT}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.luowowo.article.domain.AirTicket" >
+    update air_ticket
+    set aircode = #{aircode,jdbcType=VARCHAR},
+      startCityId = #{startCity.id,jdbcType=VARCHAR},
+      startDate = #{startDate,jdbcType=TIMESTAMP},
+      arriveCityId = #{arriveCity.id,jdbcType=VARCHAR},
+      arriveDate = #{arriveDate,jdbcType=TIMESTAMP},
+      planeType = #{planeType,jdbcType=VARCHAR},
+      ishot = #{ishot,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, aircode, startCityId, startDate, arriveCityId,
+    arriveDate, planeType, ishot
+    from air_ticket
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, aircode, startCityId, startDate, arriveCityId,
+    arriveDate, planeType, ishot
+    from air_ticket
+  </select>
+
+  <select id="selectStartSiteByIshot" resultMap="BaseResultMap">
+		select at.id, at.aircode, at.startCityId, at.startDate, at.arriveCityId,
+        at.arriveDate, at.planeType, sac.name sac_name, sac.airport sac_airport, sac.pinyin sac_pinyin,sac.ICAOCode sac_ICAOCode,
+		aac.name aac_name, aac.airport aac_airport, aac.pinyin aac_pinyin, aac.ICAOCode aac_ICAOCode
+        from air_ticket at LEFT JOIN air_city sac on at.startCityId = sac.id
+		LEFT JOIN air_city aac ON at.arriveCityId = aac.id
+		WHERE ishot = 1
+
+  </select>
+
+  <select id="search" resultMap="BaseResultMap">
+        select at.id, at.aircode, at.startCityId, at.startDate, at.arriveCityId, at.startTime, at.arriveTime,
+        at.arriveDate, at.planeType, sac.name sac_name, sac.airport sac_airport, sac.pinyin sac_pinyin,
+		aac.name aac_name, aac.airport aac_airport, aac.pinyin aac_pinyin
+        from air_ticket at LEFT JOIN air_city sac on at.startCityId = sac.id
+		LEFT JOIN air_city aac ON at.arriveCityId = aac.id
+		<where>
+          <if test="orgCity != null">
+            and sac.ICAOCode = #{orgCity}
+          </if>
+          <if test="dstCity != null">
+            and aac.ICAOCode = #{dstCity}
+          </if>
+          <if test="depTime != null">
+            and at.startDate = #{depTime}
+          </if>
+        </where>
+  </select>
+
+</mapper>

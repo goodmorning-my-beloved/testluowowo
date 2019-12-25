@@ -61,3 +61,10 @@ trip-website/.idea/
 trip-website/target/
 trip-website/trip-website.iml
 
+trip-hotel-api/.idea/
+trip-hotel-api/target/
+trip-hotel-api/trip-hotel-api.iml
+
+trip-hotel-server/.idea/
+trip-hotel-server/target/
+trip-hotel-server/trip-hotel-server.iml
