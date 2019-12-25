@@ -71,6 +71,14 @@ public interface ITravelService {
      */
     List<Travel> selectByAuthorId(Long id);
 
+    /**
+     * 分页查询用户的游记
+     * @param qo
+     * @param id
+     * @return
+     */
+    PageInfo queryByAuthId(TravelQuery qo, Long id);
+
 
 
 

@@ -7,7 +7,7 @@
                     <strong class="t"><a href="/">首页</a></strong>
                 </li>
                 <li data-cs-t="wenda" data-cs-p="wenda">
-                    <strong class="t"><a data-cs-p="from_wo_nav" href="javascript:;">问答</a></strong>
+                    <strong class="t"><a data-cs-p="from_wo_nav" href="/wenda/">问答</a></strong>
                 </li>
                 <li data-cs-t="things" data-cs-p="things">
                     <strong class="t"><a data-cs-p="from_wo_nav" href="javascript:;">周边</a></strong>
@@ -59,7 +59,7 @@
                     </li>
                     <li class="account _j_hoverclass" data-hoverclass="on" id="pnl_user_set">
                             <span class="t"><a class="infoItem" href="/mine/home"><img
-                                    src="http://b2-q.mafengwo.net/s12/M00/35/B7/wKgED1uqIs-AMYTwAAAX-VIKIo0071.png?imageMogr2%2Fthumbnail%2F%2132x32r%2Fgravity%2FCenter%2Fcrop%2F%2132x32%2Fquality%2F90"
+                                    src="${(user.headImgUrl)!}"
                                     width="32" height="32" align="absmiddle"><b></b></a></span>
                         <div class="uSet c">
                             <div class="asset">
