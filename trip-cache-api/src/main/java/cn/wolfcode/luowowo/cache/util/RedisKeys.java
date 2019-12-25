@@ -23,6 +23,10 @@ public enum  RedisKeys {
     TRAVEL_STATIS_THUMBUP("travel_statis_thumbup",null),
     //游记点赞总数
     TRAVEL_TEUMBUP_SUM("travel_teumbup_sum",null),
+    //用户收藏的攻略
+    USER_STRATEGY_COOLECTION("user_strategy_coolection",null),
+    //游记收藏
+    USER_TRAVEL_COOLECTION("user_travel_coolection",null),
     VERFIYCODEVALI("verify_code_vali");
     private String prefix;
     private String verifyCodeVali;

@@ -7,13 +7,25 @@
     <link href="./styles/base.css" rel="stylesheet" type="text/css">
     <link href="./js/datepicker/datepicker.css" rel="stylesheet">
     <link href="./styles/setting.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="./js/jquery.js"></script>
-    <script type="text/javascript" src="./js/jquery-upload/jquery.ui.widget.js"></script>
-    <script type="text/javascript" src="./js/jquery-upload/jquery.iframe-transport.js"></script>
-    <script type="text/javascript" src="./js/jquery-upload/jquery.fileupload.js"></script>
-    <script src="./js/datepicker/datepicker.js"></script>
-    <script type="text/javascript" src="./js/setting.js"></script>
-    <script type="text/javascript" src="./js/common.js"></script>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery-upload/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="/js/jquery-upload/jquery.iframe-transport.js"></script>
+    <script type="text/javascript" src="/js/jquery-upload/jquery.fileupload.js"></script>
+    <script src="/js/datepicker/datepicker.js"></script>
+    <script type="text/javascript" src="/js/setting.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script src="/js/plugins/jquery-form/jquery.form.js"></script>
+    <script>
+        $(function () {
+            //更改用户信息
+            $("#updateUserinfo").click(function () {
+                $("#_j_form").ajaxSubmit(function (data) {
+
+                })
+            })
+        })
+        
+    </script>
 </head>
 
 <body style="position: relative;">
@@ -115,21 +127,21 @@
                     <div class="MAvatar clearfix">
                         <div class="MAvaImg flt1">
                             <img width="120" height="120" alt=""
-                                src="http://n1-q.mafengwo.net/s12/M00/35/98/wKgED1uqIreAU9QZAAAXHQMBZ74008.png?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90">
+                                src="${user.headImgUrl}">
                         </div>
                         <div class="MAvaEasyWord flt1">
-                            <span class="MAvaName">蚂蜂测试窝用户(广州)</span>
-                            <span class="MAvaLevel">Lv.5</span>
+                            <span class="MAvaName">${user.nickname}(${user.city})</span>
+                            <span class="MAvaLevel">Lv.${user.level}</span>
                         </div>
                     </div>
                     <ul class="flt2">
-                        <li><a class="tags_link" href="./homepage.html" title="我的窝">我的窝</a></li>
-                        <li><a class="tags_link" href="./mytravelnotes.html" title="我的游记">我的游记</a></li>
-                        <li><a class="tags_link" href="./review.html" title="我的点评">我的点评</a></li>
-                        <li id="_j_pathnav"><a class="tags_link" href="./travelcollection.html" title="我的收藏">我的收藏</a>
+                        <li><a class="tags_link" href="/mine/home" title="我的窝">我的窝</a></li>
+                        <li><a class="tags_link" href="/mytravelnotes" title="我的游记">我的游记</a></li>
+                        <li><a class="tags_link" href="/review" title="我的点评">我的点评</a></li>
+                        <li id="_j_pathnav"><a class="tags_link" href="/travelcollection" title="我的收藏">我的收藏</a>
                         </li>
                         <li><a class="tags_link" href="javascript:;" title="我的订单">我的订单</a></li>
-                        <li class="on"><a class="tags_link" href="./setting.html" title="设置">设置</a></li>
+                        <li class="on"><a class="tags_link" href="/setting" title="设置">设置</a></li>
                     </ul>
                 </div>
             </div>
@@ -158,12 +170,13 @@
             </div>
 
             <div class="userinfo">
-                <form action="" method="post" id="_j_form">
+
+                <form action="/updateUserInfo" method="post" id="_j_form">
                     <div class="alert alert-danger"
                         style="color: #a94442;background-color: #f2dede;border-color: #ebccd1;display:none"></div>
                     <dl class="clearfix">
                         <dt>名号：</dt>
-                        <dd><input type="text" name="name" value="蚂蜂测试窝用户" maxlength="16" autocomplete="off"
+                        <dd><input type="text" name="name" value="${user.nickname}" maxlength="16" autocomplete="off"
                                 data-verification-name="名号" class="verification[required,funcCall[checkNickname]]"></dd>
                     </dl>
                     <dl class="clearfix">
@@ -182,7 +195,7 @@
                         <dd>
                             <div class="input-group">
                                 <input type="hidden" name="citymddid" value="10088" autocomplete="off">
-                                <input type="text" name="city" value="广州" data-city="广州" autocomplete="off"
+                                <input type="text" name="city" value="${user.city}" data-city="广州" autocomplete="off"
                                     data-verification-name="居住城市">
                                 <ul class="input-suggest"></ul>
                             </div>
@@ -191,7 +204,7 @@
                     <dl class="clearfix">
                         <dt>出生日期：</dt>
                         <dd>
-                            <input type="text" readonly="true" name="birthday" value="2019-05-02"
+                            <input type="text" readonly="true" name="birthday" value="${(user.birthday)?string("yyyy-MM-dd")}"
                                 data-toggle="datepicker" class="" autocomplete="off">
                         </dd>
                     </dl>
@@ -214,7 +227,7 @@
                                 所以请填写 真实有效 的收货信息。</p>
                         </dd>
                     </dl>
-                    <div class="btn-sub"><button type="submit">保存</button></div>
+                    <div class="btn-sub"><button type="button" id="updateUserinfo">保存</button></div>
                 </form>
             </div>
         </div>

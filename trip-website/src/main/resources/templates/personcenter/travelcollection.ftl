@@ -113,18 +113,18 @@
                                 src="http://n1-q.mafengwo.net/s12/M00/35/98/wKgED1uqIreAU9QZAAAXHQMBZ74008.png?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90">
                         </div>
                         <div class="MAvaEasyWord flt1">
-                            <span class="MAvaName">蚂蜂测试窝用户(广州)</span>
-                            <span class="MAvaLevel">Lv.5</span>
+                            <span class="MAvaName">${user.nickname}(${user.city})</span>
+                            <span class="MAvaLevel">Lv.${user.level}</span>
                         </div>
                     </div>
                     <ul class="flt2">
-                        <li><a class="tags_link" href="./homepage.html" title="我的窝">我的窝</a></li>
-                        <li><a class="tags_link" href="./mytravelnotes.html" title="我的游记">我的游记</a></li>
-                        <li><a class="tags_link" href="./review.html" title="我的点评">我的点评</a></li>
-                        <li id="_j_pathnav" class="on"><a class="tags_link" href="javascript:;" title="我的收藏">我的收藏</a>
+                        <li><a class="tags_link" href="/mine/home" title="我的窝">我的窝</a></li>
+                        <li><a class="tags_link" href="/mytravelnotes" title="我的游记">我的游记</a></li>
+                        <li><a class="tags_link" href="/review" title="我的点评">我的点评</a></li>
+                        <li id="_j_pathnav" class="on"><a class="tags_link" href="/travelcollection" title="我的收藏">我的收藏</a>
                         </li>
                         <li><a class="tags_link" href="javascript:;" title="我的订单">我的订单</a></li>
-                        <li><a class="tags_link" href="javascript:;" title="设置">设置</a></li>
+                        <li><a class="tags_link" href="/setting" title="设置">设置</a></li>
                     </ul>
                 </div>
             </div>
@@ -198,6 +198,7 @@
             <div class="p-country favPost hide">
                 <ul id="favlist">
                     <form name="favorite" action="" method="post">
+                        <#list travels as travel>
                         <li class="post_item">
                             <a class="delPost hide" href="javascript:void(0)" data-id="6555539" data-type="0"
                                 title="删除"></a>
@@ -206,13 +207,13 @@
                             </div>
                             <dl class="clearfix">
                                 <dd>
-                                    <h2><a href="javascript:;" target="_blank">God's Eyes看普吉——带上小米无人机重返Th</a></h2>
-                                    <div class="count"><b></b><a href="javascript:void(0);">82/21864</a></div>
+                                    <h2><a href="javascript:;" target="_blank">${travel.title}</a></h2>
+                                    <div class="count"><b></b><a href="javascript:void(0);">${travel.thumbsupnum}/${travel.viewnum}</a></div>
                                     <div class="author">
                                         <p class="authorA">
                                             <a href="javascript:;" target="_blank"><img
-                                                    src="http://p1-q.mafengwo.net/s10/M00/5F/2C/wKgBZ1kJcr-AUMHaAABJG_1xQP070.jpeg?imageMogr2%2Fthumbnail%2F%2116x16r%2Fgravity%2FCenter%2Fcrop%2F%2116x16%2Fquality%2F90"></a>作者：<a
-                                                href="javascript:;" target="_blank">80後_,</a>
+                                                    src="${travel.author.headImgUrl}" width="20" height="20"></a>作者：<a
+                                                href="javascript:;" target="_blank">${travel.author.nickname}</a>
                                         </p>
                                         <p class="authorB"><a href="javascript:;" target="_blank"><img
                                                     src="http://p1-q.mafengwo.net/s10/M00/5F/2C/wKgBZ1kJcr-AUMHaAABJG_1xQP070.jpeg?imageMogr2%2Fthumbnail%2F%2116x16r%2Fgravity%2FCenter%2Fcrop%2F%2116x16%2Fquality%2F90"></a>回复：<a
@@ -220,90 +221,36 @@
                                         </p>
                                     </div>
                                     <div class="post_info">
-                                        <p>人生这场旅行始终是行走的，在每个这样短暂的停顿中间，是流星般灿烂的美好。年终到了，又是一场说走就走的旅行。已经连续四年行走在旅途中，这些年的旅行我们不在乎目的地，把沿途最美得风景在记忆中编制出一道七色
+                                        <p>${travel.summary}
                                         </p>
                                     </div>
                                 </dd>
                             </dl>
                         </li>
-                        <li class="post_item">
-                            <a class="delPost hide" href="javascript:void(0)" data-id="3294240" data-type="0"
-                                title="删除"></a>
-                            <div class="pic"><a href="javascript:;" target="_blank"><img
-                                        src="http://n2-q.mafengwo.net/s7/M00/9D/94/wKgB6lTNA8-AMrK2AAlg4GRUhKI23.jpeg?imageMogr2%2Fthumbnail%2F%21196x140r%2Fgravity%2FCenter%2Fcrop%2F%21196x140%2Fquality%2F90"></a>
-                            </div>
-                            <dl class="clearfix">
-                                <dd>
-                                    <h2><a href="javascript:;" target="_blank">【I‘m Back! 肝裂之作，再战普吉, 以此纪</a></h2>
-                                    <div class="count"><b></b><a href="javascript:void(0);">965/269228</a></div>
-                                    <div class="author">
-                                        <p class="authorA">
-                                            <a href="javascript:;" target="_blank"><img
-                                                    src="http://b2-q.mafengwo.net/s7/M00/03/C5/wKgB6lTHE0KAFzscAAB26z2HT-o32.jpeg?imageMogr2%2Fthumbnail%2F%2116x16r%2Fgravity%2FCenter%2Fcrop%2F%2116x16%2Fquality%2F90"></a>作者：<a
-                                                href="javascript:;" target="_blank">馮花,</a>
-                                        </p>
-                                        <p class="authorB"><a href="javascript:;" target="_blank"><img
-                                                    src="http://b2-q.mafengwo.net/s7/M00/03/C5/wKgB6lTHE0KAFzscAAB26z2HT-o32.jpeg?imageMogr2%2Fthumbnail%2F%2116x16r%2Fgravity%2FCenter%2Fcrop%2F%2116x16%2Fquality%2F90"></a>回复：<a
-                                                href="javascript:;" target="_blank">馮花.</a> 2015-02-11 02:08:51</p>
-                                    </div>
-                                    <div class="post_info">
-                                        <p> 2015.3.1
-                                            我的第一篇，梦寐以求的蜂首终于来了！在此非常感谢蚂蜂窝对此篇游记的肯定！！！收到通知的时候我真的非常激动。游记前前后后写了好几天，希望走过路过的蜂友们，动动鼠标点个顶，我也就心满意足了
-                                            原本</p>
-                                    </div>
-                                </dd>
-                            </dl>
-                        </li>
-                        <li class="post_item">
-                            <a class="delPost hide" href="javascript:void(0)" data-id="5470560" data-type="0"
-                                title="删除"></a>
-                            <div class="pic"><a href="javascript:;" target="_blank"><img
-                                        src="http://p2-q.mafengwo.net/s9/M00/9F/2F/wKgBs1cnHu6AGijEAAtY2zoulcE88.jpeg?imageMogr2%2Fthumbnail%2F%21196x140r%2Fgravity%2FCenter%2Fcrop%2F%21196x140%2Fquality%2F90"></a>
-                            </div>
-                            <dl class="clearfix">
-                                <dd>
-                                    <h2><a href="javascript:;" target="_blank">【仙境中的难民】马来西亚九日纪行（吉隆坡</a></h2>
-                                    <div class="count"><b></b><a href="javascript:void(0);">20/2735</a></div>
-                                    <div class="author">
-                                        <p class="authorA">
-                                            <a href="javascript:;" target="_blank"><img
-                                                    src="http://n1-q.mafengwo.net/s11/M00/8A/4B/wKgBEFpTi1-AR9yXAACHQudfnQw25.jpeg?imageMogr2%2Fthumbnail%2F%2116x16r%2Fgravity%2FCenter%2Fcrop%2F%2116x16%2Fquality%2F90"></a>作者：<a
-                                                href="javascript:;" target="_blank">唐亮</a>
-                                        </p>
-                                        <p class="authorB"><a href="javascript:;" target="_blank"><img
-                                                    src="http://n4-q.mafengwo.net/s12/M00/D0/E3/wKgED1vL4wmAaDuaAACNfIw66k457.jpeg?imageMogr2%2Fthumbnail%2F%2116x16r%2Fgravity%2FCenter%2Fcrop%2F%2116x16%2Fquality%2F90"></a>回复：<a
-                                                href="javascript:;" target="_blank">徐小芮</a> 2016-05-02 19:49:18</p>
-                                    </div>
-                                    <div class="post_info">
-                                        <p> 写在前头
-                                            写在前头：在这蚂蜂窝里好多大神和大牛，我只是一名普通大学生，拍的照片或许不够美，毕竟不是专业的，用的也只是入门级的单反。写的文字也没有美感，理工男的文笔不太行。但是我会尽量把游记写详细点，写
-                                        </p>
-                                    </div>
-                                </dd>
-                            </dl>
-                        </li>
+                        </#list>
                     </form>
                 </ul>
             </div>
             <div class="p-country post-list hide">
                 <ul>
+                    <#list strategies as strategie>
                     <li class="post-item clearfix">
                         <div class="post-cover">
                             <a href="javascript:;" target="_blank">
                                 <img class="lazy" width="215" height="135" alt="带着母亲去三亚悠闲的自由行，高性价比的出行方式_游记"
-                                    src="http://b4-q.mafengwo.net/s13/M00/C5/47/wKgEaVzf-ymAcJFtAAahtY5521o75.jpeg?imageMogr2%2Fthumbnail%2F%21230x142r%2Fgravity%2FCenter%2Fcrop%2F%21230x142%2Fquality%2F90"
+                                    src="${strategie.coverUrl}"
                                     style="display: inline;"></a>
                         </div>
 
                         <h2 class="post-title yahei ">
-                            <a href="javascript:;" class="title-link" target="_blank">带着母亲去三亚悠闲的自由行，高性价比的出行方式</a>
+                            <a href="javascript:;" class="title-link" target="_blank">${strategie.subTitle}</a>
                         </h2>
                         <div class="post-author">
                             <span class="author">
                                 <a href="javascript:;" target="_blank" rel="nofollow"><img class="lazy"
                                         src="http://n2-q.mafengwo.net/s11/M00/8C/44/wKgBEFrd5bOAGGFYAAAY-AmpOe094.jpeg?imageMogr2%2Fthumbnail%2F%2116x16r%2Fgravity%2FCenter%2Fcrop%2F%2116x16%2Fquality%2F90"
                                         style="display: inline;"></a>
-                                作者：<a href="javascript:;" target="_blank" rel="nofollow">Serena</a>
+                                作者：<a href="javascript:;" target="_blank" rel="nofollow">${user.nickname}</a>
                             </span>
                             <span class="last-comment">
                                 <a href="javascript:;" target="_blank" rel="nofollow"><img
@@ -313,11 +260,11 @@
                             </span>
                         </div>
                         <div class="post-content">
-                            想去海边玩，坐飞机最方便快捷也不需要任何签证的非三亚莫属了。
-                            此次行程适合仅需在海边享受，放松身心，体验五星级酒店环境和服务，只玩经典景点的玩法哦...
+                           ${strategie.subTitle}
                         </div>
-                        <span class="status"><i class="icon_view"></i>122<i class="icon_comment"></i>0</span>
+                        <span class="status"><i class="icon_view"></i>${strategie.viewnum}<i class="icon_comment"></i>${strategie.replynum}</span>
                     </li>
+                    </#list>
                 </ul>
             </div>
             <div class="p-country hot-list hide">

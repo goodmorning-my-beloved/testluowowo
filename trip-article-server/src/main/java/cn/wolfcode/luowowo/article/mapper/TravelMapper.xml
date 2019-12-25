@@ -25,9 +25,13 @@
       <result column="name" property="name" jdbcType="VARCHAR" />
       <result column="coverUrl" property="coverUrl" jdbcType="VARCHAR" />
     </association>
-    <association property="author" javaType="cn.wolfcode.luowowo.member.domain.UserInfo" columnPrefix="author_">
+    <association property="author" javaType="cn.wolfcode.luowowo.member.domain.UserInfo" columnPrefix="u_">
       <id column="id" property="id" jdbcType="BIGINT" />
       <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+      <result column="headImgUrl" property="headImgUrl" jdbcType="VARCHAR" />
+    </association>
+    <association property="travelContent" javaType="cn.wolfcode.luowowo.article.domain.TravelContent" columnPrefix="tc_">
+      <result column="content" property="content" jdbcType="VARCHAR" />
     </association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
@@ -66,7 +70,6 @@
     select
       t.id,
       t.dest_id,
-      t.author_id,
       t.title,
       t.summary,
       t.coverUrl,
@@ -85,8 +88,14 @@
       t.thumbsupnum,
       t.state,
       dest.name dest_name,
-      dest.coverUrl dest_coverUrl
+      dest.coverUrl dest_coverUrl,
+      u.id u_id,
+      u.nickname u_nickname,
+      u.headImgUrl u_headImgUrl,
+      tc.content tc_content
     from travel t LEFT JOIN destination dest on t.dest_id=dest.id
+      LEFT JOIN userinfo u on t.author_id=u.id
+      LEFT JOIN travel_content tc on t.id=tc.id
     where t.id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
