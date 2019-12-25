@@ -73,4 +73,9 @@ public class TravelCommentServiceImpl implements ITravelCommentService {
         return template.find(query,TravelComment.class);
 
     }
+
+    @Override
+    public List<TravelComment> selectCommentByUserid(Long id) {
+        return repository.findByUserId(id);
+    }
 }

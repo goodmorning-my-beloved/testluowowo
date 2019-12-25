@@ -32,4 +32,11 @@ public interface DestinationMapper {
     List<Destination> selectDestsByParentId(Long id);
 
     void updateHot(@Param("id") Long id, @Param("hot") int hot);
+
+
+
+
+
+
+    Destination selectByIdOfNameAndId(Long id);
 }

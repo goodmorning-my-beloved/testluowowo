@@ -6,11 +6,15 @@ import cn.wolfcode.luowowo.cache.domain.TravelStatisVO;
 import cn.wolfcode.luowowo.cache.service.ITravelStatisVOredisService;
 import cn.wolfcode.luowowo.cache.util.RedisKeys;
 import cn.wolfcode.luowowo.common.util.BeanUtil;
+import cn.wolfcode.luowowo.common.util.DateUtil;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class TravelStatisVORedisImpl implements ITravelStatisVOredisService {
@@ -51,6 +55,76 @@ public class TravelStatisVORedisImpl implements ITravelStatisVOredisService {
         this.initTravelStatisVO(id,travelStatisVO);
        return travelStatisVO;
 
+    }
+
+    @Override
+    public void userTravelCommentAddNum(Long id) {
+        //用户点评游记时,为这个用户保存一个点评数
+        String key = RedisKeys.USER_TRAVEL_COMMENT.join(Long.toString(id));
+
+        String sValue = template.opsForValue().get(key);
+        if(sValue==null){
+            //如果点评数不存在,创建出来,加1
+            template.opsForValue().set(key,String.valueOf(1));
+        }else{
+        //如果存在,加一
+        template.opsForValue().set(key,String.valueOf(Integer.parseInt(sValue)+1));
+        }
+    }
+
+    @Override
+    public int selectUserCommentNum(Long id) {
+        //查询用户点评过的游记数
+        String key = RedisKeys.USER_TRAVEL_COMMENT.join(Long.toString(id));
+        String sNum = template.opsForValue().get(key);
+        //如果是null,返回0
+        if(sNum==null){
+            return 0;
+        }
+        return Integer.parseInt(sNum);
+    }
+
+    @Override
+    public boolean Thumbup(Long sid, Long id) {
+        String key = RedisKeys.TRAVEL_STATIS_THUMBUP.join(sid.toString(), id.toString());
+        if (!template.hasKey(key)) {
+            //第一次或者已经失效
+            Date endDate = DateUtil.getEndDate(new Date());
+            long time = DateUtil.getDateBetween(endDate, new Date());
+            template.opsForValue().set(key, "置顶", time, TimeUnit.SECONDS);
+            //点赞数加一
+            String voKey = RedisKeys.TRAVEL_STATIS_VO.join(Long.toString(sid));
+            String uVO = template.opsForValue().get(voKey);
+
+            TravelStatisVO VO = JSON.parseObject(uVO, TravelStatisVO.class);
+            VO.setThumbsupnum(VO.getThumbsupnum() + 1);
+            template.opsForValue().set(voKey, JSON.toJSONString(VO));
+            return true;
+        }
+        //key已经存在,已经点赞(顶)
+        return false;
+
+    }
+
+    @Override
+    public TravelStatisVO selecttravelStatisVOById(Long sid) {
+        String s = template.opsForValue().get(RedisKeys.TRAVEL_STATIS_VO.join(Long.toString(sid)));
+        //如果不存在创建出来,
+        if(s==null){
+            TravelStatisVO travelStatisVO = new TravelStatisVO();
+            Travel travel = travelService.selectById(sid);
+            travelStatisVO.setTravelId(travel.getId());
+            travelStatisVO.setViewnum(travel.getViewnum());
+            travelStatisVO.setReplynum(travel.getReplynum());
+            travelStatisVO.setFavornum(travel.getFavornum());
+            travelStatisVO.setSharenum(travel.getSharenum());
+            travelStatisVO.setThumbsupnum(travel.getThumbsupnum());
+            //创建出来
+            template.opsForValue().set(RedisKeys.TRAVEL_STATIS_VO.join(Long.toString(sid)),JSON.toJSONString(travelStatisVO));
+            return travelStatisVO;
+        }
+        TravelStatisVO vo = JSON.parseObject(s, TravelStatisVO.class);
+        return vo;
     }
 
     public TravelStatisVO getByKeyUtil(String key){
