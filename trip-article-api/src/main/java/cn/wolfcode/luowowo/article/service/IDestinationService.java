@@ -99,4 +99,27 @@ public interface IDestinationService {
      * @return
      */
     Destination getById(Long destId);
+
+
+
+
+
+
+    /**
+     * 根据id查目的地,只需查 id 和 name
+     * @param id
+     * @return
+     */
+    Destination getByIdOfNameAndId(Long id);
+
+
+
+
+
+
+
+
+
+
+
 }

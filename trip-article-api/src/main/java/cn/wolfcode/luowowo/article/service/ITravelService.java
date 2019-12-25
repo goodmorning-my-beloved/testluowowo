@@ -64,4 +64,40 @@ public interface ITravelService {
      */
     List<Travel> list();
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 按目的地分组,再查出每一组的最高阅读量,进行组的排行,
+     * 获得排行靠前十的游记
+     * @return
+     */
+    List<Travel> getHotTravelsByViewnum();
+
+
+
+
+
+
+
+
 }

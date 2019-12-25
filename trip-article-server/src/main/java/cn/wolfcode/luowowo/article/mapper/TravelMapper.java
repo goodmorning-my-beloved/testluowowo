@@ -26,4 +26,16 @@ public interface TravelMapper {
     List<Travel> selectForList(TravelQuery qo);
 
     UserInfo selectAuthorById(Long id);
+
+
+
+    /**
+     * 按目的地分组,再查出每一组的最高阅读量,进行组的排行,
+     * 获得排行靠前十的目的地id,
+     * @return
+     */
+    List<Travel> selectHotTravelsByViewnum();
+
+
+
 }
