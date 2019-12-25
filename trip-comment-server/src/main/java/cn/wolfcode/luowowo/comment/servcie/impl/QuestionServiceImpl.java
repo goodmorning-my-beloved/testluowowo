@@ -1,9 +1,12 @@
 package cn.wolfcode.luowowo.comment.servcie.impl;
 
+import cn.wolfcode.luowowo.cache.service.IAnswerStatisVOService;
 import cn.wolfcode.luowowo.comment.domain.Answer;
 import cn.wolfcode.luowowo.comment.domain.Question;
 import cn.wolfcode.luowowo.comment.repository.IQuestionRepository;
+import cn.wolfcode.luowowo.comment.service.IAnswerService;
 import cn.wolfcode.luowowo.comment.service.IQuestionService;
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -17,6 +20,12 @@ public class QuestionServiceImpl implements IQuestionService {
 
     @Autowired
     private IQuestionRepository repository;
+
+    @Reference
+    private IAnswerStatisVOService answerStatisVOService;
+
+    @Autowired
+    private IAnswerService answerService;
 
     @Autowired
     private MongoTemplate template;
@@ -40,8 +49,17 @@ public class QuestionServiceImpl implements IQuestionService {
     public String saveAnswerByQuestionIdToList(Answer answer, String questionId) {
         Question question = selectById(questionId);
         List<Answer> list = question.getList();
+        if(answer.getContent().length()>150){
+            answerStatisVOService.medalnumIncrease(answer.getId(),answer.getUserId(),1);
+            answer.setMedal(Answer.ANSWER_GOLD_MEDAL);
+        }
+
+        answerService.save(answer);
         list.add(answer);
         question.setList(list);
+
+        answerStatisVOService.replynumIncrease(answer.getId(),answer.getUserId(),1);
+
         this.save(question);
         return question.getId();
     }

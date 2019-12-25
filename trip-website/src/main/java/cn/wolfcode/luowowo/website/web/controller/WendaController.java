@@ -2,6 +2,8 @@ package cn.wolfcode.luowowo.website.web.controller;
 
 import cn.wolfcode.luowowo.article.domain.Destination;
 import cn.wolfcode.luowowo.article.service.IDestinationService;
+import cn.wolfcode.luowowo.cache.domain.AnswerStatisVO;
+import cn.wolfcode.luowowo.cache.service.IAnswerStatisVOService;
 import cn.wolfcode.luowowo.comment.domain.Answer;
 import cn.wolfcode.luowowo.comment.domain.Question;
 import cn.wolfcode.luowowo.comment.service.IQuestionService;
@@ -31,6 +33,9 @@ public class WendaController {
     private IQuestionService questionService;
 
     @Reference
+    private IAnswerStatisVOService answerStatisVOService;
+
+    @Reference
     private IDestinationService destinationService;
 
     @RequestMapping("")
@@ -45,6 +50,17 @@ public class WendaController {
                 question.setList(answers);
             }
         }
+        //查询出回答数的排行榜
+        List<AnswerStatisVO> replyRank = answerStatisVOService.selectReplyRank();
+        model.addAttribute("replyRank",replyRank);
+
+        //查询出金牌数的排行榜
+        List<AnswerStatisVO> medalRank = answerStatisVOService.selectMedalRankList();
+        model.addAttribute("medalRank",medalRank);
+
+        //查询出顶数量的排行榜
+        List<AnswerStatisVO> thumbsupRank = answerStatisVOService.selectThumbsupRankList();
+        model.addAttribute("thumbsupRank",thumbsupRank);
         model.addAttribute("questions",questions);
         return "wenda/wenda";
     }
@@ -140,4 +156,13 @@ public class WendaController {
         String id = questionService.saveAnswerByQuestionIdToList(answer,questionId);
         return AjaxResult.SUCCESS.addData(id);
     }
+
+
+    @RequestMapping("/answerThumbsup")
+    @ResponseBody
+    public Object answerThumbsup(long userId,String answerId){
+        answerStatisVOService.thumbsupnumIncrease(answerId,userId,1);
+        return AjaxResult.SUCCESS;
+    }
+
 }

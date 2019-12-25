@@ -29,6 +29,21 @@
             })
 
         })
+
+
+        //顶操作
+        $(".answerThumbsup").click(function () {
+            var userId = $(this).data("userid");
+            /*var answerId = $(this).data("answerId");*/
+            $.get("/wenda/answerThumbsup",{userId:userId},function (data) {
+                if(data.success){
+                    alert("顶成功了")
+                }else{
+                    alert("顶失败了");
+                }
+            })
+        })
+
     })
 
 </script>
@@ -200,11 +215,12 @@
                       <div class="user-bar fl">
                         <a class="_j_filter_click avatar" href="javascript:;" target="_blank"><img
                             src="${(a.headUrl)!}"
-                            width="20" height="20" class="photo"></a>
+                            width="50" height="50" class="photo"></a>
                         <a class="name" href="javascript:;" target="_blank">${(a.username)!}</a>
                         <a class="level" href="javascript:;" target="_blank" rel="nofollow">LV.${(a.level)!0}</a>
-
                       </div>
+                      <input class="btn-comment answerThumbsup" data-userId="${(a.userId)!}"
+                           data-answerId="${(a.id)!}"  type="button" value="顶">
                       <#if a.medal?? && a.medal==1>
                       <ul class="answer-medal fr">
                         <li class="gold">
@@ -226,16 +242,15 @@
           </#if>
           <div class="bd _j_pager_box">
             <div class="aa-hd">
-              <a class="aa-avatar" href="/wenda/u/53383161/answer.html"><img
+              <#--<a class="aa-avatar" href="/wenda/u/53383161/answer.html"><img
                   src="${(userInfo.headImgUrl)!}"
                   class="photo" width="20px" height="20px"></a>
-              <a class="aa-name">${(userInfo.nickname)!}</a>
+              <a class="aa-name">${(userInfo.nickname)!}</a>-->
             </div>
               <form class="forms" action="/wenda/saveAnswer" method="post" id="editForm">
                   <input type="hidden" id="questionId" value="" name="questionId">
             <div class="editor-outer _j_editorOuter _js_editorWrap _js_forFixTitle">
-              <textarea name="content" id="content">
-              </textarea>
+              <textarea name="content" id="content"></textarea>
             </div>
             <div class="aa-ft">
               <input class="btn-comment _j_submit_answer_btn" type="button" value="提交回答"/>
