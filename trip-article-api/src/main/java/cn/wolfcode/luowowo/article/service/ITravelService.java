@@ -64,4 +64,10 @@ public interface ITravelService {
      */
     List<Travel> list();
 
+    /**
+     * 根据作者id查游记
+     * @param id
+     * @return
+     */
+    List<Travel> selectByAuthorId(Long id);
 }

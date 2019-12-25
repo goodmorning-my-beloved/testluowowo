@@ -26,4 +26,6 @@ public interface TravelMapper {
     List<Travel> selectForList(TravelQuery qo);
 
     UserInfo selectAuthorById(Long id);
+
+    List<Travel> selectByAuthorId(Long authorId);
 }
