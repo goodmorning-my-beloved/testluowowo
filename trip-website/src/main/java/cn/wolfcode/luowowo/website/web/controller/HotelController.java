@@ -4,10 +4,15 @@ import cn.wolfcode.luowowo.article.domain.Destination;
 import cn.wolfcode.luowowo.article.domain.Travel;
 import cn.wolfcode.luowowo.article.service.IDestinationService;
 import cn.wolfcode.luowowo.article.service.ITravelService;
+import cn.wolfcode.luowowo.hotel.domain.Hotel;
+import cn.wolfcode.luowowo.hotel.domain.HotelTheme;
+import cn.wolfcode.luowowo.hotel.service.IHotelService;
+import cn.wolfcode.luowowo.hotel.service.IHotelThemeServie;
 import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import sun.security.krb5.internal.crypto.Des;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +20,15 @@ import java.util.List;
 @Controller
 @RequestMapping("/hotel")
 public class HotelController {
+    @Reference
+    private IHotelService hotelService;
 
     @Reference
     private IDestinationService destinationService;
     @Reference
     private ITravelService travelService;
-
+    @Reference
+    private IHotelThemeServie hotelThemeServie;
 
     @RequestMapping("")
     public Object hotel(Model model){
@@ -29,11 +37,8 @@ public class HotelController {
          *          查询数据库,罗列出(所有的?)酒店主题,封装集合,响应页面
          *
          */
-
-        /**
-         * hotelCity  酒店城市查询 todo
-         *          查询数据库,罗列出(所有的?)特价酒店城市,封装集合,响应页面
-         */
+        List<HotelTheme> hotelThemes = hotelThemeServie.queryHotelThemeOnly6();
+        model.addAttribute("hotelTags",hotelThemes);
 
         /**
          * dest 国内目的地   overseas 海外目的地 todo
@@ -53,8 +58,17 @@ public class HotelController {
         List<Travel> travels = travelService.getHotTravelsByViewnum();
         List<Destination> dests = new ArrayList<>();
         List<Destination> overseas = new ArrayList<>();
+        List<Destination> hotelCitys = new ArrayList<>();
         for (Travel travel : travels) {
             Destination destination = destinationService.getByIdOfNameAndId(travel.getDest().getId());
+            /**
+             * hotelCity  特价酒店城市查询 todo     热门城市的特价酒店
+             *                                      游记比较多的城市就是热门城市,这些城市查询出来放到页面上去
+             *          查询数据库,罗列出(所有的?)特价酒店城市,封装集合,响应页面
+             */
+            if(hotelCitys.size()<6){
+                hotelCitys.add(destination);
+            }
             if(destinationService.getToasts(destination.getId()).get(0).getId() == 1){
                 if(dests.size()<11){
                     dests.add(destination);
@@ -68,6 +82,7 @@ public class HotelController {
                 break;
             }
         }
+        model.addAttribute("hotelCity",hotelCitys);
         model.addAttribute("dests",dests);
         model.addAttribute("overseas",overseas);
         return "hotel/hotel";
@@ -76,35 +91,39 @@ public class HotelController {
     /**
      * list 主题关联酒店查询 todo
      *      根据页面请求的主题,查询对应的酒店内容,将酒店内容封装 ----> redis 主题酒店初始化
-     *      使用 redis 技术,将对应的内容缓存起来,减少数据库压力
+     *      使用 redis 技术,将对应的内容缓存起来,减少数据库压力  xxx 不做
      *      将封装结果响应到页面 hotelTpl.ftl 上
      *
-     * @param content
+     * @param id
      * @return
      */
     @RequestMapping("theme")
-    public Object theme(Long content){
-
-        return null;
+    public Object theme(Model model,Long id){
+        List<Destination> list = destinationService.getByHotelThemeId(id);
+        model.addAttribute("list",list);
+        return "hotel/hotelTpl";
     }
 
     /**
      * hotelScore 关联酒店城市的特价酒店查询 todo
-     *
-     *
-     * @param name
+     * @param id  地点id
      * @return
      */
     @RequestMapping("theme1")
-    public Object theme1(String name){
-
-        return null;
+    public Object theme1(Model model,Long id){
+        // 搜索地点下的酒店,酒店的价格要低于600元,查询出前8个,共享到页面
+        List<Hotel> hotels = hotelService.querySpecialOfferHotelByDestIdTop8(id);
+        model.addAttribute("hotelScore",hotels);
+        return "hotel/hotelTpl1";
     }
-
-
     /**
      * 搜索功能 todo
      *
      */
+    @RequestMapping("/hotel")
+    public Object goHotel(Model model){
+
+        return "hotel/dingjiudian";
+    }
 
 }

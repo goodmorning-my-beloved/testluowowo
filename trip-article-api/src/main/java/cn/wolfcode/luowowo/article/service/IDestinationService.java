@@ -113,8 +113,12 @@ public interface IDestinationService {
     Destination getByIdOfNameAndId(Long id);
 
 
-
-
+    /**
+     * 根据酒住宿,查找到符合主题住宿的目的地集
+     * @param themeId 酒店主题id
+     * @return
+     */
+    List<Destination> getByHotelThemeId(Long themeId);
 
 
 
