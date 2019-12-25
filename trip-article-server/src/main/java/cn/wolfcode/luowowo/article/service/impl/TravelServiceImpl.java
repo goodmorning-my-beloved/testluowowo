@@ -93,4 +93,12 @@ public class TravelServiceImpl implements ITravelService {
     public List<Travel> list() {
         return travelMapper.selectAll();
     }
+
+    @Override
+    public List<Travel> selectByAuthorId(Long authorId) {
+
+        return travelMapper.selectByAuthorId(authorId);
+
+    }
+
 }
