@@ -167,4 +167,31 @@
   <select id="selectAuthorById" resultType="cn.wolfcode.luowowo.member.domain.UserInfo">
     SELECT author_id id FROM travel where id=#{id}
   </select>
+
+
+  <select id="selectHotTravelsByViewnum" resultMap="BaseResultMap">
+    SELECT
+    t.dest_id,
+    t.viewnum
+    FROM travel t INNER JOIN (SELECT ID,
+    dest_id,
+    max(viewnum) viewnum
+    FROM travel
+    GROUP BY dest_id) b ON t.id = b.id
+    ORDER BY t.viewnum DESC ;
+  </select>
+
+
+
+  <select id="selectByAuthorId" resultMap="BaseResultMap">
+    select
+    t.id, t.dest_id, t.author_id, t.title, t.summary, t.coverUrl, t.travelTime, t.perExpends,
+    t.days, t.person, t.createTime, t.releaseTime, t.lastUpdateTime, t.isPublic, t.viewnum, t.replynum,
+    t.favornum, t.sharenum, t.thumbsupnum, t.state,
+    d.id dest_id, d.name dest_name,d.coverUrl dest_coverUrl,
+    u.id author_id, u.nickname author_nickname, u.headImgUrl author_headImgUrl
+    from travel t  LEFT JOIN  destination d on t.dest_id = d.id left join userInfo u on t.author_id = u.id
+    where t.author_id=#{authorId}
+    order by t.releaseTime desc
+  </select>
 </mapper>
