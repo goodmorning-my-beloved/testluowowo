@@ -109,11 +109,11 @@
                     <div class="MAvatar clearfix">
                         <div class="MAvaImg flt1">
                             <img width="120" height="120" alt=""
-                                src="http://n1-q.mafengwo.net/s12/M00/35/98/wKgED1uqIreAU9QZAAAXHQMBZ74008.png?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90">
+                                src="${userInfo.headImgUrl}">
                         </div>
                         <div class="MAvaEasyWord flt1">
-                            <span class="MAvaName">蚂蜂测试窝用户(广州)</span>
-                            <span class="MAvaLevel">Lv.5</span>
+                            <span class="MAvaName">${userInfo.nickname}</span>
+                            <span class="MAvaLevel">Lv.${userInfo.level}</span>
                         </div>
                     </div>
                     <ul class="flt2">

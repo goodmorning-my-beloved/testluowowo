@@ -101,4 +101,10 @@ public class TravelServiceImpl implements ITravelService {
 
     }
 
+    @Override
+    public PageInfo queryByAuthId(TravelQuery qo, Long id) {
+        PageHelper.startPage(qo.getCurrentPage(),qo.getPageSize());
+        return new PageInfo(travelMapper.selectByAuthorId(id));
+    }
+
 }
