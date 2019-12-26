@@ -32,7 +32,7 @@
       theme_id, days, sequence, 
       coverUrl)
     values (#{dest.id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{hottop,jdbcType=VARCHAR},
-      #{route,jdbcType=VARCHAR}, #{month,jdbcType=VARCHAR}, #{holiday,jdbcType=VARCHAR}, 
+      #{route,jdbcType=VARCHAR}, #{month,jdbcType=VARCHAR}, #{holiday},
       #{theme.id,jdbcType=BIGINT}, #{days,jdbcType=VARCHAR}, #{sequence,jdbcType=VARCHAR},
       #{coverUrl,jdbcType=VARCHAR})
   </insert>
@@ -135,8 +135,8 @@
             <if test="themeId != -1">
                 and df.theme_id =#{themeId}
             </if>
-            <if test="days != -1">
-                and df.days = #{days}
+            <if test="travelTimeType != -1">
+                and df.days = #{travelTimeType}
             </if>
         </where>
     </select>
