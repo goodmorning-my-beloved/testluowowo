@@ -15,11 +15,14 @@ public class UploadController {
 
     @Value("${file.path}")
     private String filePath;
+
     @RequestMapping("/coverImageUpload")
     @ResponseBody
     public Object uploadImg(MultipartFile pic){
         String filename = UploadUtil.upload(pic, filePath);
         return filename;
     }
+
+
 
 }
