@@ -56,6 +56,9 @@
   <update id="updatePassword">
     update userinfo SET password=#{password} where id=#{id}
   </update>
+  <update id="updateUserImg">
+    update userinfo SET headImgUrl=#{headImgUrl} where id=#{id}
+  </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select id, nickname, phone, email, password, level, gender, city, birthday, headImgUrl, 
     info, state

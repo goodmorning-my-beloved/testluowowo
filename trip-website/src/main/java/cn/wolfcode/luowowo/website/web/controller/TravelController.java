@@ -127,6 +127,10 @@ public class TravelController {
         //阅读数加1
         travelStatisVOredisService.viewnumIncrease(id);
         model.addAttribute("vo",travelStatisVOredisService.selectById(id));
+        //是否收藏
+        if (user != null) {
+            model.addAttribute("isFavor", travelStatisVOredisService.selectISFavorByUId(detail.getId(), user.getId()));
+        }
         return "travel/detail";
     }
 
@@ -177,4 +181,8 @@ public class TravelController {
 
         return ajaxResult;
     }
+
+
+
+
 }

@@ -15,6 +15,7 @@
     <script type="text/javascript" src="/js/setting.js"></script>
     <script type="text/javascript" src="/js/common.js"></script>
     <script src="/js/plugins/jquery-form/jquery.form.js"></script>
+
     <script>
         $(function () {
             //更改用户信息
@@ -95,7 +96,7 @@
                         </li>
                         <li class="account _j_hoverclass" data-hoverclass="on" id="pnl_user_set">
                             <span class="t"><a class="infoItem" href="javascript:;"><img
-                                        src="http://b2-q.mafengwo.net/s12/M00/35/B7/wKgED1uqIs-AMYTwAAAX-VIKIo0071.png?imageMogr2%2Fthumbnail%2F%2132x32r%2Fgravity%2FCenter%2Fcrop%2F%2132x32%2Fquality%2F90"
+                                        src="${user.headImgUrl}"
                                         width="32" height="32" align="absmiddle"><b></b></a></span>
                             <div class="uSet c">
                                 <div class="asset">
@@ -131,7 +132,7 @@
                 <div class="center clearfix">
                     <div class="MAvatar clearfix">
                         <div class="MAvaImg flt1">
-                            <img width="120" height="120" alt=""
+                            <img width="120" height="120" alt="" id="userimg"
                                 src="${user.headImgUrl}">
                         </div>
                         <div class="MAvaEasyWord flt1">
@@ -247,22 +248,59 @@
                     </div>
                 </span>
             </div>
+
             <div class="userlogo">
                 <div class="avatar" id="_j_avatar_box">
                     <img src="${user.headImgUrl}"
-                        width="120" height="120" border="0">
+                        width="120" height="120" border="0" id="headImage">
                 </div>
-                <div class="btn-sub">
-                    <div class="btn" id="_j_upload" style="position: relative; z-index: 1;">选择图片</div>
+
+                <#--<div class="btn-sub">
+                   <div class="btn" id="_j_upload" style="position: relative; z-index: 1;">选择图片</div>
                     支持jpg、png、jpeg、bmp，图片大小5M以内
                     <div class="moxie-shim moxie-shim-html5"
                         style="position: absolute; top: 0px; left: 0px; width: 120px; height: 36px; overflow: hidden; z-index: 0;">
-                        <input type="file" name="files" id="fileupload"
+                        <input type="file" name="files" id="file_upload"
                             style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;"
                             accept="image/jpeg,image/png,image/gif"></div>
-                </div>
+                </div>-->
+
+
+                <input type="button" id="file_upload" value="选择头像">
             </div>
         </div>
+        <form action="/coverImageUpload" method="post" id="coverForm">
+            <input type="file" name="pic" id="coverBtn" style="display: none;">
+        </form>
+        <script>
+            $(function () {
+                $("#file_upload").click(function () {
+                    $("#coverBtn").click();
+                })
+                $("#coverBtn").change(function () {
+                    var hv;
+                    if(this.value){
+                        $("#coverForm").ajaxSubmit(function (data) {
+                            console.log(data);
+                            hv=data;
+                            //$(".choseBtn").html(" + 重新选择");
+                            $("#headImage").attr("src", "/" +data);
+                            $("#userimg").attr("src", "/" +data);
+                            //$("#coverValue").val("/" + data);
+                            //更改数据库图片
+                            $.post("/updateUserImg",{headImgUrl:hv},function (data) {
+                                if(data.success){
+                                    alert("修改成功");
+                                }else{
+                                    alert("服务器繁忙,重新刷新页面");
+                                }
+                            })
+                        })
+                    }
+                })
+            })
+
+        </script>
         <div class="content hide"></div>
         <div class="content hide">
             <div class="hd">

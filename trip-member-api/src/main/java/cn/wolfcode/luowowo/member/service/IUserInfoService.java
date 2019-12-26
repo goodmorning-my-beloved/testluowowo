@@ -67,4 +67,11 @@ public interface IUserInfoService {
      * @param password
      */
     void updatePassword(Long id, String password);
+
+    /**
+     * 更改用户头像地址
+     * @param headImgUrl
+     * @param id
+     */
+    void updateUserImg(String headImgUrl, Long id);
 }

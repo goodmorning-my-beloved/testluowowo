@@ -26,4 +26,6 @@ public interface UserInfoMapper {
     UserInfo selectById(Long id);
 
     void updatePassword(@Param("id") Long id, @Param("password") String password);
+
+    void updateUserImg(@Param("headImgUrl") String headImgUrl, @Param("id") Long id);
 }

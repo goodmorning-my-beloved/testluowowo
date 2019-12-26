@@ -19,6 +19,7 @@
                     if(data.success){
                         $("#thumbnum").html(data.data.thumbsupnum);
                         popup("顶成功啦"); //
+                        window.location.reload();
                     }else{
                         if(data.code == 102){
                             popup(data.msg);
@@ -96,7 +97,7 @@
                         </li>
                         <li class="account _j_hoverclass" data-hoverclass="on" id="pnl_user_set">
                             <span class="t"><a class="infoItem" href="javascript:;"><img
-                                        src="http://b2-q.mafengwo.net/s12/M00/35/B7/wKgED1uqIs-AMYTwAAAX-VIKIo0071.png?imageMogr2%2Fthumbnail%2F%2132x32r%2Fgravity%2FCenter%2Fcrop%2F%2132x32%2Fquality%2F90"
+                                        src="${userInfo.headImgUrl}"
                                         width="32" height="32" align="absmiddle"><b></b></a></span>
                             <div class="uSet c">
                                 <div class="asset">
@@ -267,7 +268,7 @@
                                 <li data-order="1" data-top="0">
                                     <dl>
                                         <dt>
-                                            <a href="javascript:;" target="_blank" id="_j_coverlink_12894894"><img
+                                            <a href="/travel/detail?id=${map.travel.id}" target="_blank" id="_j_coverlink_12894894"><img
                                                     src="${map.travel.coverUrl!}"
                                                     height="400" width="680" alt="封面"></a>
                                             <div class="hover_item">

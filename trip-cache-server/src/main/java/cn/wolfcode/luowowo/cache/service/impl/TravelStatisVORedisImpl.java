@@ -171,6 +171,25 @@ public class TravelStatisVORedisImpl implements ITravelStatisVOredisService {
 
     }
 
+    @Override
+    public boolean selectISFavorByUId(Long travelid, Long userId) {
+        if (userId == null) {
+            return false;
+        }
+        String key = RedisKeys.USER_TRAVEL_COOLECTION.join(String.valueOf(userId));
+        //如果redis不存在这个key
+        if (!template.hasKey(key)) {
+            return false;
+        }
+        String ulist = template.opsForValue().get(key);
+        List<Long> list = JSON.parseArray(ulist, Long.TYPE);
+        if (list.contains(travelid)) {
+            return true;
+        }
+        return false;
+
+    }
+
     public TravelStatisVO getByKeyUtil(String key){
         String s = template.opsForValue().get(key);
         return JSON.parseObject(s, TravelStatisVO.class);
