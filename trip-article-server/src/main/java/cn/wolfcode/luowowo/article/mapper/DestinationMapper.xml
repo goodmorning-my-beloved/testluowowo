@@ -201,5 +201,13 @@
         WHERE id = #{id}
     </select>
 
+    <select id="selectByDestName" resultType="cn.wolfcode.luowowo.article.domain.Destination">
+        SELECT
+            id,
+            name
+        FROM destination
+        WHERE name = #{name}
+    </select>
+
 
 </mapper>

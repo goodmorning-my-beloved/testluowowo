@@ -39,4 +39,12 @@ public interface IQuestionService {
      * @return
      */
     boolean focusStatus(String questionId,long userId);
+
+    /**
+     * 问答模块的回答的点赞数增加+1
+     * @param questionId 问题的id
+     * @param answerId  回答的id
+     * @param num  增加量
+     */
+    int increaseAnswerThumbsupnum(String questionId, String answerId,int num);
 }

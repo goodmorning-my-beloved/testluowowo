@@ -57,6 +57,10 @@
             <artifactId>trip-common</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>cn.wolfcode.luowowo</groupId>
+            <artifactId>trip-scenic-api</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>cn.wolfcode.luowowo</groupId>

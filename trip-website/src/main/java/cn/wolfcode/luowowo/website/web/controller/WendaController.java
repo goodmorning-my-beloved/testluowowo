@@ -32,6 +32,7 @@ public class WendaController {
     @Reference
     private IQuestionService questionService;
 
+
     @Reference
     private IAnswerStatisVOService answerStatisVOService;
 
@@ -178,9 +179,10 @@ public class WendaController {
 
     @RequestMapping("/answerThumbsup")
     @ResponseBody
-    public Object answerThumbsup(long userId,String answerId){
+    public Object answerThumbsup(long userId,String answerId,String questionId){
         answerStatisVOService.thumbsupnumIncrease(answerId,userId,1);
-        return AjaxResult.SUCCESS;
+        int thumbsupnum = questionService.increaseAnswerThumbsupnum(questionId, answerId, 1);
+        return AjaxResult.SUCCESS.addData(thumbsupnum);
     }
 
     @RequestMapping("/focusStatus")

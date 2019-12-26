@@ -151,6 +151,7 @@
                   </p>
                 </div>
                 <div class="operate">
+                  <div class="zan"><i></i>${(a.thumbsupnum)!}</div>
                   <div class="mdd"><a href="javascript:;" class="_j_filter_click" target="_blank"><i
                         class="_j_filter_click"></i>${(q.destName)!}</a></div>
                   <div class="cate-share">

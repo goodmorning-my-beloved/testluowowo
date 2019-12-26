@@ -1,6 +1,8 @@
 package cn.wolfcode.luowowo.hotel.service;
 
 import cn.wolfcode.luowowo.hotel.domain.Hotel;
+import cn.wolfcode.luowowo.hotel.query.HotelQuery;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -11,4 +13,13 @@ public interface IHotelService {
      * @return
      */
     List<Hotel> querySpecialOfferHotelByDestIdTop8(Long destId);
+
+    /**
+     * 根据 酒店所在地等信息查询酒店
+     * @param qo
+     * @return
+     */
+    PageInfo queryHotelByCityNameAndSoOn(HotelQuery qo);
 }
+
+

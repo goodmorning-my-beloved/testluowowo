@@ -17,6 +17,6 @@ public class Hotel extends BaseDomain{
     private BigDecimal score;
     private String url;
     private BigDecimal price;
-
+    private String address;
 
 }

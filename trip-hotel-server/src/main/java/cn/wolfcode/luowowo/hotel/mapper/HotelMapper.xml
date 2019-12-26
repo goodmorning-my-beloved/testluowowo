@@ -10,6 +10,7 @@
     <result column="score" property="score" jdbcType="DECIMAL" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="address" property="address" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from hotel
@@ -18,10 +19,10 @@
   <insert id="insert" parameterType="cn.wolfcode.luowowo.hotel.domain.Hotel" useGeneratedKeys="true" keyProperty="id" >
     insert into hotel (name, english, coverUrl, 
       dest_id, score, url, 
-      price)
+      price,address)
     values (#{name,jdbcType=VARCHAR}, #{english,jdbcType=VARCHAR}, #{coverUrl,jdbcType=VARCHAR}, 
       #{destId,jdbcType=BIGINT}, #{score,jdbcType=DECIMAL}, #{url,jdbcType=VARCHAR},
-      #{price,jdbcType=DECIMAL})
+      #{price,jdbcType=DECIMAL}),#{address}
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.wolfcode.luowowo.hotel.domain.Hotel" >
     update hotel
@@ -31,20 +32,25 @@
       dest_id = #{destId,jdbcType=BIGINT},
       score = #{score,jdbcType=DECIMAL},
       url = #{url,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DECIMAL}
+      price = #{price,jdbcType=DECIMAL},
+      address=#{address}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, name, english, coverUrl, dest_id, score, url, price
+    select id, name, english, coverUrl, dest_id, score, url, price,address
     from hotel
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, name, english, coverUrl, dest_id, score, url, price
+    select id, name, english, coverUrl, dest_id, score, url, price,address
     from hotel
   </select>
-  <select id="selectSpecialOfferHotelByDestIdTop8" resultType="cn.wolfcode.luowowo.hotel.domain.Hotel">
-    select id, name, english, coverUrl, dest_id, score, url, price
+  <select id="selectSpecialOfferHotelByDestIdTop8" resultMap="BaseResultMap">
+    select id, name, english, coverUrl, dest_id, score, url, price,address
     from hotel WHERE dest_id = #{destId} and price &lt;= 600 limit 8
+  </select>
+  <select id="selectByDestId" resultMap="BaseResultMap">
+    select id, name, english, coverUrl, dest_id, score, url, price,address
+    from hotel WHERE dest_id = #{destId}
   </select>
 </mapper>

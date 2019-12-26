@@ -120,10 +120,10 @@ public interface IDestinationService {
      */
     List<Destination> getByHotelThemeId(Long themeId);
 
-
-
-
-
-
-
+    /**
+     * 根据目的地名称查询目的地
+     * @param name
+     * @return
+     */
+    Destination getByDestName(String name);
 }
