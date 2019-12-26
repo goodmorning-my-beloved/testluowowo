@@ -20,7 +20,12 @@
             //更改用户信息
             $("#updateUserinfo").click(function () {
                 $("#_j_form").ajaxSubmit(function (data) {
-
+                    if(data.success){
+                        alert("更新成功");
+                        window.location.reload();
+                    }else{
+                        alert(data.msg);
+                    }
                 })
             })
         })
@@ -176,18 +181,18 @@
                         style="color: #a94442;background-color: #f2dede;border-color: #ebccd1;display:none"></div>
                     <dl class="clearfix">
                         <dt>名号：</dt>
-                        <dd><input type="text" name="name" value="${user.nickname}" maxlength="16" autocomplete="off"
+                        <dd><input type="text" name="nickname" value="${user.nickname}" maxlength="16" autocomplete="off"
                                 data-verification-name="名号" class="verification[required,funcCall[checkNickname]]"></dd>
                     </dl>
                     <dl class="clearfix">
                         <dt>性别：</dt>
                         <dd>
                             <label><span class="cssradio"><input type="radio" name="gender" value="1"
-                                        checked="true"><span></span></span>男</label>
+                                       ${(user.gender==1)?string('checked','')}><span></span></span>男${user.gender}</label>
                             <label><span class="cssradio"><input type="radio" name="gender"
-                                        value="0"><span></span></span>女</label>
+                                                                 ${(user.gender==0)?string('checked','false')} value="0"><span></span></span>女</label>
                             <label><span class="cssradio"><input type="radio" name="gender"
-                                        value="2"><span></span></span>保密</label>
+                                                                 ${(user.gender==2)?string('checked','false')} value="2"><span></span></span>保密</label>
                         </dd>
                     </dl>
                     <dl class="clearfix">
@@ -210,8 +215,8 @@
                     </dl>
                     <dl class="clearfix">
                         <dt>个人简介：</dt>
-                        <dd><textarea name="intro" data-verification-name="个人简介" placeholder="例：摄影师/旅居澳洲/潜水爱好者"
-                                class="verification[maxSize[100]]" maxlength="100">sdddds</textarea></dd>
+                        <dd><textarea name="info" data-verification-name="个人简介" placeholder="例：摄影师/旅居澳洲/潜水爱好者"
+                                class="verification[maxSize[100]]" maxlength="100">${user.info}</textarea></dd>
                     </dl>
                     <dl class="clearfix">
                         <dt>收货地址：</dt>
@@ -244,7 +249,7 @@
             </div>
             <div class="userlogo">
                 <div class="avatar" id="_j_avatar_box">
-                    <img src="https://n1-q.mafengwo.net/s12/M00/35/98/wKgED1uqIreAU9QZAAAXHQMBZ74008.png?imageMogr2%2Fthumbnail%2F%21120x120r%2Fgravity%2FCenter%2Fcrop%2F%21120x120%2Fquality%2F90"
+                    <img src="${user.headImgUrl}"
                         width="120" height="120" border="0">
                 </div>
                 <div class="btn-sub">
@@ -277,23 +282,26 @@
                         <a href="javascript:;" id="set-pw-btn">修改密码</a>
                         <div id="set-pw" class="hide">
                             <div class="ways">
-                                <a href="javascript:;" class="byphone"><i></i>
-                                    <p>手机验证修改</p>
-                                </a>
-                                <a href="javascript:;" class="bymail disable"><i></i>
+                                <a href="javascript:;" class="bymail"><i></i>
                                     <p>邮箱验证修改</p>
                                 </a>
                             </div>
                         </div>
                     </dd>
                 </dl>
-                <dl class="clearfix">
-                    <dt>绑定邮箱：</dt>
-                    <dd>
-                        etest@gmail.com<span class="status"><a class="vertifyMail" style="margin-left: 15px;"
-                                href="javascript:;">验证邮箱</a></span>
-                    </dd>
-                </dl>
+                <script>
+                    $(function () {
+                        //邮箱验证
+                        $(".bymail").click(function () {
+                          $.post("/sendEmail",null,function (data) {
+                              if(data.success){
+                                  location.href="/setpassword";
+                              }
+                          })
+                        })
+                    })
+                </script>
+             
                 <dl class="clearfix">
                     <dt>绑定手机：</dt>
                     <dd>

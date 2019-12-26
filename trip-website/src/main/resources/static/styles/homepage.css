@@ -496,13 +496,16 @@ img {
 }
 
 .MGenderMale,
-.MGenderFemale,
 .MGenderSecret {
     width: 20px;
     height: 20px;
     display: inline-block;
     background-image: url(../images/ico_sprite_v8.png);
     background-position: 0 -236px;
+}
+
+.MGenderFemale {
+    background-position: -21px -236px;
 }
 
 .MAvaName i,

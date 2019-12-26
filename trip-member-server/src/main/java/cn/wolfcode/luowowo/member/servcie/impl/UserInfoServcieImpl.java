@@ -134,4 +134,22 @@ public class UserInfoServcieImpl implements IUserInfoService {
 
         return userInfoMapper.selectAll();
     }
+
+    @Override
+    public void updateUserInfo(UserInfo userInfo) {
+        userInfoMapper.updateUserInfo(userInfo);
+    }
+
+    @Override
+    public UserInfo selectById(Long id) {
+
+        return userInfoMapper.selectById(id);
+    }
+
+    @Override
+    public void updatePassword(Long id, String password) {
+        userInfoMapper.updatePassword(id,password);
+    }
+
+
 }
