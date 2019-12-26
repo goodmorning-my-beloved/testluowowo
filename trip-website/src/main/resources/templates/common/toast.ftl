@@ -32,6 +32,7 @@
                     <!--h3>热门国家</h3-->
                     <ul class="clearfix">
                         <li><a href="/destination/surveyPage?destId=${dest.id}" target="_blank">${dest.name}概括</a></li>
+                        <li><a href="/scenic/list?destId=${dest.id}" target="_blank">${dest.name}景点</a></li>
                         <li><a href="#travel" target="_blank">${dest.name}游记</a></li>
                         <li><a href="#strategy" target="_blank">${dest.name}攻略</a></li>
                         <li><a href="javascript:;" target="_blank">${dest.name}跟团游</a></li>

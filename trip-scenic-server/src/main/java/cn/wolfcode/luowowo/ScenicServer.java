@@ -1,14 +1,15 @@
 package cn.wolfcode.luowowo;
 
 import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-
 @EnableDubbo
-public class SearchServer {
+@MapperScan("cn.wolfcode.luowowo.scenic.mapper")
+public class ScenicServer {
     public static void main(String[] args) {
-        SpringApplication.run(SearchServer.class, args);
+        SpringApplication.run(ScenicServer.class, args);
     }
 }

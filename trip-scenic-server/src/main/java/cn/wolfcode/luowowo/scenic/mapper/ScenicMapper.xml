@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.luowowo.scenic.mapper.ScenicMapper">
+<resultMap id="baseResultMap" type="cn.woldcode.luowowo.scenic.domain.Scenic">
+    <id column="id" property="id"/>
+    <result column="name" property="name"/>
+    <result column="destId" property="destination.id"/>
+    <result column="coverUrl" property="coverUrl"/>
+    <result column="intro" property="intro"/>
+    <result column="tag" property="tag"/>
+    <result column="commentNum" property="commentNum"/>
+    <result column="ishot" property="ishot"/>
+
+    <association property="destination" javaType="cn.wolfcode.luowowo.article.domain.Destination" columnPrefix="d_" >
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+    </association>
+</resultMap>
+
+    <select id="selectScenicTop5" resultMap="baseResultMap">
+        SELECT s.id, s.destId, s.name, s.intro, s.coverUrl,s.commentNum, d.id d_id, d.name d_name
+        FROM scenic s LEFT JOIN destination d ON s.destId = d.id
+        WHERE s.ishot = 1
+        LIMIT  0, 5
+    </select>
+    <select id="selectHotScenics" resultType="cn.woldcode.luowowo.scenic.domain.Scenic">
+        SELECT s.id, s.destId, s.name, s.intro, s.coverUrl,s.commentNum, d.id d_id, d.name d_name
+        FROM scenic s LEFT JOIN destination d ON s.destId = d.id
+        WHERE s.ishot = 1
+        LIMIT 0, 10
+    </select>
+</mapper>
