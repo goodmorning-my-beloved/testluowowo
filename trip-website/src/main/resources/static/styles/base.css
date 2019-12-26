@@ -432,11 +432,11 @@ h3 {
 }
 
 #footer .ft-qrcode-tejia {
-    background: url(../images/qrcode.jpg) no-repeat;
+    background: url(../images/qr_tejia4.png) no-repeat;
 }
 
 #footer .ft-qrcode-weixin {
-    background: url(../images/qrcode.jpg) no-repeat;
+    background: url(../images/qr_tejia4.png) no-repeat;
 }
 
 #footer .ft-info-service dt {
@@ -897,34 +897,4 @@ body .mfw-toolbar {
 
 .view_title .bar_share a.bs_btn i.on-i02 {
     background-position: -211px -576px;
-}
-/*---------------------------------*/
-.login-out {
-    float: right;
-    padding: 21px 0;
-    height: 26px;
-    line-height: 26px;
-    color: #c9c9c9;
-    text-align: right;
-}
-.login-out .weibo-login, .login-out .qq-login, .login-out .weixin-login {
-    display: inline-block;
-    margin-right: 6px;
-    width: 26px;
-    height: 26px;
-    background-image: url(/images/header-sprites15.png);
-    background-position: 0 -50px!important;
-    overflow: hidden;
-    vertical-align: -7px;
-    *vertical-align: middle;
-}
-.login-out a {
-    font-size: 14px;
-}
-
-.login-out .weixin-login {
-    background-position: 0 -165px!important;
-}
-.login-out .qq-login {
-    background-position: -30px -50px!important;
 }
