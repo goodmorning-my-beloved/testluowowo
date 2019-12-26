@@ -33,11 +33,21 @@
 
         //顶操作
         $(".answerThumbsup").click(function () {
+            var s = "";
             var userId = $(this).data("userid");
-            /*var answerId = $(this).data("answerId");*/
-            $.get("/wenda/answerThumbsup",{userId:userId},function (data) {
+            var answerId = $(this).data("answerid");
+            console.log(userId,answerId);
+            $.get("/wenda/answerThumbsup",{answerId:answerId,userId:userId,questionId:split[1]},function (data) {
                 if(data.success){
-                    alert("顶成功了")
+                    s = ("顶"+data.data);
+                    //将这个数据设置到这个value值中
+                    alert("顶成功了");
+                    $.get("/wenda/subtractBrowseNum",{id:split[1]},function (data) {
+                        if(data.success){
+                            window.location.reload();
+                            return;
+                        }
+                    })
                 }else{
                     alert("顶失败了");
                 }
@@ -57,7 +67,6 @@
             $(".view_one").hide();
             $(".answer_list").hide();
             $(".answer_one").show();
-
         })
 
 
@@ -200,9 +209,9 @@
                 <a class="a-tag" href="#">${(question.destName)!}</a>
               </div>
               <div class="pub-bar fr">
-                <a href="#" class="photo" target="_blank"> <img
+                <a href="#" class="photo _j_filter_click avatar" target="_blank"> <img
                     src="${(question.headUrl)!}"
-                    width="16" height="16"></a>
+                    width="30" height="30"></a>
                 <a class="name" href="#">${(question.username)!}</a>
                 <span class="time"><span>${(question.createTime)?string('yyyy-MM-dd HH:mm:ss')}</span></span>
               </div>
@@ -268,7 +277,7 @@
                                         <a class="level" href="javascript:;" rel="nofollow">LV.${(answer.level)!0}</a>
                                     </div>
                                     <input class="btn-comment answerThumbsup" data-userId="${(answer.userId)!}"
-                                           data-answerId="${(answer.id)!}"  type="button" value="顶">
+                                           data-answerId="${(answer.id)!}"  type="button" value="顶${(answer.thumbsupnum)!}">
                       <#if (answer.medal)?? && answer.medal==1>
                       <ul class="answer-medal fr">
                           <li class="gold">
@@ -276,11 +285,11 @@
                           </li>
                       </ul>
                       </#if>
-                                </div>
-                                <!-- 回答内容 -->
-                                <div class="_j_short_answer_item hide" style="display: block;">
-                                ${(answer.content)!}
-                                </div>
+                            </div>
+                            <!-- 回答内容 -->
+                            <div class="_j_short_answer_item hide" style="display: block;">
+                            ${(answer.content)!}
+                            </div>
                             </div>
                         </li>
                     </div>
@@ -304,7 +313,7 @@
                         <a class="level" href="javascript:;" rel="nofollow">LV.${(a.level)!0}</a>
                       </div>
                       <input class="btn-comment answerThumbsup" data-userId="${(a.userId)!}"
-                           data-answerId="${(a.id)!}"  type="button" value="顶">
+                           data-answerId="${(a.id)!}"  type="button" value="顶${(a.thumbsupnum)!}">
                       <#if a.medal?? && a.medal==1>
                       <ul class="answer-medal fr">
                         <li class="gold">

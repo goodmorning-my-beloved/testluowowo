@@ -33,7 +33,9 @@ public class QuestionServiceImpl implements IQuestionService {
 
     @Override
     public String save(Question question) {
-        question.setCreateTime(new Date());
+        if(question.getCreateTime()==null){
+            question.setCreateTime(new Date());
+        }
         repository.save(question);
         return question.getId();
     }
@@ -98,5 +100,25 @@ public class QuestionServiceImpl implements IQuestionService {
         //保存最新数据到question中
         this.save(question);
         return falg;
+    }
+
+    @Override
+    public int increaseAnswerThumbsupnum(String questionId, String answerId, int num) {
+        Question question = this.selectById(questionId);
+        List<Answer> list = question.getList();
+        List<Answer> newList = new ArrayList<>();
+        int thumbsupnum = 0;
+        if(list!=null && list.size() > 0){
+            for (Answer answer : list) {
+                if(answer.getId().equals(answerId)){
+                    answer.setThumbsupnum(answer.getThumbsupnum()+1);
+                    thumbsupnum = answer.getThumbsupnum();
+                }
+                newList.add(answer);
+            }
+        }
+        question.setList(newList);
+        this.save(question);
+        return thumbsupnum;
     }
 }
