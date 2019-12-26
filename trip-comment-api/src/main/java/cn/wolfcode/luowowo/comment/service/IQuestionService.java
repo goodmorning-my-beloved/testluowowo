@@ -31,4 +31,12 @@ public interface IQuestionService {
      * @return
      */
     List<Question> selectAll();
+
+    /**
+     * 问题的关注和取消关注的功能接口
+     * @param questionId 问题的id
+     * @param userId    用户的id
+     * @return
+     */
+    boolean focusStatus(String questionId,long userId);
 }

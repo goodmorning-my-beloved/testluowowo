@@ -8,6 +8,8 @@
   <link href="/styles/public.css" rel="stylesheet" type="text/css">
   <link href="/js/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
   <link href="/js/datepicker/datepicker.css" rel="stylesheet">
+  <link href="/js/plugins/chosen/chosen.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript" src="/js/plugins/chosen/chosen.jquery.js"></script>
   <script type="text/javascript" src="/js/jquery.js"></script>
   <script type="text/javascript" charset="utf-8" src="/js/ueditor/umeditor.config.js"></script>
   <script type="text/javascript" charset="utf-8" src="/js/ueditor/umeditor.min.js"></script>
@@ -20,12 +22,16 @@
     $(function () {
         //提出问题
         $(".qt-post-btn").click(function () {
+            var val = $("._j_title").val;
+            console.log(val);
+
             console.log(1);
             $("#editForm").ajaxSubmit(function (data) {
                 if(data.success){
                     window.location.href = "/wenda/wendaDetail?id=" + data.data
+                    return;
                 }else{
-                    popup(data.msg);
+                    alert(data.msg);
                 }
             })
         })
@@ -43,12 +49,12 @@
         <a href="javascript:;" class="lww_logo"></a>
       </div>
       <ul class="header_nav">
-        <li><a href="./index.html">首页</a></li>
-        <li><a href="./destination.html">目的地</a></li>
-        <li><a href="./gonglve.html">旅游攻略</a></li>
+        <li><a href="/">首页</a></li>
+        <li><a href="/destination">目的地</a></li>
+        <li><a href="/strategy">旅游攻略</a></li>
         <li><a href="javascript:;">去旅行<i class="icon_caret_down"></i></a></li>
-        <li><a href="javascript:;">游记</a></li>
-        <li><a href="javascript:;">酒店</a></li>
+        <li><a href="/travel">游记</a></li>
+        <li><a href="/hotel">酒店</a></li>
         <li><a href="/wenda">社区<i class="icon_caret_down"></i></a></li>
       </ul>
       <div class="header_search">
@@ -82,10 +88,10 @@
         <div class="qt-tit">
           <h5>问题标题</h5>
           <div class="qt-con">
-            <input type="text" placeholder="标题不小于10字哦" name="title" class="_j_title">
-            <span class="count"><span class="_j_title_num">0</span>/80 字</span>
+            <input type="text" name="title" class="_j_title">
+            <span class="count"><span class="_j_title_num"></span></span>
             <span class="_j_min_num hide">10</span>
-            <span class="error err-tips _j_title_error">标题不能少于10字</span>
+            <span class="error err-tips _j_title_error"></span>
           </div>
         </div>
         <div class="pi-col pi-date" style="margin-left: 2%;"> <label for="isopen">旅游地点</label>
@@ -95,9 +101,6 @@
                       <option value="${r.id!}">${r.name!}</option>
                   </#list>
                 </select>
-                <script>
-                    $("#region").val(${(tv.dest.id)!});
-                </script>
             </div>
         </div>
         <div class="qt-details">

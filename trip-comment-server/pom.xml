@@ -24,6 +24,8 @@
             <artifactId>trip-comment-api</artifactId>
         </dependency>
 
+
+
     </dependencies>
 
 </project>
