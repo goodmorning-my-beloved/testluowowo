@@ -50,4 +50,6 @@ public class Question implements Serializable {
     private int answernum;//回答数量
 
     private List<Answer> list=new ArrayList<>();
+
+    private List<Long> focusUserList = new ArrayList<>();//关注的用户
 }

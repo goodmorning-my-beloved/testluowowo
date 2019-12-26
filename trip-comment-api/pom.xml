@@ -39,5 +39,10 @@
             <groupId>cn.wolfcode.luowowo</groupId>
             <artifactId>trip-member-api</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>cn.wolfcode.luowowo</groupId>
+            <artifactId>trip-cache-api</artifactId>
+        </dependency>
     </dependencies>
 </project>

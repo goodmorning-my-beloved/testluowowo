@@ -61,7 +61,7 @@
                         <ul class="navbar clearfix navbar-first-level-warper">
                             <li class="navbar-overview city-guide">
                                 <a class="navbar-btn" href="javascript:;">
-                                    <i class="navbar-icon"></i><span>概况</span>
+                                    <i class="navbar-icon"></i><span>概括</span>
                                 </a>
                             </li>
                             <li class="navbar-line">
