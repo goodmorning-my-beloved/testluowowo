@@ -214,6 +214,54 @@ public class StrategyStatisVORedisImpl implements IStrategyStatisVOredisService 
         template.opsForZSet().incrementScore(key,value,score);
     }
 
+    @Override
+    public void addUserStrategyCoolection(Long sid, Long userId) {
+        //保存某个用户收藏的攻略
+        String key = RedisKeys.USER_STRATEGY_COOLECTION.join(String.valueOf(userId));
+        //查一下有没有
+        if(template.hasKey(key)){
+            //存在,直接加进去
+            String sList = template.opsForValue().get(key);
+            List<Long> list = JSON.parseArray(sList, Long.TYPE);
+            if(!list.contains(sid)){
+                list.add(sid);
+            }
+            template.opsForValue().set(key,JSON.toJSONString(list));
+        }else{
+            //不存在,创建在加进去
+            List<Long> list=new ArrayList<>();
+            list.add(sid);
+            template.opsForValue().set(key,JSON.toJSONString(list));
+        }
+
+    }
+
+    @Override
+    public void subUserStrategyCoolection(Long sid, Long userId) {
+        String key = RedisKeys.USER_STRATEGY_COOLECTION.join(String.valueOf(userId));
+        //查一下有没有,如果没有,不用管
+        //如果有,看看包不包含这个攻略,包含就把它删了
+        if(template.hasKey(key)){
+            String sList = template.opsForValue().get(key);
+            List<Long> list = JSON.parseArray(sList, Long.TYPE);
+            if(list.contains(sid)){
+                list.remove(sid);
+                //保存回去
+                template.opsForValue().set(key,JSON.toJSONString(list));
+            }
+        }
+    }
+
+    @Override
+    public List<Long> selectUserStrategyCoolection(Long userId) {
+        String key = RedisKeys.USER_STRATEGY_COOLECTION.join(String.valueOf(userId));
+        if(!template.hasKey(key)){
+            return new ArrayList<>();
+        }
+        String sList = template.opsForValue().get(key);
+        return JSON.parseArray(sList, Long.TYPE);
+    }
+
 
     //抽取方法
     public StrategyDetail initStrategyStatisVO(Long id, StrategyStatisVO vo) {

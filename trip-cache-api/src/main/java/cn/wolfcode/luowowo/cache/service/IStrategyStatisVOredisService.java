@@ -122,4 +122,25 @@ public interface IStrategyStatisVOredisService {
      * @param score
      */
     void addCommendScores(String value, int score);
+
+    /**
+     * 保存用户收藏的攻略
+     * @param sid
+     * @param userId
+     */
+    void addUserStrategyCoolection(Long sid, Long userId);
+
+    /**
+     * 减去指定用户收藏的攻略
+     * @param sid
+     * @param userId
+     */
+    void subUserStrategyCoolection(Long sid, Long userId);
+
+    /**
+     * 查询用户收藏的攻略
+     * @param userId
+     * @return
+     */
+    List<Long> selectUserStrategyCoolection(Long userId);
 }

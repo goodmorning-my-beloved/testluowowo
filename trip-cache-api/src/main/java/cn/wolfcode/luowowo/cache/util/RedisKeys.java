@@ -24,6 +24,16 @@ public enum  RedisKeys {
     STRATEGY_ZSET_SORT_COMMEND("strategy_zset_sort_commend",null),
     STRATEGY_STATIS_FAVOR("strategy_statis_favor",null),
     STRATEGY_STATIS_THUMBUP("strategy_statis_thumbup",null),
+    //用户游记点评数
+    USER_TRAVEL_COMMENT("user_travel_comment",null),
+    //游记点赞
+    TRAVEL_STATIS_THUMBUP("travel_statis_thumbup",null),
+    //游记点赞总数
+    TRAVEL_TEUMBUP_SUM("travel_teumbup_sum",null),
+    //用户收藏的攻略
+    USER_STRATEGY_COOLECTION("user_strategy_coolection",null),
+    //游记收藏
+    USER_TRAVEL_COOLECTION("user_travel_coolection",null),
     VERFIYCODEVALI("verify_code_vali");
     private String prefix;
     private String verifyCodeVali;

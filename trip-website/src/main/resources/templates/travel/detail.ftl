@@ -80,7 +80,32 @@
         })
 
 
+    </script>
+    <script>
+        $(function () {
+            //收藏
+            $(".btn-collect").click(function () {
+                var sid = $(this).data("sid");
+                $.get("/travel/favor", {sid:sid}, function (data) {
+                    console.log(data);
 
+                    if(data.success){
+                        $(".collect_icon").addClass("on-i02")
+
+                        alert("收藏成功"); //
+                    }else{
+                        if(data.code == 102){
+                            $(".collect_icon").removeClass("on-i02")
+                            alert(data.msg);
+                        }else{
+                            $(".collect_icon").removeClass("on-i02")
+
+                            alert("已取消收藏"); //
+                        }
+                    }
+                });
+            })
+        })
     </script>
 </head>
 
@@ -126,7 +151,10 @@
 
                     <div class="bar_share _j_share_father _j_top_share_group">
                         <div class="bs_collect ">
-                            <a href="javascript:void(0);" rel="nofollow" title="收藏" class="bs_btn _j_do_fav" data-ctime="2019-05-07 21:16:29"><i></i><span>${detail.starnum!}</span><strong>收藏</strong></a>
+                            <a href="javascript:void(0);" title="收藏" class="bs_btn btn-collect" data-sid="${detail.id!}"><i
+                                    class="collect_icon i02 ${(isFavor?string('on-i02',''))!}" data-uid="53383161"></i>
+                                <em class="favorite_num ">收藏</em>
+                            </a>
                         </div>
                         <div class="bs_share">
                             <a href="javascript:void(0);" rel="nofollow" title="分享" class="bs_btn"><i></i><span>${detail.sharenum!}</span><strong>分享</strong></a>

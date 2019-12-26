@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.luowowo.article.mapper.DestinationCommendThemeMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.luowowo.article.domain.DestinationCommendTheme" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="coverUrl" property="coverUrl" jdbcType="VARCHAR" />
+    <result column="sequence" property="sequence" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from destination_commend_theme
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.wolfcode.luowowo.article.domain.DestinationCommendTheme" useGeneratedKeys="true" keyProperty="id" >
+    insert into destination_commend_theme (type, name, coverUrl, 
+      sequence)
+    values (#{type,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{coverUrl,jdbcType=VARCHAR}, 
+      #{sequence,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.luowowo.article.domain.DestinationCommendTheme" >
+    update destination_commend_theme
+    set type = #{type,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      coverUrl = #{coverUrl,jdbcType=VARCHAR},
+      sequence = #{sequence,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, type, name, coverUrl, sequence
+    from destination_commend_theme
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, type, name, coverUrl, sequence
+    from destination_commend_theme
+  </select>
+</mapper>

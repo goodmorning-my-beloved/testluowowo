@@ -8,6 +8,7 @@
     <link href="/styles/destination.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="/js/jquery/jquery.js"></script>
     <script type="text/javascript" src="/js/system/destionation.js"></script>
+    <script type="text/javascript" src="/js/system/common.js"></script>
 </head>
 
 <body>
@@ -100,6 +101,62 @@
             </div>
         </div>
         <div class="row-line"></div>
+
+        <div class="pagelet-block1">
+            <div class="row row-theme">
+                <div class="wrapper">
+                    <div class="r-title">
+                        <h2>主题精选</h2>
+                    </div>
+                    <div class="r-navbar">
+                        <a class="on" href="javascript:void(0)">全年适宜</a><span class="divide">|</span> <a href="javascript:void(0)">季节</a><span class="divide">|</span> <a href="javascript:void(0)">出行方式</a><span class="divide">|</span> <a href="javascript:void(0)">节假日</a>
+                        <span class="divide">|</span>
+                    </div>
+                    <div class="J_catemdds">
+                        <div class="tiles">
+                            <#list yearSuitableList as year><#--全年适宜-->
+                                <div class="item col4">
+                                    <a href="/destination/destFilter?themeId=${year.id}" target="_blank"><img src="${year.coverUrl!}" width="238" height="220">
+                                        <div class="title">${year.name!}</div>
+                                    </a>
+                                </div>
+                            </#list>
+                        </div>
+                        <div class="tiles hide">
+                            <#list seasonList as season><#--季节-->
+                                <div class="item col4">
+                                    <a href="/destination/destFilter?themeId=${season.id}" target="_blank"><img src="${season.coverUrl!}" width="238" height="220">
+                                        <div class="title">${season.name}</div>
+                                    </a>
+                                </div>
+                            </#list>
+                        </div>
+                        <div class="tiles hide">
+                            <#list wayTravelList as wayTravel><#--出行方式-->
+                                <div class="item col4">
+                                    <a href="/destination/destFilter?themeId=${wayTravel.id}" target="_blank"><img src="${wayTravel.coverUrl!}" width="238" height="220">
+                                        <div class="title">${wayTravel.name}</div>
+                                    </a>
+                                </div>
+                            </#list>
+                        </div>
+
+                        <div class="tiles hide">
+                            <#list holidayList as holiday><#--节假日-->
+                                <div class="item col4">
+                                    <a href="/destination/destFilter?themeId=${holiday.id}" target="_blank"><img src="${holiday.coverUrl!}" width="238" height="220">
+                                        <div class="title">${holiday.name}</div>
+                                    </a>
+                                </div>
+                            </#list>
+                        </div>
+                        <div class="tiles hide">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-line"></div>
+        </div>
 
         <div class="row row-state row-bg">
             <div class="wrapper">

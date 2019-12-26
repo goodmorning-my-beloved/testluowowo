@@ -17,7 +17,7 @@
                 var sid = $(this).data("sid");
                 $.get("/travel/travelThumbup", {sid:sid}, function (data) {
                     if(data.success){
-                        $("#topvote12894894").html(data.data.thumbsupnum);
+                        $("#thumbnum").html(data.data.thumbsupnum);
                         popup("顶成功啦"); //
                     }else{
                         if(data.code == 102){
@@ -132,9 +132,9 @@
                         <li class="on"><a class="tags_link" href="javascript:;" title="我的窝">我的窝</a></li>
                         <li><a class="tags_link" href="/mytravelnotes" title="我的游记">我的游记</a></li>
                         <li><a class="tags_link" href="/review" title="我的点评">我的点评</a></li>
-                        <li id="_j_pathnav"><a class="tags_link" href="./travelcollection.html" title="我的收藏">我的收藏</a></li>
+                        <li id="_j_pathnav"><a class="tags_link" href="/travelcollection" title="我的收藏">我的收藏</a></li>
                         <li><a class="tags_link" href="javascript:;" title="我的订单">我的订单</a></li>
-                        <li><a class="tags_link" href="./setting.html" title="设置">设置</a></li>
+                        <li><a class="tags_link" href="/setting" title="设置">设置</a></li>
                     </ul>
                 </div>
             </div>
@@ -273,14 +273,14 @@
                                             <div class="hover_item">
                                                 <div class="thumb_description">
                                                     <strong>${(map.travel.dest.name)!}/</strong>
-                                                    <span>中国/</span>
+                                                    <span>${map.parentDest.name}/</span>
                                                 </div>
                                             </div>
                                         </dt>
                                         <dd>
                                             <div class="note_title clearfix">
                                                 <div class="MDing">
-                                                    <span id="topvote12894894">${map.travel.thumbsupnum}</span><a role="button" class="_j_support_btn"
+                                                    <span id="thumbnum">${(map.travelStatisVO.thumbsupnum)!}</span><a role="button" class="_j_support_btn"
                                                         data-japp="articleding" rel="nofollow" data-sid="${map.travel.id!}"
                                                         data-vote="0" title="顶一下">顶</a>
                                                 </div>

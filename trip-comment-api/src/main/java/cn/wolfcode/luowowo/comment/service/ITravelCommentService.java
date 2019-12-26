@@ -27,4 +27,11 @@ public interface ITravelCommentService {
      * @return
      */
     List<TravelComment> selectCommentByTravelId(Long id);
+
+    /**
+     * 查询用户评论过的游记
+     * @param id
+     * @return
+     */
+    List<TravelComment> selectCommentByUserid(Long id);
 }

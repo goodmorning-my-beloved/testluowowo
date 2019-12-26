@@ -1,13 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
+<#--<script src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js"></script>&lt;#&ndash; 日历插件_联网&ndash;&gt;-->
     <link href="/styles/base.css" rel="stylesheet" type="text/css">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>骡窝窝酒店预订,网上预订酒店,国内外酒店价格查询预订平台</title>
     <meta name="Keywords" content=骡窝窝酒店预订,酒店价格查询"/>
     <meta name="Description"
           content="骡窝窝酒店预订,提供国内外60万家酒店网上预订,酒店价格查询服务,包括优质酒店住宿推荐,详细酒店地址和酒店图片,真实用户酒店点评等信息,减少酒店预订查询步骤,骡窝窝酒店是你快捷旅游出行的最佳选择."/>
+    <style>
+        body {
+            padding: 0;
+            margin: 0 10px;
+        }
 
+        .title {
+            padding: 0;
+            margin: 10px 0;
+            font: 700 18px/1.5 \5fae\8f6f\96c5\9ed1;
+        }
+
+        .title em {
+            font-style: normal;
+            color: #C00;
+            font-size: 14px;
+        }
+
+        .title a {
+            font: 400 14px/1.5 Tahoma;
+        }
+
+        .example {
+            margin-top: 10px;
+        }
+
+        .example button {
+            margin: 0 5px 10px 0;
+        }
+    </style>
     <script type="text/javascript">
         window.Env = {
             "hotel_activity_type": 0,
@@ -25,37 +55,19 @@
             "MOBILE_BINDED": true
         };
     </script>
-
     <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015^YlVS^1559526017.css"
           rel="stylesheet" type="text/css"/>
-
-
     <link href="http://css.mafengwo.net/css/cv/css+hotel+hotel_index:css+jquery-ui-1.11.0.min:css+hotel+datepicker-range:css+hotel+number_guests_picker^YlVX^1552035728.css"
           rel="stylesheet" type="text/css"/>
-
-
     <script language="javascript"
             src="http://js.mafengwo.net/js/cv/js+jquery-1.8.1.min:js+global+json2:js+M+Module:js+M+M:js+M+Log:js+m.statistics:js+advert+inspector:js+corelib+underscore-1.6.0:js+corelib+backbone-1.1.2^YlBQ^1562232559.js"
             type="text/javascript" crossorigin="anonymous"></script>
-    <script>
-        $(function () {
-            //  ---- 鼠标焦点事件集 !!!!-----
-            $("#_j_search_input").blur(function () {   // 当输入框失去焦点时
-                // 定时器等待0.2秒
-                 setTimeout('$("#_j_search_shortcut_mdds").css("display","none");', 200);
-            });
-            $("input").focus(function () {  // 当输入框获得焦点时
-                $("#_j_search_shortcut_mdds").css("display", "block");
-            });
-            //  ---- 鼠标焦点事件集 ^^^^^-----
 
-        })
-    </script>
+
 </head>
 <body>
 <#assign currentNav="hotel">
 <#include "../common/navbar.ftl">
-
 <div class="hotel-main">
     <div class="h-title">订酒店</div>
     <form class="form-hotel" action="/hotel/h" method="get" id="editForm">
@@ -69,49 +81,25 @@
                             <h2>国内</h2>
                             <p>
                             <#list dests as d >
-                                <a href="javascript:;" id="type-dest${d.id}" data-id="${d.id}" data-name="${d.name}"
-                                   onclick="d${d.id}();">${d.name}</a>
-                                <script>
-                                    //  ---- 点击赋值事件集 !!!!-----
-                                    d${d.id} = function () {
-                                        var content = $("#type-dest${d.id}").data('name');
-                                        if (!content) { // 防止没有获取到值
-                                            return;
-                                        }
-                                        $(this).addClass("on");
-                                        // 将名称填入
-                                        $('#_j_search_input').val(content)
-                                    }
-                                    //  ---- 点击赋值事件集 ^^^^-----
-                                </script>
+                                <a href="#" data-id="${d.id}" data-name="${d.name}"
+                                   >${d.name}</a>
+
                             </#list>
                             </p>
                         </li>
                         <li class="clearfix"><h2>海外</h2>
                             <p>
                         <#list overseas as d >
-                            <a href="javascript:;" id="type-dest${d.id}" data-id="${d.id}" data-name="${d.name}" onclick="d${d.id}();">${d.name}</a>
-                        <script>
-                            //  ---- 点击赋值事件集 !!!!-----
-                            d${d.id} = function () {
-                                var content = $("#type-dest${d.id}").data('name');
-                                if (!content) { // 防止没有获取到值
-                                    return;
-                                }
-                                $(this).addClass("on");
-                                // 将名称填入
-                                $('#_j_search_input').val(content)
-                            }
-                            //  ---- 点击赋值事件集 ^^^^-----
-                        </script>
+                            <a href="#"  data-id="${d.id}" data-name="${d.name}"
+                               >${d.name}</a>
+
                         </#list>
                             </p>
                         </li>
-
-
                     </ul>
                 </div>
-            <div class="search-suggest-panel search-suggest-hotel" style="display:none;" id="_j_search_suggest"></div>
+                <div class="search-suggest-panel search-suggest-hotel" style="display:none;"
+                     id="_j_search_suggest"></div>
             </div>
             <div class="stay-time _j_booking_date_item" id="_j_check_in_date">
                 <span></span>
@@ -123,6 +111,10 @@
                 <input type="text" placeholder="离店日期" readonly name="checkOut">
                 <i></i>
             </div>
+            <script>
+
+            </script>
+
             <div class="hs-item hs-item-people" id="_j_booking_number_guests">
                 <span>人数</span>
                 <i class="icon-person"></i>
@@ -164,28 +156,34 @@
         <div class="h-title" style="margin-top: 50px;">主题住宿</div>
         <div class="tab-theme">
             <div class="themeList clearfix _j_tab_trigger">
-            <#list hotelTags as theme>
+            <#list hotelTags! as theme>
             <#--<a href="javascript:void(0);" data-id="${theme_index}" id="type-theme${theme_index}"
                data-value="${theme.content}" onclick="c${theme_index}();">${theme.content}</a>-->
-                <a href="javascript:void(0);" id="type-theme${theme_index}" data-id="${theme_index}"
-                   data-value="${theme.content}"
-                   onclick="t${theme_index}();">${theme.content}</a>
+                <a href="javascript:void(0);" id="type-theme${theme_index}" data-id="${theme.id}"
+                   data-value="${theme.name}"
+                   onclick="t${theme_index}();">${theme.name}</a>
                 <script>
                     t${theme_index} = function () {
-                        var content = $("#type-theme${theme_index}").data('value');
-                        if (!content) { // 防止没有获取到值
+                        var id = $("#type-theme${theme_index}").data('id');
+                        if (!id) { // 防止没有获取到值
                             return;
                         }
                         $(this).addClass("on");
                         // 发送请求
-                        $.get("/hotel/theme", {content: content}, function (data) {
+                        $.get("/hotel/theme", {id: id}, function (data) {
                             $("#clearfixMessages").html(data);
                         })
                     }
                 </script>
             </#list>
-            </div>
+                <script>
+                    $(function () {
+                        $('#type-theme0').click();
+                        $('#lucky5').click();
+                    })
+                </script>
 
+            </div>
 
             <div class="_j_tab_content" id="clearfixMessages">
 
@@ -198,17 +196,17 @@
         <div class="h-title">特价酒店</div>
         <div class="tab-fav">
             <div class="favList clearfix _j_tab_trigger">
-            <#list hotelCity as city>
-                <a href="javascript:void(0);" name="c" id="lucky${city.id}" data-id="${city_index}"
+            <#list hotelCity! as city>
+                <a href="javascript:void(0);" name="c" id="lucky${city_index}" data-id="${city.id}"
                    data-value="${city.name}" onclick="test${city.id}();">${city.name}</a>
                 <script>
                     test${city.id} = function () {
-                        var cityName = $("#lucky${city.id}").data('value');
-                        if (!cityName) { // 防止没有获取到值
+                        var cityId = $("#lucky${city_index}").data('id');
+                        if (!cityId) { // 防止没有获取到值
                             return;
                         }
                         // 发送请求
-                        $.get("/hotel/theme1", {name: cityName}, function (data) {
+                        $.get("/hotel/theme1", {id: cityId}, function (data) {
                             $("#clearfixMessage").html(data);
                         })
                     }

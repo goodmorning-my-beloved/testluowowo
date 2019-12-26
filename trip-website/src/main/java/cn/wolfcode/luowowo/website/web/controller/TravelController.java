@@ -141,8 +141,40 @@ public class TravelController {
         //floor第几楼的处理,无非就是当前游记有多少个评论
         model.addAttribute("floor",travelCommentService.selectCountByTravelid(comment.getTravelId()));
         model.addAttribute("c",comment);
+        //评论游记的时候,在redis中保存这个用户点评数加一
+        travelStatisVOredisService.userTravelCommentAddNum(userInfo.getId());
         return "travel/commentTpl";
     }
 
+    @RequestMapping("/travelThumbup")
+    @ResponseBody
+    public Object travelThumbup(Long sid, @UserParam UserInfo userInfo) {
+        AjaxResult ajaxResult = new AjaxResult();
+        if (userInfo == null) {
+            ajaxResult = new AjaxResult(false, "请先登录");
+            ajaxResult.setCode(102);
+            return ajaxResult;
+        }
+        boolean b = travelStatisVOredisService.Thumbup(sid, userInfo.getId());
+        ajaxResult.setData(travelStatisVOredisService.selecttravelStatisVOById(sid));
+        ajaxResult.setSuccess(b);
 
+        return ajaxResult;
+    }
+
+    @RequestMapping("/favor")
+    @ResponseBody
+    public Object favor(Long sid, @UserParam UserInfo userInfo) {//攻略id
+        AjaxResult ajaxResult = new AjaxResult();
+        if (userInfo == null) {
+            ajaxResult = new AjaxResult(false, "请先登录");
+            ajaxResult.setCode(102);
+            return ajaxResult;
+        }
+        boolean b = travelStatisVOredisService.favor(sid, userInfo);
+
+        ajaxResult.setSuccess(b);
+
+        return ajaxResult;
+    }
 }

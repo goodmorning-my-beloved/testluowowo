@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.luowowo.article.mapper.DestinationFilterMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.luowowo.article.domain.DestinationFilter" >
+    <id column="id" property="id" />
+    <result column="title" property="title" />
+    <result column="hottop" property="hottop" />
+    <result column="route" property="route"  />
+    <result column="month" property="month"  />
+    <result column="holiday" property="holiday"  />
+    <result column="days" property="days"  />
+    <result column="sequence" property="sequence"  />
+    <result column="coverUrl" property="coverUrl"  />
+    <association property="dest" javaType="cn.wolfcode.luowowo.article.domain.Destination" columnPrefix="dest_">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+    </association>
+    <association property="theme" javaType="cn.wolfcode.luowowo.article.domain.DestinationCommendTheme" columnPrefix="theme_">
+        <id column="id" property="id"/>
+        <result column="type" property="type"/>
+        <result column="name" property="name"/>
+    </association>
+
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from destination_filter
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.wolfcode.luowowo.article.domain.DestinationFilter" useGeneratedKeys="true" keyProperty="id" >
+    insert into destination_filter (dest_id, title, hottop,
+      route, month, holiday, 
+      theme_id, days, sequence, 
+      coverUrl)
+    values (#{dest.id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{hottop,jdbcType=VARCHAR},
+      #{route,jdbcType=VARCHAR}, #{month,jdbcType=VARCHAR}, #{holiday,jdbcType=VARCHAR}, 
+      #{theme.id,jdbcType=BIGINT}, #{days,jdbcType=VARCHAR}, #{sequence,jdbcType=VARCHAR},
+      #{coverUrl,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.luowowo.article.domain.DestinationFilter" >
+    update destination_filter
+    set dest_id = #{dest.id,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      hottop = #{hottop,jdbcType=VARCHAR},
+      route = #{route,jdbcType=VARCHAR},
+      month = #{month,jdbcType=VARCHAR},
+      holiday = #{holiday,jdbcType=VARCHAR},
+      theme_id = #{theme.id,jdbcType=BIGINT},
+      days = #{days,jdbcType=VARCHAR},
+      sequence = #{sequence,jdbcType=VARCHAR},
+      coverUrl = #{coverUrl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+        df.id,
+        dest.id dest_id,
+        dest.name dest_name,
+        df.title,
+        df.hottop,
+        df.route,
+        df.month,
+        df.holiday,
+        theme.id theme_id,
+        theme.name theme_name,
+        theme.type theme_type,
+        df.days,
+        df.sequence,
+        df.coverUrl
+    from destination_filter df left join destination dest on df.dest_id = dest.id
+                                left join destination_commend_theme theme on df.theme_id = theme.id
+    where df.id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select
+        df.id,
+        dest.id dest_id,
+        dest.name dest_name,
+        df.title,
+        df.hottop,
+        df.route,
+        df.month,
+        df.holiday,
+        theme.id theme_id,
+        theme.name theme_name,
+        theme.type theme_type,
+        df.days,
+        df.sequence,
+        df.coverUrl
+    from destination_filter df left join destination dest on df.dest_id = dest.id
+                                left join destination_commend_theme theme on df.theme_id = theme.id
+  </select>
+    <select id="selectByThemeId" resultMap="BaseResultMap">
+     select
+        df.id,
+        dest.id dest_id,
+        dest.name dest_name,
+        df.title,
+        df.hottop,
+        df.route,
+        df.month,
+        df.holiday,
+        theme.id theme_id,
+        theme.name theme_name,
+        theme.type theme_type,
+        df.days,
+        df.sequence,
+        df.coverUrl
+    from destination_filter df left join destination dest on df.dest_id = dest.id
+                                left join destination_commend_theme theme on df.theme_id = theme.id
+    where df.theme_id=#{themeId}
+    </select>
+
+    <select id="selectForList" resultMap="BaseResultMap">
+        select
+        df.id,
+        dest.id dest_id,
+        dest.name dest_name,
+        df.title,
+        df.hottop,
+        df.route,
+        df.month,
+        df.holiday,
+        theme.id theme_id,
+        theme.name theme_name,
+        theme.type theme_type,
+        df.days,
+        df.sequence,
+        df.coverUrl
+        from destination_filter df left join destination dest on df.dest_id = dest.id
+                                left join destination_commend_theme theme on df.theme_id = theme.id
+        <where>
+            <if test="month != -1">
+                and df.month=#{month}
+            </if>
+            <if test="themeId != -1">
+                and df.theme_id =#{themeId}
+            </if>
+            <if test="days != -1">
+                and df.days = #{days}
+            </if>
+        </where>
+    </select>
+</mapper>
