@@ -77,7 +77,6 @@ public class StrategyStatisVORedisImpl implements IStrategyStatisVOredisService 
             favorUtil(sid,vo,1,key,uids);
             return true;
         }
-
     }
 
 

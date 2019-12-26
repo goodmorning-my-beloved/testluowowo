@@ -14,6 +14,7 @@
 <script>
     $(function () {
         $("._j_rank_change_flag").click(function () {
+            $(this).addClass("on");
             //拿到状态
             var data = $(this).data("rank");
             if(data == 0){
@@ -150,7 +151,6 @@
                   </p>
                 </div>
                 <div class="operate">
-                  <div class="zan" id="thumbsup"><i></i>${(a.thumbsupnum)!}</div>
                   <div class="mdd"><a href="javascript:;" class="_j_filter_click" target="_blank"><i
                         class="_j_filter_click"></i>${(q.destName)!}</a></div>
                   <div class="cate-share">
@@ -171,16 +171,12 @@
     <div class="col-side">
       <div class="rank _j_rank" style="margin-top: 20px;">
         <div class="hd">排行榜<ul class="tab-time">
-            <li class="_j_rank_change_date" data-type="0"><span>今日</span></li>
-            <li class="_j_rank_change_date on" data-type="1"><span>本周</span></li>
-            <li class="_j_rank_change_date" data-type="2"><span>本月</span></li>
-          </ul>
         </div>
         <div class="bd">
             <div hidden id="medalRank">
                 <ul class="tab-num" data-cs-p="rank_list">
                     <li class="_j_rank_change_flag" data-rank="0" data-cs-d="金牌数">金牌数</li>
-                    <li class="_j_rank_change_flag on" data-rank="1" data-cs-d="回答数">回答数</li>
+                    <li class="_j_rank_change_flag" data-rank="1" data-cs-d="回答数">回答数</li>
                     <li class="_j_rank_change_flag" data-rank="2" data-cs-d="被顶次数">被顶次数</li>
 
                 </ul>
@@ -206,7 +202,7 @@
             <div id="replyRank">
                 <ul class="tab-num" data-cs-p="rank_list">
                   <li class="_j_rank_change_flag" data-rank="0" data-cs-d="金牌数">金牌数</li>
-                  <li class="_j_rank_change_flag on" data-rank="1" data-cs-d="回答数">回答数</li>
+                  <li class="_j_rank_change_flag" data-rank="1" data-cs-d="回答数">回答数</li>
                   <li class="_j_rank_change_flag" data-rank="2" data-cs-d="被顶次数">被顶次数</li>
                 </ul>
                 <ul class="rank-list _j_rank_list">
@@ -230,7 +226,7 @@
             <div hidden id="thumbsupRank">
                 <ul class="tab-num" data-cs-p="rank_list">
                     <li class="_j_rank_change_flag" data-rank="0" data-cs-d="金牌数">金牌数</li>
-                    <li class="_j_rank_change_flag on" data-rank="1" data-cs-d="回答数">回答数</li>
+                    <li class="_j_rank_change_flag" data-rank="1" data-cs-d="回答数">回答数</li>
                     <li class="_j_rank_change_flag" data-rank="2" data-cs-d="被顶次数">被顶次数</li>
 
                 </ul>

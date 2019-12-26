@@ -11,6 +11,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +41,6 @@ public class QuestionServiceImpl implements IQuestionService {
     @Override
     public Question selectById(String id) {
         Optional<Question> question = repository.findById(id);
-
         Question quest = question.get();
         return quest;
     }
@@ -48,18 +48,18 @@ public class QuestionServiceImpl implements IQuestionService {
     @Override
     public String saveAnswerByQuestionIdToList(Answer answer, String questionId) {
         Question question = selectById(questionId);
+        question.setAnswernum(question.getAnswernum()+1);
         List<Answer> list = question.getList();
         if(answer.getContent().length()>150){
             answerStatisVOService.medalnumIncrease(answer.getId(),answer.getUserId(),1);
             answer.setMedal(Answer.ANSWER_GOLD_MEDAL);
         }
-
         answerService.save(answer);
         list.add(answer);
         question.setList(list);
 
         answerStatisVOService.replynumIncrease(answer.getId(),answer.getUserId(),1);
-
+        question.setBrowsenum(question.getBrowsenum()-1);
         this.save(question);
         return question.getId();
     }
@@ -68,5 +68,35 @@ public class QuestionServiceImpl implements IQuestionService {
     public List<Question> selectAll() {
         List<Question> questions = repository.findAll();
         return questions;
+    }
+
+    @Override
+    public boolean focusStatus(String questionId,long userId) {
+        boolean falg = false;
+        Question question = this.selectById(questionId);
+        List<Long> focusUserList = question.getFocusUserList();
+        if(focusUserList.contains(userId)){
+            //已经存在,表示取消关注
+            if(focusUserList.size()>1){
+                for (Long uId : focusUserList) {
+                    if(uId == userId){
+                        focusUserList.remove(uId);
+                        question.setFocusnum(question.getFocusnum() -1);
+                    }
+                }
+            }else{
+                //清空集合
+                question.setFocusUserList(new ArrayList<>());
+                question.setFocusnum(question.getFocusnum() -1);
+            }
+        }else{
+            //不存在,表示可以关注
+            focusUserList.add(userId);
+            question.setFocusnum(question.getFocusnum() + 1);
+            falg = true;
+        }
+        //保存最新数据到question中
+        this.save(question);
+        return falg;
     }
 }

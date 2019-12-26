@@ -49,4 +49,5 @@ public interface IAnswerStatisVOService {
      * @return
      */
     List<AnswerStatisVO> selectThumbsupRankList();
+
 }

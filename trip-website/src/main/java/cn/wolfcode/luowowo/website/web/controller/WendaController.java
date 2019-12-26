@@ -76,8 +76,19 @@ public class WendaController {
     @RequestMapping("/wendaDetail")
     public String  wendaDetail(String id,Model model,@UserParam UserInfo userInfo){
         Question question = questionService.selectById(id);
+        //共享一个回答
+        if (question.getList().size()>0) {
+            Answer answer = question.getList().get(0);
+            model.addAttribute("answer",answer);
+        }
+        //当访问了这个问题明细,那就需要浏览数增加一
+        question.setBrowsenum(question.getBrowsenum()+1);
+        questionService.save(question);
+        //将关注的用户id集合
+        model.addAttribute("focusUserList",question.getFocusUserList());
         model.addAttribute("question",question);
         model.addAttribute("userInfo",userInfo);
+
         return "wenda/wendaDetail";
     }
 
@@ -96,6 +107,13 @@ public class WendaController {
         if(userInfo == null){
             throw new LogicException("请先登录之后在执行发表!!");
         }
+        if(question.getTitle()==null){
+            throw new LogicException("请输入标题");
+        }
+        if(question.getContent()==null){
+            throw new LogicException("请输入内容");
+        }
+
         if(question != null){
             question.setUserId(userInfo.getId());
             question.setCity(userInfo.getCity());
@@ -162,6 +180,31 @@ public class WendaController {
     @ResponseBody
     public Object answerThumbsup(long userId,String answerId){
         answerStatisVOService.thumbsupnumIncrease(answerId,userId,1);
+        return AjaxResult.SUCCESS;
+    }
+
+    @RequestMapping("/focusStatus")
+    @ResponseBody
+    public Object focusStatus(String questionId,@UserParam UserInfo userInfo){
+        if(userInfo == null){
+            AjaxResult ajaxResult = new AjaxResult(false,"请先登录之后再关注问题");
+            ajaxResult.setCode(102);
+            return ajaxResult;
+        }
+        boolean b = questionService.focusStatus(questionId,userInfo.getId());
+        if(!b){
+            return AjaxResult.FAIL;
+        }
+        return AjaxResult.SUCCESS;
+    }
+
+
+    @RequestMapping("/subtractBrowseNum")
+    @ResponseBody
+    public Object subtractBrowseNum(String id){
+        Question question = questionService.selectById(id);
+        question.setBrowsenum(question.getBrowsenum()-1);
+        questionService.save(question);
         return AjaxResult.SUCCESS;
     }
 
