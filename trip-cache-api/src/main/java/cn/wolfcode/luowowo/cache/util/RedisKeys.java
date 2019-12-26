@@ -5,6 +5,13 @@ import lombok.Getter;
 
 @Getter
 public enum  RedisKeys {
+    //用户回答金牌
+    ANSWER_ZSET_SORT_MEDAL("answer_zset_sort_medal",null),
+    //用户回答次数
+    ANSWER_ZSET_SORT_REPLYNUM("answer_zset_sort_replynum",null),
+    //用户回答被顶数量
+    ANSWER_ZSET_SORT_THUMBSUPNUM("answer_zset_sort_thumbsupnum",null),
+
     VERFIYCODE("verfiyCode", Consts.VERIFY_CODE_VAI_TIME),
     //游记vo
     TRAVEL_STATIS_VO("travel_statis_vo",null),
@@ -23,6 +30,10 @@ public enum  RedisKeys {
     TRAVEL_STATIS_THUMBUP("travel_statis_thumbup",null),
     //游记点赞总数
     TRAVEL_TEUMBUP_SUM("travel_teumbup_sum",null),
+    //用户收藏的攻略
+    USER_STRATEGY_COOLECTION("user_strategy_coolection",null),
+    //游记收藏
+    USER_TRAVEL_COOLECTION("user_travel_coolection",null),
     VERFIYCODEVALI("verify_code_vali");
     private String prefix;
     private String verifyCodeVali;

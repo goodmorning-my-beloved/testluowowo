@@ -162,4 +162,19 @@ public class TravelController {
         return ajaxResult;
     }
 
+    @RequestMapping("/favor")
+    @ResponseBody
+    public Object favor(Long sid, @UserParam UserInfo userInfo) {//攻略id
+        AjaxResult ajaxResult = new AjaxResult();
+        if (userInfo == null) {
+            ajaxResult = new AjaxResult(false, "请先登录");
+            ajaxResult.setCode(102);
+            return ajaxResult;
+        }
+        boolean b = travelStatisVOredisService.favor(sid, userInfo);
+
+        ajaxResult.setSuccess(b);
+
+        return ajaxResult;
+    }
 }

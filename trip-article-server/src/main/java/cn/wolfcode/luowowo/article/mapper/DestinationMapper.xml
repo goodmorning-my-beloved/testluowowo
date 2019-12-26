@@ -164,8 +164,21 @@
         LIMIT 0, 10
     </select>
     <select id="queryByDestIds" resultMap="BaseResultMap">
-        SELECT id, name from destination
-        where id IN
+        SELECT
+        d.id,
+        d.parent_id,
+        d.region_id,
+        d.name,
+        d.english,
+        d.pinyin,
+        d.ishot,
+        d.coverUrl,
+        d.info,
+        d.deep,
+        p.id   p_id,
+        p.name p_name
+        FROM destination d LEFT JOIN destination p ON d.parent_id = p.id
+        where d.id IN
         <foreach collection="array" open="(" separator="," close=")" item="el">
             #{el}
         </foreach>
@@ -180,14 +193,10 @@
     </select>
 
 
-
-
-
-
     <select id="selectByIdOfNameAndId" resultType="cn.wolfcode.luowowo.article.domain.Destination">
         SELECT
-        id,
-        name
+            id,
+            name
         FROM destination
         WHERE id = #{id}
     </select>

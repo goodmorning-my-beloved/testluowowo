@@ -83,5 +83,9 @@
             <groupId>cn.wolfcode.luowowo</groupId>
             <artifactId>trip-search-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.wolfcode.luowowo</groupId>
+            <artifactId>trip-hotel-api</artifactId>
+        </dependency>
     </dependencies>
 </project>

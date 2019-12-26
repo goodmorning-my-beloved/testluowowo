@@ -1,19 +1,20 @@
 package cn.wolfcode.luowowo.website.web.controller;
 
-import cn.wolfcode.luowowo.article.domain.Destination;
-import cn.wolfcode.luowowo.article.domain.StrategyCatalog;
-import cn.wolfcode.luowowo.article.domain.StrategyDetail;
+import cn.wolfcode.luowowo.article.domain.*;
+import cn.wolfcode.luowowo.article.query.DestinationFilterQuery;
 import cn.wolfcode.luowowo.article.query.StrategyCatalogQuery;
 import cn.wolfcode.luowowo.article.query.TravelQuery;
 import cn.wolfcode.luowowo.article.service.*;
 import cn.wolfcode.luowowo.website.web.annotation.RequireLogin;
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,12 +31,93 @@ public class DestinationController {
     private IStrategyDetailService strategyDetailService;
     @Reference
     private ITravelService travelService;
+    @Reference
+    private IDestinationCommendThemeService destinationCommendThemeService;
+    @Reference
+    private IDestinationFilterService destinationFilterService;
 
     @RequestMapping("")
     public Object index(Model model){
         model.addAttribute("hotRegions", regionService.queryHotRegions());
+
+        List<DestinationCommendTheme> list = destinationCommendThemeService.selectAll();
+        List<DestinationCommendTheme> yearSuitableList = new ArrayList<>();//全年适宜
+        List<DestinationCommendTheme> seasonList = new ArrayList<>();//季节
+        List<DestinationCommendTheme> wayTravelList = new ArrayList<>();//出行方式
+        List<DestinationCommendTheme> holidayList = new ArrayList<>();//季节
+
+        for (DestinationCommendTheme destinationCommendTheme : list) {
+            if(destinationCommendTheme.getType()==0){
+                yearSuitableList.add(destinationCommendTheme);
+            }
+
+            if(destinationCommendTheme.getType()==1){
+                seasonList.add(destinationCommendTheme);
+            }
+
+            if(destinationCommendTheme.getType()==2){
+                wayTravelList.add(destinationCommendTheme);
+            }
+
+            if(destinationCommendTheme.getType()==3){
+                holidayList.add(destinationCommendTheme);
+            }
+        }
+
+        model.addAttribute("yearSuitableList",yearSuitableList);
+        model.addAttribute("seasonList",seasonList);
+        model.addAttribute("wayTravelList",wayTravelList);
+        model.addAttribute("holidayList",holidayList);
         return "destination/index";
     }
+
+    @RequestMapping("/destFilter")
+    public Object destFilter(Model model,@ModelAttribute("qo") DestinationFilterQuery qo){
+        //根据主题id查询目的地推荐
+        List<DestinationFilter> destinationFilterslist =  destinationFilterService.selectByThemeId(qo.getThemeId());
+        model.addAttribute("destinationFilterslist",destinationFilterslist);
+
+        PageInfo pageInfo = destinationFilterService.query(qo);
+        model.addAttribute("pageInfo",pageInfo);
+
+        List<DestinationCommendTheme> list = destinationCommendThemeService.selectAll();
+        List<DestinationCommendTheme> yearSuitableList = new ArrayList<>();
+        List<DestinationCommendTheme> seasonList = new ArrayList<>();//季节
+        List<DestinationCommendTheme> wayTravelList = new ArrayList<>();//出行方式
+        List<DestinationCommendTheme> holidayList = new ArrayList<>();//节假日
+
+        for (DestinationCommendTheme destinationCommendTheme : list) {
+            if(destinationCommendTheme.getType()==0){
+                yearSuitableList.add(destinationCommendTheme);
+            }
+
+            if(destinationCommendTheme.getType()==1){
+                seasonList.add(destinationCommendTheme);
+            }
+
+            if(destinationCommendTheme.getType()==2){
+                wayTravelList.add(destinationCommendTheme);
+            }
+
+            if(destinationCommendTheme.getType()==3){
+                holidayList.add(destinationCommendTheme);
+            }
+        }
+        model.addAttribute("yearSuitableList",yearSuitableList);//全年适宜
+        model.addAttribute("seasonList",seasonList);//季节
+        model.addAttribute("wayTravelList",wayTravelList);//出行方式
+        model.addAttribute("holidayList",holidayList);//节假日
+        return "destination/destFilter";
+    }
+
+    //目的地筛选高查询
+    @RequestMapping("/getlist")
+    public Object getlist(Model model,@ModelAttribute("qo") DestinationFilterQuery qo){
+        PageInfo pageInfo = destinationFilterService.query(qo);
+        model.addAttribute("pageInfo",pageInfo);
+        return "";
+    }
+
 
     @RequestMapping("getHotDestByRegionId")
     public Object getHotDestByRegionId(Long regionId,Model model){
@@ -104,5 +186,7 @@ public class DestinationController {
         model.addAttribute("pageInfo",travelService.queryForListByDestId(qo));
         return "destination/travelTpl";
     }
+
+
 
 }

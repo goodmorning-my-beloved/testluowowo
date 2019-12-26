@@ -132,9 +132,9 @@
                         <li class="on"><a class="tags_link" href="javascript:;" title="我的窝">我的窝</a></li>
                         <li><a class="tags_link" href="/mytravelnotes" title="我的游记">我的游记</a></li>
                         <li><a class="tags_link" href="/review" title="我的点评">我的点评</a></li>
-                        <li id="_j_pathnav"><a class="tags_link" href="./travelcollection.html" title="我的收藏">我的收藏</a></li>
+                        <li id="_j_pathnav"><a class="tags_link" href="/travelcollection" title="我的收藏">我的收藏</a></li>
                         <li><a class="tags_link" href="javascript:;" title="我的订单">我的订单</a></li>
-                        <li><a class="tags_link" href="./setting.html" title="设置">设置</a></li>
+                        <li><a class="tags_link" href="/setting" title="设置">设置</a></li>
                     </ul>
                 </div>
             </div>

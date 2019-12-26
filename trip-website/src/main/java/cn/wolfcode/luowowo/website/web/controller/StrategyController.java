@@ -161,12 +161,17 @@ public class StrategyController {
         boolean b = strategyStatisVOredisService.favor(sid, userInfo);
         if(b){
             strategyStatisVOredisService.addCommendScore(sid, 1);
+            //在用户的角度把这篇攻略存起来
+            strategyStatisVOredisService.addUserStrategyCoolection(sid,userInfo.getId());
         }else{
             strategyStatisVOredisService.addCommendScore(sid, -1);
+            //在用户的角度把这篇攻略去掉
+            strategyStatisVOredisService.subUserStrategyCoolection(sid,userInfo.getId());
         }
         ajaxResult.setData(strategyStatisVOredisService.selectStrategyStatisVOById(sid));
         ajaxResult.setSuccess(b);
         //国内外攻略热度加1
+
         return ajaxResult;
     }
 

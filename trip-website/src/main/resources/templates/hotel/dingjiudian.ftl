@@ -1162,7 +1162,7 @@
         <div class="n-content">
             <div class="hotel-loading" id="_j_hotel_list_loading" style="display: none;"><i class="loading-m"></i></div>
             <div class="hotel-list" id="_j_hotel_list">
-            <#list hotel as h>
+            <#list hotel! as h>
                 <div class="hotel-item clearfix _j_hotel_item" data-id="9031088" data-is-merge_room="0"
                      data-name="${h.name}" data-lat="25.042788" data-lng="121.50931" data-is-airbnb="0"
                      data-cs-t="酒店list页点击入口分布">
