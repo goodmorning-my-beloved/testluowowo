@@ -22,6 +22,10 @@
         <module>../trip-comment-server</module>
         <module>../trip-search-api</module>
         <module>../trip-search-server</module>
+        <module>../trip-hotel-api</module>
+        <module>../trip-hotel-server</module>
+        <module>../trip-scenic-api</module>
+        <module>../trip-scenic-server</module>
     </modules>
 
     <parent>
