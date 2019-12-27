@@ -1,12 +1,14 @@
 package cn.wolfcode.luowowo.website.web.controller;
 
 import cn.woldcode.luowowo.scenic.domain.Scenic;
+import cn.woldcode.luowowo.scenic.query.ScenicQuery;
 import cn.woldcode.luowowo.scenic.service.IScenicService;
 import cn.wolfcode.luowowo.article.domain.Destination;
 import cn.wolfcode.luowowo.article.service.IDestinationService;
 import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -36,6 +38,16 @@ public class ScenicController {
         // hotScenics 热门景点
         List<Scenic> hotScenics = scenicService.queryHotScenics();
         model.addAttribute("hotScenics", hotScenics);
+
         return "scenic/list";
+    }
+
+    /**
+     * 分页
+     */
+    @RequestMapping("/page")
+    public String page(Model model, @ModelAttribute("qo")ScenicQuery qo){
+        model.addAttribute("pageInfo", scenicService.page(qo));
+        return "scenic/listTpl";
     }
 }
