@@ -5,6 +5,7 @@ import cn.woldcode.luowowo.scenic.query.ScenicQuery;
 import cn.woldcode.luowowo.scenic.service.IScenicService;
 import cn.wolfcode.luowowo.article.domain.Destination;
 import cn.wolfcode.luowowo.article.service.IDestinationService;
+import cn.wolfcode.luowowo.comment.service.IScenicCommentService;
 import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,9 @@ public class ScenicController {
 
     @Reference
     private IDestinationService destinationService;
+
+    @Reference
+    private IScenicCommentService scenicCommentService;
 
     @RequestMapping("list")
     public String list(Model model, Long destId){
@@ -49,5 +53,20 @@ public class ScenicController {
     public String page(Model model, @ModelAttribute("qo")ScenicQuery qo){
         model.addAttribute("pageInfo", scenicService.page(qo));
         return "scenic/listTpl";
+    }
+
+    @RequestMapping("detail")
+    public String detail(Model model, Long id){
+        // 景点查询
+        model.addAttribute("scenic", scenicService.queryScenicById(id));
+
+        // id查询子景点
+        List<Scenic> innerScenic = scenicService.queryScenicByParentId(id   );
+        model.addAttribute("innerScenic", innerScenic);
+
+        // 查评论
+        model.addAttribute("comments", scenicCommentService.selectCommentByScenicId(id));
+
+        return "scenic/detail";
     }
 }

@@ -12,9 +12,10 @@
 
     <artifactId>trip-scenic-api</artifactId>
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
 
         <dependency>
@@ -36,6 +37,10 @@
         <dependency>
             <groupId>cn.wolfcode.luowowo</groupId>
             <artifactId>trip-article-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.wolfcode.luowowo</groupId>
+            <artifactId>trip-comment-api</artifactId>
         </dependency>
     </dependencies>
 

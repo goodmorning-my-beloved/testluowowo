@@ -11,4 +11,8 @@ public interface ScenicMapper {
     List<Scenic> selectHotScenics();
 
     List<Scenic> selectForList(ScenicQuery qo);
+
+    Scenic selectScenicById(Long id);
+
+    List<Scenic> selectByParentId(Long parentId);
 }
