@@ -276,11 +276,11 @@
 
                 <ul class="nav clearfix">
                     <li class="on sub"><a title="全部景点">全部景点</a></li>
-                    <li class="sub" data-type="1"><a title="周边古村落">周边古村落</a></li>
-                    <li class="sub" data-type="2"><a title="羊城八景">羊城八景</a></li>
-                    <li class="sub" data-type="3"><a title="赏花佳地">赏花佳地</a></li>
-                    <li class="sub" data-type="4"><a title="老建筑">老建筑</a></li>
-                    <li class="sub" data-type="5"><a title="小清新地儿">小清新地儿</a></li>
+                    <li class="sub" data-type="人间五月"><a title="人间五月">人间五月</a></li>
+                    <li class="sub" data-type="羊城八景"><a title="羊城八景">羊城八景</a></li>
+                    <li class="sub" data-type="赏花佳地"><a title="赏花佳地">赏花佳地</a></li>
+                    <li class="sub" data-type="老地方等你"><a title="老地方等你">老地方等你</a></li>
+                    <li class="sub" data-type="小清新地儿"><a title="小清新地儿">小清新地儿</a></li>
                 </ul>
             </form>
 
@@ -296,11 +296,10 @@
 
             <div class="bd" id="allScenics">
                 <script>
-
                     //发送ajax请求,获取全部景点,实现分页局部刷新
                     $(function () {
 
-                        var destId =${qo.destId};
+                        var destId =${dest.id};
 
                         //分页
                         $("#searchForm").ajaxForm(function (data) {
@@ -311,7 +310,6 @@
 
                         $(".sub").click(function () {
                             var type = $(this).data('type');
-                            console.log(type);
                             $.get("/scenic/page", {destId: destId, type: type}, function (data) {
                                 $("#allScenics").html(data);
                             })
