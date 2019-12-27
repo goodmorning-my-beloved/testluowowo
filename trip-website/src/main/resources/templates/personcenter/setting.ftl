@@ -95,7 +95,7 @@
                         <li class="ub-item ub-new-msg" id="head-new-msg">
                         </li>
                         <li class="account _j_hoverclass" data-hoverclass="on" id="pnl_user_set">
-                            <span class="t"><a class="infoItem" href="javascript:;"><img
+                            <span class="t"><a class="infoItem" href="javascript:;" ><img id="headUserImg"
                                         src="${user.headImgUrl}"
                                         width="32" height="32" align="absmiddle"><b></b></a></span>
                             <div class="uSet c">
@@ -286,6 +286,7 @@
                             //$(".choseBtn").html(" + 重新选择");
                             $("#headImage").attr("src", "/" +data);
                             $("#userimg").attr("src", "/" +data);
+                            $("#headUserImg").attr("src", "/" +data);
                             //$("#coverValue").val("/" + data);
                             //更改数据库图片
                             $.post("/updateUserImg",{headImgUrl:hv},function (data) {

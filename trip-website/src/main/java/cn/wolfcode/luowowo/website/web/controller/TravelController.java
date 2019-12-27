@@ -8,11 +8,13 @@ import cn.wolfcode.luowowo.article.service.IStrategyDetailService;
 import cn.wolfcode.luowowo.article.service.ITravelContentService;
 import cn.wolfcode.luowowo.article.service.ITravelService;
 import cn.wolfcode.luowowo.cache.service.ITravelStatisVOredisService;
+import cn.wolfcode.luowowo.cache.service.IUserInfoRedisServcie;
 import cn.wolfcode.luowowo.comment.domain.TravelComment;
 import cn.wolfcode.luowowo.comment.service.ITravelCommentService;
 import cn.wolfcode.luowowo.common.exception.LogicException;
 import cn.wolfcode.luowowo.common.util.AjaxResult;
 import cn.wolfcode.luowowo.member.domain.UserInfo;
+import cn.wolfcode.luowowo.website.web.annotation.RequireLogin;
 import cn.wolfcode.luowowo.website.web.annotation.UserParam;
 import cn.wolfcode.luowowo.website.web.util.UMEditorUploader;
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -44,6 +46,8 @@ public class TravelController {
     private ITravelCommentService travelCommentService;
     @Reference
     private ITravelStatisVOredisService travelStatisVOredisService;
+    @Reference
+    private IUserInfoRedisServcie userInfoRedisServcie;
 
     @RequestMapping("")
     public String list(Model model, @ModelAttribute("qo")TravelQuery qo,@UserParam UserInfo user){
@@ -131,6 +135,8 @@ public class TravelController {
         if (user != null) {
             model.addAttribute("isFavor", travelStatisVOredisService.selectISFavorByUId(detail.getId(), user.getId()));
         }
+        //是否关注
+        model.addAttribute("isFacous",userInfoRedisServcie.isFacous(user.getId(),detail.getAuthor().getId()));
         return "travel/detail";
     }
 
@@ -182,6 +188,24 @@ public class TravelController {
         return ajaxResult;
     }
 
+    @RequestMapping("/facousAndFans")
+    @ResponseBody
+    public Object facousAndFans(@UserParam UserInfo userInfo,Long facousId){//facousId被关注的用户的id
+        if(userInfo==null){
+            throw new LogicException("请先登录");
+        }
+        int b=userInfoRedisServcie.facousAndFans(userInfo.getId(),facousId);
+        //1表示关注,2表示取消,3表示自己关注自己
+        if(b==1){
+            return AjaxResult.SUCCESS;
+        }else if(b==2){
+            return AjaxResult.FAIL;
+        }
+        AjaxResult ajaxResult=new AjaxResult();
+        ajaxResult.setSuccess(false);
+        ajaxResult.setData(3);
+        return ajaxResult;
+    }
 
 
 
