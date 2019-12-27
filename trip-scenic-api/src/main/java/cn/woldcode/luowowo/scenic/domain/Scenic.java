@@ -34,6 +34,9 @@ public class Scenic extends BaseDomain {
     // 景点门票
     private String ticketInfo;
 
+    // 子景点
+    private List<Scenic> children;
+
     // 上级景点 Id
     private String parentId;
 

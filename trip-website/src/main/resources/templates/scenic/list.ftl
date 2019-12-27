@@ -133,13 +133,13 @@
                 <div class="navbar-con">
                     <ul class="navbar clearfix navbar-first-level-warper">
                         <li class="navbar-overview">
-                            <a class="navbar-btn" href="/travel-scenic-spot/mafengwo/10088.html" data-cs-p="首页">
+                            <a class="navbar-btn" href="http://localhost:8888/" data-cs-p="首页">
                                 <i class="navbar-icon"></i><span>首页</span>
 
                             </a>
                         </li>
                         <li class="navbar-line">
-                            <a class="navbar-btn" href="/mdd/route/10088.html" data-cs-p="行程线路">
+                            <a class="navbar-btn" href="" data-cs-p="行程线路">
                                 <i class="navbar-icon"></i><span>行程线路</span>
 
                             </a>
@@ -203,9 +203,9 @@
                         </h3>
                         <p>${sct.intro}</p>
                         <div class="links">这里还包含景点：
-                            <#--<#list sct.children as c>
-                                <a href="#" target="_blank">${c.name}</a>
-                            </#list>-->
+                            <#list sct.children as c>
+                                <a href="/scenic/detail?id=${c.id}" target="_blank">${c.name}</a>
+                            </#list>
                         </div>
                     </div>
                 </div>

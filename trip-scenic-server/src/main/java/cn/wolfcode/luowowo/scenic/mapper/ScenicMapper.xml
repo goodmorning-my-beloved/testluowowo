@@ -22,6 +22,8 @@
         <id column="id" property="id"/>
         <result column="name" property="name"/>
     </association>
+
+    <collection property="children" select="selectByParentId" column="id"/>
 </resultMap>
 
     <select id="selectScenicTop5" resultMap="baseResultMap">
