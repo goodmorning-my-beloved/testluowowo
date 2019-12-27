@@ -1,9 +1,12 @@
 package cn.wolfcode.luowowo.scenic.service.impl;
 
 import cn.woldcode.luowowo.scenic.domain.Scenic;
+import cn.woldcode.luowowo.scenic.query.ScenicQuery;
 import cn.woldcode.luowowo.scenic.service.IScenicService;
 import cn.wolfcode.luowowo.scenic.mapper.ScenicMapper;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -22,5 +25,12 @@ public class ScenicServiceImpl implements IScenicService{
     @Override
     public List<Scenic> queryHotScenics() {
         return scenicMapper.selectHotScenics();
+    }
+
+    @Override
+    public PageInfo page(ScenicQuery qo) {
+        PageHelper.startPage(qo.getCurrentPage(),qo.getPageSize());
+        List<Scenic> scenics = scenicMapper.selectForList(qo);
+        return new PageInfo(scenics);
     }
 }

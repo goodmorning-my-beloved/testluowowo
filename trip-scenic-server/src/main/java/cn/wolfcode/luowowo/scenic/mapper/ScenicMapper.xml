@@ -29,4 +29,17 @@
         WHERE s.ishot = 1
         LIMIT 0, 10
     </select>
+
+    <select id="selectForList" resultMap="baseResultMap">
+        SELECT s.id, s.destId, s.name, s.intro, s.coverUrl,s.commentNum, d.id d_id, d.name d_name
+        FROM scenic s LEFT JOIN destination d ON s.destId = d.id
+        <where>
+            <if test="destId != null">
+                and s.destId = #{destId}
+            </if>
+            <if test="type != null">
+                and s.tag = #{type}
+            </if>
+        </where>
+    </select>
 </mapper>

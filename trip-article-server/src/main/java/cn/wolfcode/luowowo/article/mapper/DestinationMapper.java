@@ -39,4 +39,7 @@ public interface DestinationMapper {
 
 
     Destination selectByIdOfNameAndId(Long id);
+
+    Destination selectByDestName(String name);
+
 }

@@ -6,11 +6,14 @@ import cn.wolfcode.luowowo.article.service.IDestinationService;
 import cn.wolfcode.luowowo.article.service.ITravelService;
 import cn.wolfcode.luowowo.hotel.domain.Hotel;
 import cn.wolfcode.luowowo.hotel.domain.HotelTheme;
+import cn.wolfcode.luowowo.hotel.query.HotelQuery;
 import cn.wolfcode.luowowo.hotel.service.IHotelService;
 import cn.wolfcode.luowowo.hotel.service.IHotelThemeServie;
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
@@ -29,6 +32,11 @@ public class HotelController {
     @Reference
     private IHotelThemeServie hotelThemeServie;
 
+    /**
+     * 订酒店 ____首页
+     * @param model
+     * @return
+     */
     @RequestMapping("")
     public Object hotel(Model model){
         /**
@@ -88,6 +96,7 @@ public class HotelController {
     }
 
     /**
+     * 异步请求
      * list 主题关联酒店查询 todo
      *      根据页面请求的主题,查询对应的酒店内容,将酒店内容封装 ----> redis 主题酒店初始化
      *      使用 redis 技术,将对应的内容缓存起来,减少数据库压力  xxx 不做
@@ -104,6 +113,7 @@ public class HotelController {
     }
 
     /**
+     * 异步请求
      * hotelScore 关联酒店城市的特价酒店查询 todo
      * @param id  地点id
      * @return
@@ -115,14 +125,22 @@ public class HotelController {
         model.addAttribute("hotelScore",hotels);
         return "hotel/hotelTpl1";
     }
+
+
+
+
     /**
+     *
+     * 由于技术限制,暂时选择使用mysql的方式查询
      * 搜索功能 todo
      *
      */
-    @RequestMapping("/hotel")
-    public Object goHotel(Model model){
-
-        return "hotel/dingjiudian";
+    @RequestMapping("/h")
+    public Object goHotel(Model model, @ModelAttribute("qo") HotelQuery qo){
+        PageInfo<Hotel> pageInfo = hotelService.queryHotelByCityNameAndSoOn(qo);
+        List<Hotel> list = pageInfo.getList();
+        model.addAttribute("hotel",list);
+        return "222";
     }
 
 }

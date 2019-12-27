@@ -139,9 +139,37 @@
                         <strong><a href="javascript:;" target="_blank" class="per_name">${(detail.author.username)!}
                             (${(detail.dest.name)!}) </a></strong>
                         <a href="javascript:;" target="_blank" class="per_grade" title="LV.9">LV.9</a>
-                        <a href="javascript:void(0);" class="per_attention" data-japp="following" data-uid="67648461" data-follow_class="hide">
+                        <#if isFacous==false>
+                        <a href="javascript:void(0);" class="per_attention" data-japp="following" data-uid="${(detail.author.id)!}" data-follow_class="hide">
                             <img src="http://images.mafengwo.net/images/home/tweet/btn_sfollow.gif" width="38" height="13" border="0" title="关注TA">
                         </a>
+                        <#else >
+                          <a href="javascript:void(0);" class="per_attention" data-japp="following" data-uid="${(detail.author.id)!}" data-follow_class="hide">
+                              <img src="/images/quxiao.png" width="38" height="13" border="0" title="取消关注TA">
+                          </a>
+                        </#if>
+                        <script>
+                            $(function () {
+                                $('.per_attention').click(function () {
+                                    var facousId = $(this).data("uid");
+                                    $.get('/travel/facousAndFans',{facousId:facousId},function (data) {
+                                        if(data.success){
+                                            alert("关注成功");
+                                            window.location.reload();
+                                        }else{
+                                            if(data.data==3){
+                                                alert("自己不能关注自己");
+                                            }else{
+                                                alert("取消关注成功");
+                                                window.location.reload();
+                                            }
+
+                                        }
+
+                                    })
+                                })
+                            })
+                        </script>
                         <div class="vc_time">
                             <span class="time">${detail.createTime?string("yyyy-MM-dd HH:mm:ss")}</span>
                             <span><i class="ico_view"></i>${vo.viewnum!}/${detail.starnum!}</span>
