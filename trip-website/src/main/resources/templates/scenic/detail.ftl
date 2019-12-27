@@ -7,9 +7,15 @@
     <link href="/styles/base.css" rel="stylesheet" type="text/css">
     <link href="/styles/replyDetail.css" rel="stylesheet" type="text/css">
 
-    <script type="text/javascript" src="/js/system/common.js"></script>
+
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script src="/js/plugins/jquery-form/jquery.form.js"></script>
+    <script type="text/javascript" src="/js/jquery-upload/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="/js/jquery-upload/jquery.iframe-transport.js"></script>
+    <script type="text/javascript" src="/js/jquery-upload/jquery.fileupload.js"></script>
+
+    <script src="/js/plugins/jquery-form/jquery.form.js"></script>
+
 
 
     <script type="text/javascript">
@@ -224,13 +230,13 @@
                 </li>
                 <li class="item-time">
                     <div class="label">用时参考</div>
-                    <div class="content">${scenic.travelTime}</div>
+                    <div class="content">${(scenic.travelTime)!}</div>
                 </li>
             </ul>
 
             <dl>
                 <dt>交通</dt>
-                <dd>${scenic.content}</dd>
+                <dd>${(scenic.content)!}</dd>
             </dl>
             <dl>
                 <dt>门票</dt>
@@ -584,9 +590,53 @@
                                 </div>
                             </div>
 
+
+
+
+
+
+
                             <div class="review-item item-photo">
                                 <div class="label">上传照片</div>
-                                <div class="content">
+                                <div class="avatar" id="_j_avatar_box">
+                                    <img src=""
+                                         width="120" height="120" border="0" id="headImage">
+                                </div>
+                                <input type="button" id="file_upload" value="选择图片">
+
+                                <form action="/coverImageUpload" method="post" id="coverForm">
+                                    <input type="file" name="pic" id="coverBtn" style="display: none;">
+                                </form>
+                                <script>
+                                    $(function () {
+                                        $("#file_upload").click(function () {
+                                            $("#coverBtn").click();
+                                        })
+                                        $("#coverBtn").change(function () {
+                                            var hv;
+                                            if(this.value){
+                                                $("#coverForm").ajaxSubmit(function (data) {
+                                                    console.log(data);
+                                                    hv=data;
+                                                    //$(".choseBtn").html(" + 重新选择");
+                                                    $("#headImage").attr("src", "/" +data);
+                                                    //$("#coverValue").val("/" + data);
+
+                                                })
+                                            }
+                                        })
+                                    })
+
+                                </script>
+
+
+
+
+
+
+
+
+                               <#-- <div class="content">
                                     <dl class="upload-box _j_piclist">
                                         <dd data-commentid="" id="_j_addpicbtns" ids="0" style="position: relative;">
                                             <a class="add-place"><i></i></a>
@@ -594,34 +644,18 @@
                                                  class="moxie-shim moxie-shim-html5"
                                                  style="position: absolute; top: 0px; left: 0px; width: 120px; height: 120px; overflow: hidden; z-index: -1;">
                                                 <img src="" id="coverImage" >
-                                                <input id="html5_1dfo6usgd1maqh5812ivtkf1n223" type="button"
+                                                &lt;#&ndash;<input id="html5_1dfo6usgd1maqh5812ivtkf1n223" type="button"
                                                        style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;"
-                                                       multiple="" accept="image/jpeg,image/gif,image/png,.JPEG"></div>
+                                                       multiple="" accept="image/jpeg,image/gif,image/png,.JPEG"></div>&ndash;&gt;
                                         </dd>
                                     </dl>
-                                </div>
+                                </div>-->
                             </div>
                             <!--文件上传-->
                             <form action="/coverImageUpload" method="post" id="cover_form">
                                 <input type="file" name="pic" id="coverBtn" style="display: none;">
                             </form>
                             <script>
-                                $(function () {
-                                    $(".add-place").click(function () {
-                                        $("#coverBtn").click()
-                                    })
-
-                                    $("#coverBtn").change(function () {
-                                        console.log(1);
-                                        if(this.value){
-                                            console.log(2);
-                                            $("#cover_form").ajaxSubmit(function (data) {
-                                                console.log(data);
-                                                $("#coverImage").attr("src", "/" +data);
-                                            })
-                                        }
-                                    })
-                                })
 
                             </script>
                             <div class="review-item item-action">

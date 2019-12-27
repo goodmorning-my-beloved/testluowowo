@@ -121,10 +121,10 @@
                         //var b = a.result.output.result;
                         $("#airinfo").renderValues({list: flightInfo}, {
                             beginFly: function (item, value) {
-                                $(item).html(value.substr(11, 5));
+                                $(item).html(value);
                             },
                             endFly: function (item, value) {
-                                $(item).html(value.substr(11, 5));
+                                $(item).html(value);
                             }
                         });
                     } else {
@@ -134,7 +134,7 @@
             })
 
             /*订票机票点击事件*/
-            $(".btn_searchbuy").click( function () {
+            $(".btn_searchbuy").click(function () {
                 var r = confirm("确认是否订购该机票？");
                 if (r == true)
                 {
@@ -410,7 +410,7 @@
                             <div class="time ng-binding" ng-bind="one.arr_time" render-key="list.arriveTime"
                                  render-fun="endFly">降落时间
                             </div>
-                            <p class="sub ng-binding" render-html="list.arrPort">降落机场</p>
+                            <p class="sub ng-binding" render-html="list.arriveCity.airport">降落机场</p>
                         </div>
                         <div class="item item-btn btn_search btn_hiddenbuy">
                             <a class="btn_searchbuy">订购</a>
