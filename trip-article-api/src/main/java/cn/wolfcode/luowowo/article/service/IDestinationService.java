@@ -126,4 +126,11 @@ public interface IDestinationService {
      * @return
      */
     Destination getByDestName(String name);
+
+    /**
+     * 查询父id为xx的目的地集合
+     * @param parentId
+     * @return
+     */
+    List<Destination> getDestByParentId(Long parentId);
 }

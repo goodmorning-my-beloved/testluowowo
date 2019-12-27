@@ -5,8 +5,10 @@ import cn.wolfcode.luowowo.article.domain.Travel;
 import cn.wolfcode.luowowo.article.service.IDestinationService;
 import cn.wolfcode.luowowo.article.service.ITravelService;
 import cn.wolfcode.luowowo.hotel.domain.Hotel;
+import cn.wolfcode.luowowo.hotel.domain.HotelRegion;
 import cn.wolfcode.luowowo.hotel.domain.HotelTheme;
 import cn.wolfcode.luowowo.hotel.query.HotelQuery;
+import cn.wolfcode.luowowo.hotel.service.IHotelRegionService;
 import cn.wolfcode.luowowo.hotel.service.IHotelService;
 import cn.wolfcode.luowowo.hotel.service.IHotelThemeServie;
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -31,6 +33,8 @@ public class HotelController {
     private ITravelService travelService;
     @Reference
     private IHotelThemeServie hotelThemeServie;
+    @Reference
+    private IHotelRegionService hotelRegionService;
 
     /**
      * 订酒店 ____首页
@@ -38,17 +42,17 @@ public class HotelController {
      * @return
      */
     @RequestMapping("")
-    public Object hotel(Model model){
+    public Object hotel(Model model) {
         /**
-         *  hotelTags   酒店主题查询 todo
+         *  hotelTags   酒店主题查询
          *          查询数据库,罗列出(所有的?)酒店主题,封装集合,响应页面
          *
          */
         List<HotelTheme> hotelThemes = hotelThemeServie.queryHotelThemeOnly6();
-        model.addAttribute("hotelTags",hotelThemes);
+        model.addAttribute("hotelTags", hotelThemes);
 
         /**
-         * dest 国内目的地   overseas 海外目的地 todo
+         * dest 国内目的地   overseas 海外目的地
          *  .可以给予用户快速推荐的几个地区,用户可选可不选
          *      国内出行目的地应该让我们联想到出行旅游,之所以给用户推荐,是为方便用户.那么我们以什么为判断
          *      哪些地区是热门地区呢?此处 jkun 认为应该以游记关联的 用户浏览数 多寡来判断,游记集中描述的地区,应该
@@ -69,35 +73,35 @@ public class HotelController {
         for (Travel travel : travels) {
             Destination destination = destinationService.getByIdOfNameAndId(travel.getDest().getId());
             /**
-             * hotelCity  特价酒店城市查询 todo     热门城市的特价酒店
+             * hotelCity  特价酒店城市查询      热门城市的特价酒店
              *                                      游记比较多的城市就是热门城市,这些城市查询出来放到页面上去
              *          查询数据库,罗列出(所有的?)特价酒店城市,封装集合,响应页面
              */
-            if(hotelCitys.size()<6){
+            if (hotelCitys.size() < 6) {
                 hotelCitys.add(destination);
             }
-            if(destinationService.getToasts(destination.getId()).get(0).getId() == 1){
-                if(dests.size()<11){
+            if (destinationService.getToasts(destination.getId()).get(0).getId() == 1) {
+                if (dests.size() < 11) {
                     dests.add(destination);
                 }
-            }else{
-                if(overseas.size()<11){
+            } else {
+                if (overseas.size() < 11) {
                     overseas.add(destination);
                 }
             }
-            if(dests.size()+overseas.size()==20){
+            if (dests.size() + overseas.size() == 20) {
                 break;
             }
         }
-        model.addAttribute("hotelCity",hotelCitys);
-        model.addAttribute("dests",dests);
-        model.addAttribute("overseas",overseas);
+        model.addAttribute("hotelCity", hotelCitys);
+        model.addAttribute("dests", dests);
+        model.addAttribute("overseas", overseas);
         return "hotel/hotel";
     }
 
     /**
      * 异步请求
-     * list 主题关联酒店查询 todo
+     * list 主题关联酒店查询
      *      根据页面请求的主题,查询对应的酒店内容,将酒店内容封装 ----> redis 主题酒店初始化
      *      使用 redis 技术,将对应的内容缓存起来,减少数据库压力  xxx 不做
      *      将封装结果响应到页面 hotelTpl.ftl 上
@@ -106,41 +110,83 @@ public class HotelController {
      * @return
      */
     @RequestMapping("theme")
-    public Object theme(Model model,Long id){
+    public Object theme(Model model, Long id) {
         List<Destination> list = destinationService.getByHotelThemeId(id);
-        model.addAttribute("list",list);
+        model.addAttribute("list", list);
         return "hotel/hotelTpl";
     }
 
     /**
      * 异步请求
-     * hotelScore 关联酒店城市的特价酒店查询 todo
+     * hotelScore 关联酒店城市的特价酒店查询
      * @param id  地点id
      * @return
      */
     @RequestMapping("theme1")
-    public Object theme1(Model model,Long id){
+    public Object theme1(Model model, Long id) {
         // 搜索地点下的酒店,酒店的价格要低于600元,查询出前8个,共享到页面
         List<Hotel> hotels = hotelService.querySpecialOfferHotelByDestIdTop8(id);
-        model.addAttribute("hotelScore",hotels);
-        return "hotel/hotelTpl1";
+        model.addAttribute("hotelScore", hotels);
+        return "hotel/hotelDetailTpl";
     }
-
-
 
 
     /**
      *
      * 由于技术限制,暂时选择使用mysql的方式查询
-     * 搜索功能 todo
-     *
+     * 首页搜索功能 todo
+     *  根据目的地 查询相关信息并跳转页面
      */
-    @RequestMapping("/h")
-    public Object goHotel(Model model, @ModelAttribute("qo") HotelQuery qo){
-        PageInfo<Hotel> pageInfo = hotelService.queryHotelByCityNameAndSoOn(qo);
-        List<Hotel> list = pageInfo.getList();
-        model.addAttribute("hotel",list);
-        return "222";
+    @RequestMapping("/h")             // 回显搜索条件
+    public Object goHotel(Model model, @ModelAttribute("qo") HotelQuery qo) {
+        // 根据输入地名,查询详细目的地信息
+        Destination theSearchDest = destinationService.getByDestName(qo.getName());
+        model.addAttribute("theSearchDest", theSearchDest);
+        qo.setDestId(theSearchDest.getId());
+        Long destId = theSearchDest.getId();
+        // 面包屑
+        List<Destination> toasts = destinationService.getToasts(destId);
+        model.addAttribute("toasts", toasts);
+        // 查询目的地的下级地区   todo  查询区域表,将区域的各信息共享到页面上
+        List<HotelRegion> hotelRegions = hotelRegionService.queryAllHotelRegionByDestId(destId);
+        model.addAttribute("hotelRegions", hotelRegions);
+        // 查询出目的地的info介绍
+//        Destination theSearchDest = toasts.get(toasts.size() - 1);
+//        model.addAttribute("theSearchDest",theSearchDest);
+        return "hotel/dingjiudian";
     }
 
+
+    /**
+     * 异步请求,查询酒店信息
+     * @param model
+     * @param qo
+     * @return
+     */
+    @RequestMapping("/checkHotel")
+    public Object checkHotel(Model model, @ModelAttribute("qo") HotelQuery qo) {
+        PageInfo<Hotel> pageInfo = hotelService.queryHotelByCityNameAndSoOn(qo);
+        List<Hotel> list = pageInfo.getList();
+        model.addAttribute("hotel", list);
+        return "bookAHotel/hotelIntroTPL";
+    }
+
+    /**
+     * 根据 酒店区域id,查询区域的详细信息
+     * @param model
+     * @param id
+     * @return
+     */
+    @RequestMapping("/queryHotelRegion")
+    public String queryHotelRegion(Model model, Long id,Long destId) {
+        if(id == -1){
+            Destination region = destinationService.getById(destId);
+            model.addAttribute("region", region);
+        }else {
+            HotelRegion region = hotelRegionService.getByPrimaryId(id);
+            model.addAttribute("region", region);
+            model.addAttribute("flag", 1);
+        }
+        return "hotel/hotelRegionDetail";
+    }
 }

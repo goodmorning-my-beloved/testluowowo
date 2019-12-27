@@ -175,7 +175,7 @@
         d.coverUrl,
         d.info,
         d.deep,
-        p.id   p_id,
+        p.id p_id,
         p.name p_name
         FROM destination d LEFT JOIN destination p ON d.parent_id = p.id
         where d.id IN
@@ -204,7 +204,8 @@
     <select id="selectByDestName" resultType="cn.wolfcode.luowowo.article.domain.Destination">
         SELECT
             id,
-            name
+            name,
+            info
         FROM destination
         WHERE name = #{name}
     </select>

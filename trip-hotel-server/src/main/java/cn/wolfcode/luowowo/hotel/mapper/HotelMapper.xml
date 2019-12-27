@@ -11,6 +11,10 @@
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="price" property="price" jdbcType="DECIMAL" />
     <result column="address" property="address" />
+    <result column="hotel_theme_id" property="hotelThemeId" />
+    <result column="haveRoom" property="haveRoom" />
+    <result column="sales" property="sales" />
+    <result column="hotel_region_id" property="hotelRegionId" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from hotel
@@ -19,10 +23,10 @@
   <insert id="insert" parameterType="cn.wolfcode.luowowo.hotel.domain.Hotel" useGeneratedKeys="true" keyProperty="id" >
     insert into hotel (name, english, coverUrl, 
       dest_id, score, url, 
-      price,address)
+      price,address,hotel_theme_id,haveRoom,sales,hotel_region_id)
     values (#{name,jdbcType=VARCHAR}, #{english,jdbcType=VARCHAR}, #{coverUrl,jdbcType=VARCHAR}, 
       #{destId,jdbcType=BIGINT}, #{score,jdbcType=DECIMAL}, #{url,jdbcType=VARCHAR},
-      #{price,jdbcType=DECIMAL}),#{address}
+      #{price,jdbcType=DECIMAL}),#{address},#{hotelThemeId},#{haveRoom},#{sales},#{hotelRegionId}
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.wolfcode.luowowo.hotel.domain.Hotel" >
     update hotel
@@ -33,24 +37,55 @@
       score = #{score,jdbcType=DECIMAL},
       url = #{url,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},
-      address=#{address}
+      address=#{address},
+      hotel_theme_id=#{hotelThemeId},
+      haveRoom=#{haveRoom},sales=#{sales},hotel_region_id=#{hotelRegionId}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, name, english, coverUrl, dest_id, score, url, price,address
+    select id, name, english, coverUrl, dest_id, score, url, price,address,hotel_theme_id,haveRoom,sales=#{sales},hotel_region_id
     from hotel
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, name, english, coverUrl, dest_id, score, url, price,address
+    select id, name, english, coverUrl, dest_id, score, url, price,address,hotel_theme_id,haveRoom,sales=#{sales},hotel_region_id
     from hotel
   </select>
   <select id="selectSpecialOfferHotelByDestIdTop8" resultMap="BaseResultMap">
-    select id, name, english, coverUrl, dest_id, score, url, price,address
+    select id, name, english, coverUrl, dest_id, score, url, price,address,hotel_theme_id,haveRoom,sales=#{sales},hotel_region_id
     from hotel WHERE dest_id = #{destId} and price &lt;= 600 limit 8
   </select>
   <select id="selectByDestId" resultMap="BaseResultMap">
-    select id, name, english, coverUrl, dest_id, score, url, price,address
-    from hotel WHERE dest_id = #{destId}
+    select id, name, english, coverUrl, dest_id, score, url, price,address,hotel_theme_id,haveRoom,sales=#{sales},hotel_region_id
+    from hotel
+    <where>
+      <if test="haveRoom != -1">
+        and haveRoom = 1;
+      </if>
+      <if test="hotelThemeId!=-1">
+        and hotel_theme_id = #{hotelThemeId}
+      </if>
+      <if test="minPrice!=null">
+        and price >= #{minPrice}
+      </if>
+      <if test="maxPrice!=null">
+        and price &lt;= #{maxPrice}
+      </if>
+      <if test="hotelName!=null">
+        and name  like concat('%',#{keyword} ,'%')
+      </if>
+      and dest_id = #{destId}
+    </where>
+
+    <!--<choose>
+      <when test="orderType==1">
+
+      </when>
+      <otherwise>
+        order by viewnum desc
+      </otherwise>
+    </choose>-->
+
+
   </select>
 </mapper>

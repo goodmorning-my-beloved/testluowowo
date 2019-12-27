@@ -18,5 +18,8 @@ public class Hotel extends BaseDomain{
     private String url;
     private BigDecimal price;
     private String address;
-
+    private Long hotelThemeId;
+    private Long haveRoom;
+    private Long sales;
+    private Long hotelRegionId;
 }

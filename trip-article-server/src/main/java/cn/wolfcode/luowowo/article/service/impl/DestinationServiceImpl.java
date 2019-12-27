@@ -238,4 +238,14 @@ public class DestinationServiceImpl implements IDestinationService {
         return destinationMapper.selectByDestName(name);
     }
 
+    /**
+     * 查询出父id为xxx的目的地集合
+     * @param parentId
+     * @return
+     */
+    @Override
+    public List<Destination> getDestByParentId(Long parentId) {
+        List<Destination> destinations = destinationMapper.selectDestsByParentId(parentId);
+        return destinations;
+    }
 }

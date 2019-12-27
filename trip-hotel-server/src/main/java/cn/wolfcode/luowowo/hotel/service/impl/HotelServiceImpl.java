@@ -32,12 +32,9 @@ public class HotelServiceImpl implements IHotelService {
      */
     @Override
     public PageInfo queryHotelByCityNameAndSoOn(HotelQuery qo) {
-        Destination destination = null;
-        if(qo.getName() != null){
-            destination = destinationService.getByDestName(qo.getName());
-        }
-        qo.setDestId(destination.getId());
-        PageHelper.startPage(qo.getCurrentPage(),qo.getPageSize());
-        return new PageInfo(hotelMapper.selectByDestId(qo));
+
+        PageHelper.startPage(qo.getCurrentPage(),qo.getPageSize(),qo.getOrderBy());
+        List<Hotel> hotels = hotelMapper.selectByDestId(qo);
+        return new PageInfo(hotels);
     }
 }

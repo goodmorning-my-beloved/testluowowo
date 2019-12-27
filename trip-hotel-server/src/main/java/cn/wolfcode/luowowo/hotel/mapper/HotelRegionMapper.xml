@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.luowowo.hotel.mapper.HotelRegionMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.luowowo.hotel.domain.HotelRegion" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="dest_id" property="destId" jdbcType="BIGINT" />
+    <result column="info" property="info" jdbcType="VARCHAR" />
+    <result column="hotel_num" property="hotelNum" jdbcType="BIGINT" />
+    <result column="hot_score" property="hotScore" jdbcType="BIGINT" />
+    <result column="avgPrice" property="avgPrice" jdbcType="DECIMAL" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from hotel_region
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.wolfcode.luowowo.hotel.domain.HotelRegion" useGeneratedKeys="true" keyProperty="id" >
+    insert into hotel_region (name, dest_id, info, 
+      hotel_num, hot_score, avgPrice
+      )
+    values (#{name,jdbcType=VARCHAR}, #{destId,jdbcType=BIGINT}, #{info,jdbcType=VARCHAR},
+      #{hotelNum,jdbcType=BIGINT}, #{hotScore,jdbcType=BIGINT}, #{avgPrice,jdbcType=DECIMAL}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.luowowo.hotel.domain.HotelRegion" >
+    update hotel_region
+    set name = #{name,jdbcType=VARCHAR},
+      dest_id = #{destId,jdbcType=BIGINT},
+      info = #{info,jdbcType=VARCHAR},
+      hotel_num = #{hotelNum,jdbcType=BIGINT},
+      hot_score = #{hotScore,jdbcType=BIGINT},
+      avgPrice = #{avgPrice,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, name, dest_id, info, hotel_num, hot_score, avgPrice
+    from hotel_region
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, name, dest_id, info, hotel_num, hot_score, avgPrice
+    from hotel_region
+  </select>
+
+  <select id="selectByDestId" resultMap="BaseResultMap">
+    select id, name, dest_id, info, hotel_num, hot_score, avgPrice
+    from hotel_region WHERE dest_id = #{destId}
+  </select>
+</mapper>
