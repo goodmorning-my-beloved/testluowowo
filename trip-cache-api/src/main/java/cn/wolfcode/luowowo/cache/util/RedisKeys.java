@@ -34,6 +34,10 @@ public enum  RedisKeys {
     USER_STRATEGY_COOLECTION("user_strategy_coolection",null),
     //游记收藏
     USER_TRAVEL_COOLECTION("user_travel_coolection",null),
+    //用户粉丝
+    USER_FANS_COOLECTION("user_fans_coolection",null),
+    //用户关注
+    USER_FOCUS_COOLECTION("user_focus_coolection",null),
     VERFIYCODEVALI("verify_code_vali");
     private String prefix;
     private String verifyCodeVali;

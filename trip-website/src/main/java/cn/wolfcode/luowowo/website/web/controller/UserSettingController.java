@@ -102,8 +102,11 @@ public class UserSettingController {
     @RequestMapping("/updateUserImg")
     @ResponseBody
     public Object updateUserImg(HttpServletRequest request,String headImgUrl,@UserParam UserInfo userInfo){
+        if(userInfo==null){
+            return new AjaxResult(false,"请先登录");
+        }
         //数据库更新
-        userInfoService.updateUserImg(headImgUrl,userInfo.getId());
+        userInfoService.updateUserImg("/"+headImgUrl,userInfo.getId());
         //redis中更新
         String token = CookieUtil.getToken(request);
         userInfoRedisServcie.updateUserInfo(token,userInfo);

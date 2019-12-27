@@ -10,6 +10,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,10 +57,20 @@ public class QuestionServiceImpl implements IQuestionService {
             answerStatisVOService.medalnumIncrease(answer.getId(),answer.getUserId(),1);
             answer.setMedal(Answer.ANSWER_GOLD_MEDAL);
         }
+        //判断这个类型是否是评论的评论
+        if(Answer.ANSWER_TYPE_ANSWER == answer.getType()){
+            //判断refAnswer.id有没有值,如果有的话,那就查询出来,然后设置进去
+            if(StringUtils.hasLength(answer.getRefAnswer().getId())){
+                for (Answer a : list) {
+                    if(a.getId().equals((answer.getRefAnswer().getId()))){
+                        answer.setRefAnswer(a);
+                    }
+                }
+            }
+        }
         answerService.save(answer);
         list.add(answer);
         question.setList(list);
-
         answerStatisVOService.replynumIncrease(answer.getId(),answer.getUserId(),1);
         question.setBrowsenum(question.getBrowsenum()-1);
         this.save(question);
