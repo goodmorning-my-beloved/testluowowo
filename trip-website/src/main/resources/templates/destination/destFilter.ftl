@@ -71,7 +71,8 @@
 </head>
 
 <body>
-<div class="lww_header">
+
+<#--<div class="lww_header">
     <div class="header_wrap">
         <div class="header_logo">
             <a href="javascript:;" class="lww_logo"></a>
@@ -105,7 +106,9 @@
         </div>
     </div>
     <div class="shadow"></div>
-</div>
+</div>-->
+<#assign currentNav="destination">
+<#include "../common/navbar.ftl">
 <div class="container">
 
     <form action="/destination/getlist" method="post" id="searchForm">

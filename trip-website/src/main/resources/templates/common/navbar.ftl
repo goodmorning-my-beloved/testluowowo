@@ -11,6 +11,7 @@
             <li  name=""><a href="javascript:;">去旅行<i class="icon_caret_down"></i></a></li>
             <li name=""><a href="/wenda">社区<i class="icon_caret_down"></i></a></li>
             <li name=""><a href="/hotel">订酒店<i class="icon_caret_down"></i></a></li>
+            <li name=""><a href="/ticket">门票<i class="icon_caret_down"></i></a></li>
         </ul>
         <div class="header_search">
             <input type="text" />

@@ -136,7 +136,7 @@
                         <li><a class="tags_link" href="/review" title="我的点评">我的点评</a></li>
                         <li id="_j_pathnav" class="on"><a class="tags_link" href="/travelcollection" title="我的收藏">我的收藏</a>
                         </li>
-                        <li><a class="tags_link" href="javascript:;" title="我的订单">我的订单</a></li>
+                        <li><a class="tags_link" href="/mytivketorder" title="我的订单">我的订单</a></li>
                         <li><a class="tags_link" href="/setting" title="设置">设置</a></li>
                     </ul>
                 </div>
