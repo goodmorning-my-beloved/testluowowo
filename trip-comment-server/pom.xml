@@ -24,8 +24,10 @@
             <artifactId>trip-comment-api</artifactId>
         </dependency>
 
-
-
+        <dependency>
+            <groupId>cn.wolfcode.luowowo</groupId>
+            <artifactId>trip-scenic-api</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

@@ -116,17 +116,17 @@
                 $.get('/flight/search', {'orgCity': orgCity, 'dstCity': dstCity, 'depTime': deptTime}, function (data) {
                     if (data.success) {
                         var flightInfo = data.data;
-                        var a = JSON.parse(flightInfo);
-                        var b = a.result.output.result;
-                        $("#airinfo").renderValues({list: b}, {
+                        console.log(flightInfo);
+                        //var a = JSON.parse(flightInfo);
+                        //var b = a.result.output.result;
+                        $("#airinfo").renderValues({list: flightInfo}, {
                             beginFly: function (item, value) {
-                                $(item).html(value.substr(11, 5));
+                                $(item).html(value);
                             },
                             endFly: function (item, value) {
-                                $(item).html(value.substr(11, 5));
+                                $(item).html(value);
                             }
                         });
-                        console.log(b);
                     } else {
                         alert(data.msg);
                     }
@@ -134,7 +134,7 @@
             })
 
             /*订票机票点击事件*/
-            $("#btn_search").on("click", function () {
+            /*$(".btn_searchbuy").click(function () {
                 var r = confirm("确认是否订购该机票？");
                 if (r == true)
                 {
@@ -143,9 +143,19 @@
                 {
                     alert("取消预订!");
                 }
-            })
+            })*/
+           $("#airinfo").delegate("a","click",function () {
+               var h = $("#xxx").html();
+               console.log(h);
+               window.location.href="http://localhost:8888/flight/order?id="+h;
+           })
         });
+
+
+
+
     </script>
+
 </head>
 
 <body>
@@ -185,7 +195,7 @@
                                     <dd>
                                     <#list hotFlights as ele>
                                         <a href="javascript:;" class="ng-binding ng-scope" data-id="${ele.id}"
-                                           data-name="${ele.name}" data-code="${ele.aircode}">${ele.name}</a>
+                                           data-name="${(ele.startCity.name)!}" data-code="${ele.startCity.ICAOCode}">${(ele.startCity.name)!}</a>
                                     </#list>
                                     </dd>
                                 </dl>
@@ -195,7 +205,7 @@
                                     <dd>
                                     <#list initialA as ele>
                                         <a href="javascript:;" class="ng-binding ng-scope" data-id="${ele.id}"
-                                           data-name="${ele.name}" data-code="${ele.aircode}">${ele.name}</a>
+                                           data-name="${(ele.startCity.name)!}" data-code="${ele.startCity.ICAOCode}">${(ele.startCity.name)!}</a>
                                     </#list>
                                     </dd>
                                 </dl>
@@ -205,7 +215,7 @@
                                     <dd>
                                     <#list initialF as ele>
                                         <a href="javascript:;" class="ng-binding ng-scope" data-id="${ele.id}"
-                                           data-name="${ele.name}" data-code="${ele.aircode}">${ele.name}</a>
+                                           data-name="${(ele.startCity.name)!}" data-code="${ele.startCity.ICAOCode}">${(ele.startCity.name)!}</a>
                                     </#list>
                                     </dd>
                                 </dl>
@@ -215,7 +225,7 @@
                                     <dd>
                                     <#list initialK as ele>
                                         <a href="javascript:;" class="ng-binding ng-scope" data-id="${ele.id}"
-                                           data-name="${ele.name}" data-code="${ele.aircode}">${ele.name}</a>
+                                           data-name="${(ele.startCity.name)!}" data-code="${ele.startCity.ICAOCode}">${(ele.startCity.name)!}</a>
                                     </#list>
                                     </dd>
                                 </dl>
@@ -225,7 +235,7 @@
                                     <dd>
                                     <#list initialQ as ele>
                                         <a href="javascript:;" class="ng-binding ng-scope" data-id="${ele.id}"
-                                           data-name="${ele.name}" data-code="${ele.aircode}">${ele.name}</a>
+                                           data-name="${(ele.startCity.name)!}" data-code="${ele.startCity.ICAOCode}">${(ele.startCity.name)!}</a>
                                     </#list>
                                     </dd>
                                 </dl>
@@ -235,7 +245,7 @@
                                     <dd>
                                     <#list initialX as ele>
                                         <a href="javascript:;" class="ng-binding ng-scope" data-id="${ele.id}"
-                                           data-name="${ele.name}" data-code="${ele.aircode}">${ele.name}</a>
+                                           data-name="${(ele.startCity.name)!}" data-code="${ele.startCity.ICAOCode}">${(ele.startCity.name)!}</a>
                                     </#list>
                                     </dd>
                                 </dl>
@@ -267,7 +277,7 @@
                                     <dd>
                                     <#list hotFlights as ele>
                                         <a href="javascript:;" class="ng-binding ng-scope" data-id="${ele.id}"
-                                           data-name="${ele.name}" data-code="${ele.aircode}">${ele.name}</a>
+                                           data-name="${(ele.arriveCity.name)!}" data-code="${ele.arriveCity.ICAOCode}">${(ele.arriveCity.name)!}</a>
                                     </#list>
                                     </dd>
                                 </dl>
@@ -277,7 +287,7 @@
                                     <dd>
                                     <#list initialA as ele>
                                         <a href="javascript:;" class="ng-binding ng-scope" data-id="${ele.id}"
-                                           data-name="${ele.name}" data-code="${ele.aircode}">${ele.name}</a>
+                                           data-name="${(ele.startCity.name)!}" data-code="${ele.arriveCity.ICAOCode}">${(ele.startCity.name)!}</a>
                                     </#list>
                                     </dd>
                                 </dl>
@@ -287,7 +297,7 @@
                                     <dd>
                                     <#list initialF as ele>
                                         <a href="javascript:;" class="ng-binding ng-scope" data-id="${ele.id}"
-                                           data-name="${ele.name}" data-code="${ele.aircode}">${ele.name}</a>
+                                           data-name="${(ele.startCity.name)!}" data-code="${ele.arriveCity.ICAOCode}">${(ele.startCity.name)!}</a>
                                     </#list>
                                     </dd>
                                 </dl>
@@ -296,9 +306,9 @@
                             <div class="destGroupLayer ng-scope" id="KLMNP2" style="display: none;">
                                 <dl class="ng-scope">
                                     <dd>
-                                    <#list initialK as ele>
+                                   <#list initialK as ele>
                                         <a href="javascript:;" class="ng-binding ng-scope" data-id="${ele.id}"
-                                           data-name="${ele.name}" data-code="${ele.aircode}">${ele.name}</a>
+                                           data-name="${(ele.startCity.name)!}" data-code="${ele.arriveCity.ICAOCode}">${(ele.startCity.name)!}</a>
                                     </#list>
                                     </dd>
                                 </dl>
@@ -308,7 +318,7 @@
                                     <dd>
                                     <#list initialQ as ele>
                                         <a href="javascript:;" class="ng-binding ng-scope" data-id="${ele.id}"
-                                           data-name="${ele.name}" data-code="${ele.aircode}">${ele.name}</a>
+                                           data-name="${(ele.startCity.name)!}" data-code="${ele.arriveCity.ICAOCode}">${(ele.startCity.name)!}</a>
                                     </#list>
                                     </dd>
                                 </dl>
@@ -318,7 +328,7 @@
                                     <dd>
                                     <#list initialX as ele>
                                         <a href="javascript:;" class="ng-binding ng-scope" data-id="${ele.id}"
-                                           data-name="${ele.name}" data-code="${ele.aircode}">${ele.name}</a>
+                                           data-name="${(ele.startCity.name)!}" data-code="${ele.arriveCity.ICAOCode}">${(ele.startCity.name)!}</a>
                                     </#list>
                                     </dd>
                                 </dl>
@@ -371,10 +381,10 @@
         <div class="loading-bar"><span id="progress_bar" style="width: 100%; display: none;"></span></div>
         <ul class="clearfix">
             <li class="item1">航空信息</li>
-            <li class="item2" ng-click="sortByDepTime()"><span class="f-sort" id="sort_dep_time">起飞时间<i
-                    class="up"></i><i class="down"></i></span></li>
-            <li class="item3" ng-click="sortByArrTime()"><span class="f-sort" id="sort_arr_time">到达时间<i
-                    class="up"></i><i class="down"></i></span></li>
+                <li class="item2" ng-click="sortByDepTime()"><span class="f-sort" id="sort_dep_time">起飞时间<i
+                        class="up"></i><i class="down"></i></span></li>
+                <li class="item3" ng-click="sortByArrTime()"><span class="f-sort" id="sort_arr_time">到达时间<i
+                        class="up"></i><i class="down"></i></span></li>
         </ul>
     </div>
 
@@ -389,13 +399,13 @@
                                                           id="logo-item-9C8930" class="airline-logo-9C"></i></span>
                             <p class="f-name ng-binding">航班<span class="ng-binding"></span>
                             </p>
-                            <p class="sub ng-binding" render-html="list.flightNo">航班号</p>
+                            <p class="sub ng-binding" render-html="list.aircode">航班号</p>
                         </div>
                         <div class="f-time">
-                            <div class="time ng-binding" ng-bind="one.dep_time" render-key="list.depTime"
+                            <div class="time ng-binding" ng-bind="one.dep_time" render-key="list.startTime"
                                  render-fun="beginFly">起飞时间
                             </div>
-                            <p class="sub ng-binding" render-html="list.depPort">起飞机场</p>
+                            <p class="sub ng-binding" render-html="list.startCity.airport">起飞机场</p>
                         </div>
                         <div class="through">
                             <div class="arrow"></div>
@@ -407,19 +417,29 @@
                             </div>
                         </div>
                         <div class="f-time">
-                            <div class="time ng-binding" ng-bind="one.arr_time" render-key="list.arrTime"
+                            <div class="time ng-binding" ng-bind="one.arr_time" render-key="list.arriveTime"
                                  render-fun="endFly">降落时间
                             </div>
-                            <p class="sub ng-binding" render-html="list.arrPort">降落机场</p>
+                            <p class="sub ng-binding" render-html="list.arriveCity.airport">降落机场</p>
                         </div>
-                        <div class="item item-btn btn_search">
-                            <a id="btn_search">订购</a>
+                        <div class="item item-btn btn_search btn_hiddenbuy">
+                            <span id="xxx" style="display:none" render-html="list.id"></span>
+                            <a class="btn_searchbuy dinggoua">订购</a>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+<script>
+    $(function () {
+        /*$("#airinfo").delegate("dinggoua","click",function () {
+            console.log(1);
+        })*/
+
+    })
+</script>
 <#-- ----------------------------------------------- -->
 </div>
 <#include "../common/footer.ftl">

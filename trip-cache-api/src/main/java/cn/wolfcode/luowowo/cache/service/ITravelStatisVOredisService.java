@@ -61,4 +61,12 @@ public interface ITravelStatisVOredisService {
      * @return
      */
     List<Long> selectUserTravelCoolection(Long id);
+
+    /**
+     * 查询用户是否收藏指定游记
+     * @param travelid
+     * @param userId
+     * @return
+     */
+    boolean selectISFavorByUId(Long travelid, Long userId);
 }

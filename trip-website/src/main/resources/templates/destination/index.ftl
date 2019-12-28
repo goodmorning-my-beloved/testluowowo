@@ -102,6 +102,179 @@
         </div>
         <div class="row-line"></div>
 
+        <div class="pagelet-block">
+            <div class="row row-season row-bg">
+                <div class="wrapper">
+                    <div class="r-title">
+                        <h2>当季推荐</h2>
+                    </div>
+                    <div class="r-navbar"><a class="on" href="javascript:void(0)">1月</a><span class="divide">|</span><a class="" href="javascript:void(0)">2月</a><span class="divide">|</span><a class="" href="javascript:void(0)">3月</a><span class="divide">|</span><a class=""
+                                                                                                                                                                                                                                                                          href="javascript:void(0)">4月</a><span class="divide">|</span><a class="" href="javascript:void(0)">5月</a><span class="divide">|</span><a class="" href="javascript:void(0)">6月</a><span class="divide">|</span><a class="" href="javascript:void(0)">7月</a>
+                        <span class="divide">|</span><a class="" href="javascript:void(0)">8月</a><span class="divide">|</span><a class="" href="javascript:void(0)">9月</a><span class="divide">|</span><a class="" href="javascript:void(0)">10月</a><span class="divide">|</span>
+                        <a class="" href="javascript:void(0)">11月</a><span class="divide">|</span><a class="" href="javascript:void(0)">12月</a></div>
+                    <div class="J_seasonmdds">
+                        <#--1月-->
+                        <#list filterList as list>
+
+                        <#if list.holiday==1>
+                        <div class="tiles">
+                            <div class="item col3">
+                                <a href="/destination/guide?id=3261" target="_blank"><img src="${list.coverUrl}" width="323" height="220">
+                                    <div class="title">${list.dest.name}</div>
+                                </a>
+                            </div>
+
+                            <#--<div class="item col4">
+                                <a href="javascript:;" target="_blank"><img img="" src="http://p2-q.mafengwo.net/s10/M00/FF/E0/wKgBZ1jnHBCAeMgOAA5o9Lrjij428.jpeg?imageMogr2%2Fthumbnail%2F%21476x440r%2Fgravity%2FCenter%2Fcrop%2F%21476x440%2Fquality%2F100" width="238" height="220">
+                                    <div class="more"><span>更多<i></i></span></div>
+                                </a>
+                            </div>-->
+                        </div>
+                        </#if>
+
+                        <#--2月-->
+                            <#if list.holiday==2>
+                        <div class="tiles hide">
+                            <div class="item col3">
+                                <a href="javascript:void(0)" target="_blank"><img src="${list.coverUrl}" width="323" height="220">
+                                    <div class="title">${list.dest.name}</div>
+                                </a>
+                            </div>
+
+                        </div>
+                            </#if>
+                        <#--3月-->
+                            <#if list.holiday==3>
+                        <div class="tiles hide">
+
+                            <div class="item col3">
+                                <a href="javascript:;" target="_blank"><img src="${list.coverUrl}" width="323" height="220">
+                                    <div class="title">${list.dest.name}</div>
+                                </a>
+                            </div>
+
+                        </div>
+                            </#if>
+                        <#--四月-->
+                            <#if list.holiday==4>
+                        <div class="tiles hide">
+
+                            <div class="item col3">
+                                <a href="javascript:;" target="_blank"><img src="${list.coverUrl}" width="323" height="220">
+                                    <div class="title">${list.dest.name}</div>
+                                </a>
+                            </div>
+
+                        </div>
+                            </#if>
+                        <#--五月-->
+                            <#if list.holiday==5>
+                        <div class="tiles hide">
+
+                            <div class="item col3">
+                                <a href="javascript:;" target="_blank"><img src="${list.coverUrl}" width="323" height="220">
+                                    <div class="title">${list.dest.name}</div>
+                                </a>
+                            </div>
+
+                        </div>
+                            </#if>
+                        <#--六月-->
+                            <#if list.holiday==6>
+                        <div class="tiles hide">
+
+                            <div class="item col3">
+                                <a href="javascript:;" target="_blank"><img src="${list.coverUrl}" width="323" height="220">
+                                    <div class="title">${list.dest.name}</div>
+                                </a>
+                            </div>
+
+                        </div>
+                            </#if>
+                        <#--七月-->
+                            <#if list.holiday==7>
+                        <div class="tiles hide">
+
+                            <div class="item col3">
+                                <a href="javascript:;" target="_blank"><img src="${list.coverUrl}" width="323" height="220">
+                                    <div class="title">${list.dest.name}</div>
+                                </a>
+                            </div>
+
+                        </div>
+                            </#if>
+                        <#--八月-->
+                            <#if list.holiday==8>
+                        <div class="tiles hide">
+
+                            <div class="item col3">
+                                <a href="javascript:;" target="_blank"><img src="${list.coverUrl}" width="323" height="220">
+                                    <div class="title">${list.dest.name}</div>
+                                </a>
+                            </div>
+
+                        </div>
+                            </#if>
+                        <#--九月-->
+                            <#if list.holiday==9>
+                        <div class="tiles hide">
+
+                            <div class="item col3">
+                                <a href="javascript:;" target="_blank"><img src="${list.coverUrl}" width="323" height="220">
+                                    <div class="title">${list.dest.name}</div>
+                                </a>
+                            </div>
+
+                        </div>
+                            </#if>
+                        <#--十月-->
+                            <#if list.holiday==10>
+                        <div class="tiles hide">
+
+                            <div class="item col3">
+                                <a href="javascript:;" target="_blank"><img src="${list.coverUrl}" width="323" height="220">
+                                    <div class="title">${list.dest.name}</div>
+                                </a>
+                            </div>
+
+                        </div>
+                            </#if>
+                        <#--十一月-->
+                            <#if list.holiday==11>
+                        <div class="tiles hide">
+
+                            <div class="item col3">
+                                <a href="javascript:void(0)" target="_blank"><img src="${list.coverUrl}" width="323" height="220">
+                                    <div class="title">${list.dest.name}</div>
+                                </a>
+                            </div>
+
+                        </div>
+                            </#if>
+                        <#--十二月-->
+                            <#if list.holiday==12>
+                        <div class="tiles hide">
+
+                            <div class="item col3">
+                                <a href="javascript:void(0)" target="_blank"><img src="${list.coverUrl}" width="323" height="220">
+                                    <div class="title">${list.dest.name}</div>
+                                </a>
+                            </div>
+
+                        </div>
+                            </#if>
+                        </#list>
+                    </div>
+                </div>
+            </div>
+            <div class="row-line"></div>
+        </div>
+
+
+
+
+
+
         <div class="pagelet-block1">
             <div class="row row-theme">
                 <div class="wrapper">

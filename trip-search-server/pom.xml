@@ -24,6 +24,10 @@
             <artifactId>trip-search-api</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>cn.wolfcode.luowowo</groupId>
+            <artifactId>trip-comment-api</artifactId>
+        </dependency>
 
     </dependencies>
 

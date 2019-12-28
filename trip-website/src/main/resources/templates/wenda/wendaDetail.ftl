@@ -16,9 +16,30 @@
         var split = search.split("=");
         console.log(split[1]);
         $("#questionId").val(split[1]);
-        //提出回答
+
+        var index = 0;
+        //回复
+        $("._j_reply").click(function () {
+            var username = $(this).data("username");
+            var aid = $(this).data("aid");
+            $("#content").focus();
+            $("#content").attr("placeholder","回复：" + username );
+            $("#commentType").val(1);
+            $("#refAnswerId").val(aid);
+        })
+        //发表回复
         $("._j_submit_answer_btn").click(function () {
-            console.log(1);
+            if(!$("#content").val()){
+                alert("评论不能为空");
+                return;
+            }
+            /*$("#commentForm").ajaxSubmit(function (data) {
+                $("#commentContent").val("");
+                $("#commentContent").attr("placeholder","");
+
+                $("#_j_reply_list").append(data);
+
+            })*/
             //绑定事件,提交表单
             $("#editForm").ajaxSubmit(function (data) {
                 if(data.success){
@@ -27,9 +48,8 @@
                     popup(data.msg);
                 }
             })
-
+            $("#commentType").val(0);
         })
-
 
         //顶操作
         $(".answerThumbsup").click(function () {
@@ -96,6 +116,7 @@
 
         })
     })
+
 
 </script>
 <body style="position: relative;">
@@ -276,8 +297,8 @@
                                         <a class="name" href="javascript:;" >${(answer.username)!}</a>
                                         <a class="level" href="javascript:;" rel="nofollow">LV.${(answer.level)!0}</a>
                                     </div>
-                                    <input class="btn-comment answerThumbsup" data-userId="${(answer.userId)!}"
-                                           data-answerId="${(answer.id)!}"  type="button" value="顶${(answer.thumbsupnum)!}">
+                                    <#--<input class="btn-comment answerThumbsup" data-userId="${(answer.userId)!}"
+                                           data-answerId="${(answer.id)!}"  type="button" value="顶${(answer.thumbsupnum)!}">-->
                       <#if (answer.medal)?? && answer.medal==1>
                       <ul class="answer-medal fr">
                           <li class="gold">
@@ -323,9 +344,29 @@
                       </#if>
                     </div>
                     <!-- 回答内容 -->
+                      <#if a.type==0>
                     <div class="_j_short_answer_item hide" style="display: block;">
                       ${(a.content)!}
                     </div>
+                      </#if>
+                      <#if a.type==1>
+                            <div class="_j_short_answer_item">
+                                <p>引用 ${(a.refAnswer.username)!} 发表于 ${(a.refAnswer.replytime?string('yyyy-MM-dd HH:ss'))!} 的回答：</p>
+                                <p class="_j_reply_content">${(a.refAnswer.content)!}</p>
+                            </div>
+                            <br>
+                            <div class="_j_short_answer_item">
+                                <p class="_j_reply_content" >回复${(a.refAnswer.username)!}：${(a.content)!}</p>
+                            </div>
+                      </#if>
+                      <div class="_j_short_answer_item">
+                          <br>
+                          <div class="time">回答时间:${(a.replytime?string('yyyy-MM-dd HH:ss'))!}</div>
+                          <div class="option">
+                              <a role="button" class="reply-report">举报</a>
+                              <a role="button" class="_j_reply replyBtn" data-username="${a.username!}" data-aid="${a.id!}">回复</a>
+                          </div>
+                      </div>
                   </div>
                 </li>
               </div>
@@ -345,6 +386,8 @@
             </div>
               <form class="forms" action="/wenda/saveAnswer" method="post" id="editForm">
                   <input type="hidden" id="questionId" value="" name="questionId">
+                  <input type="hidden" name="type" value="0" id="commentType">
+                  <input type="hidden" name="refAnswer.id" id="refAnswerId">
             <div class="editor-outer _j_editorOuter _js_editorWrap _js_forFixTitle">
               <textarea name="content" id="content"></textarea>
             </div>

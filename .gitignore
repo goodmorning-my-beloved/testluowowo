@@ -68,3 +68,11 @@ trip-hotel-api/trip-hotel-api.iml
 trip-hotel-server/.idea/
 trip-hotel-server/target/
 trip-hotel-server/trip-hotel-server.iml
+
+trip-scenic-api/.idea/
+trip-scenic-api/target/
+trip-scenic-api/trip-scenic-api.iml
+
+trip-scenic-server/.idea/
+trip-scenic-server/target/
+trip-scenic-server/trip-scenic-server.iml

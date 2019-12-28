@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.luowowo.article.mapper.TicketOrderMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.luowowo.article.domain.TicketOrder" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_num" property="order_num" jdbcType="VARCHAR" />
+    <result property="creatime" column="creatime"/>
+    <association property="userId" javaType="cn.wolfcode.luowowo.member.domain.UserInfo" columnPrefix="user_">
+        <id property="id" column="id"/>
+        <result column="nickname" property="nickname"/>
+        <result property="headImgUrl" column="headImgUrl"/>
+    </association>
+      <association property="ticketId" javaType="cn.wolfcode.luowowo.article.domain.TicketDetail" columnPrefix="ticket_">
+          <id column="id" property="id"/>
+          <result property="name" column="name"/>
+          <result property="address" column="address"/>
+          <result property="coverUrl" column="coverUrl"/>
+          <result property="price" column="price"/>
+      </association>
+
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ticket_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.wolfcode.luowowo.article.domain.TicketOrder" useGeneratedKeys="true" keyProperty="id" >
+    insert into ticket_order (user_id, order_num, ticket_id,creatime
+      )
+    values (#{userId.id,jdbcType=BIGINT}, #{order_num,jdbcType=VARCHAR}, #{ticketId.id,jdbcType=BIGINT},#{creatime}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.luowowo.article.domain.TicketOrder" >
+    update ticket_order
+    set user_id = #{user_id,jdbcType=BIGINT},
+      order_num = #{order_num,jdbcType=VARCHAR},
+      ticket_id = #{ticket_id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    SELECT
+	t.id,
+	t.order_num,
+	t.creatime,
+	user.id user_id,
+	user.nickname user_nickname,
+	ticket.id ticket_id,
+	ticket.name ticket_name,
+	ticket.address ticket_address,
+	ticket.coverUrl ticket_coverUrl,
+	ticket.price ticket_price
+    FROM
+	ticket_order t
+	LEFT JOIN userinfo user ON t.user_id = user.id
+	LEFT JOIN ticket_detail ticket ON t.ticket_id = ticket.id
+    where t.id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    SELECT
+	t.id,
+	t.order_num,
+	t.creatime,
+	user.id user_id,
+	user.nickname user_nickname,
+	ticket.id ticket_id,
+	ticket.name ticket_name,
+	ticket.address ticket_address,
+	ticket.coverUrl ticket_coverUrl,
+	ticket.price ticket_price
+FROM
+	ticket_order t
+	LEFT JOIN userinfo user ON t.user_id = user.id
+	LEFT JOIN ticket_detail ticket ON t.ticket_id = ticket.id
+  </select>
+    <select id="selectByUserId" resultMap="BaseResultMap">
+         SELECT
+	t.id,
+	t.order_num,
+	t.creatime,
+	user.id user_id,
+	user.nickname user_nickname,
+	ticket.id ticket_id,
+	ticket.name ticket_name,
+	ticket.address ticket_address,
+	ticket.coverUrl ticket_coverUrl,
+	ticket.price ticket_price
+    FROM
+	ticket_order t
+	LEFT JOIN userinfo user ON t.user_id = user.id
+	LEFT JOIN ticket_detail ticket ON t.ticket_id = ticket.id
+    where t.user_id = #{id,jdbcType=BIGINT}
+    </select>
+
+</mapper>

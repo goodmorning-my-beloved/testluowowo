@@ -20,7 +20,7 @@ public class DestinationFilter extends BaseDomain {
 
     private String month;//月份
 
-    private String holiday;//假期
+    private int holiday;//假期
 
     private DestinationCommendTheme theme;//主题
 

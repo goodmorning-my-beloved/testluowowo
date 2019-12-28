@@ -133,13 +133,13 @@
                 <div class="navbar-con">
                     <ul class="navbar clearfix navbar-first-level-warper">
                         <li class="navbar-overview">
-                            <a class="navbar-btn" href="/travel-scenic-spot/mafengwo/10088.html" data-cs-p="首页">
+                            <a class="navbar-btn" href="http://localhost:8888/" data-cs-p="首页">
                                 <i class="navbar-icon"></i><span>首页</span>
 
                             </a>
                         </li>
                         <li class="navbar-line">
-                            <a class="navbar-btn" href="/mdd/route/10088.html" data-cs-p="行程线路">
+                            <a class="navbar-btn" href="" data-cs-p="行程线路">
                                 <i class="navbar-icon"></i><span>行程线路</span>
 
                             </a>
@@ -203,14 +203,14 @@
                         </h3>
                         <p>${sct.intro}</p>
                         <div class="links">这里还包含景点：
-                            <#--<#list sct.children as c>
-                                <a href="#" target="_blank">${c.name}</a>
-                            </#list>-->
+                            <#list sct.children as c>
+                                <a href="/scenic/detail?id=${c.id}" target="_blank">${c.name}</a>
+                            </#list>
                         </div>
                     </div>
                 </div>
                 <div class="pic">
-                    <a href="/poi/25091.html" target="_blank" title="广州塔">
+                    <a href="/scenic/detail?id=${sct.id}" target="_blank" title="广州塔">
                         <div class="large">
                             <img src="${(sct.coverUrls[0])!}"
                                  width="380" height="270">
@@ -241,7 +241,7 @@
             <div class="bd">
                 <div class="grid grid-two">
                     <div class="figure">
-                        <a href="/poi/5178221.html" target="_blank" title="广州塔">
+                        <a href="/scenic/detail?id=${hsc.id}" target="_blank" title="广州塔">
                             <img src="${hsc.coverUrls[0]}"
                                  width="485" height="320">
                             <h3 class="title">${hsc.name}</h3>
@@ -276,11 +276,11 @@
 
                 <ul class="nav clearfix">
                     <li class="on sub"><a title="全部景点">全部景点</a></li>
-                    <li class="sub" data-type="1"><a title="周边古村落">周边古村落</a></li>
-                    <li class="sub" data-type="2"><a title="羊城八景">羊城八景</a></li>
-                    <li class="sub" data-type="3"><a title="赏花佳地">赏花佳地</a></li>
-                    <li class="sub" data-type="4"><a title="老建筑">老建筑</a></li>
-                    <li class="sub" data-type="5"><a title="小清新地儿">小清新地儿</a></li>
+                    <li class="sub" data-type="人间五月"><a title="人间五月">人间五月</a></li>
+                    <li class="sub" data-type="羊城八景"><a title="羊城八景">羊城八景</a></li>
+                    <li class="sub" data-type="赏花佳地"><a title="赏花佳地">赏花佳地</a></li>
+                    <li class="sub" data-type="老地方等你"><a title="老地方等你">老地方等你</a></li>
+                    <li class="sub" data-type="小清新地儿"><a title="小清新地儿">小清新地儿</a></li>
                 </ul>
             </form>
 
@@ -296,11 +296,10 @@
 
             <div class="bd" id="allScenics">
                 <script>
-
                     //发送ajax请求,获取全部景点,实现分页局部刷新
                     $(function () {
 
-                        var destId =${qo.destId};
+                        var destId =${dest.id};
 
                         //分页
                         $("#searchForm").ajaxForm(function (data) {
@@ -311,7 +310,6 @@
 
                         $(".sub").click(function () {
                             var type = $(this).data('type');
-                            console.log(type);
                             $.get("/scenic/page", {destId: destId, type: type}, function (data) {
                                 $("#allScenics").html(data);
                             })

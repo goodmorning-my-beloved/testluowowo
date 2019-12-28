@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.luowowo.article.mapper.AttractionTicketMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.luowowo.article.domain.AttractionTicket" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="coverUrl" property="coverUrl" jdbcType="VARCHAR" />
+    <result column="praisenum" property="praisenum" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="sequence" property="sequence" jdbcType="VARCHAR" />
+    <association property="dest" javaType="cn.wolfcode.luowowo.article.domain.Destination" columnPrefix="dest_">
+      <id column="id" property="id"/>
+      <result column="name" property="name"/>
+    </association>
+    <association property="theme" javaType="cn.wolfcode.luowowo.article.domain.DestinationCommendTheme" columnPrefix="theme_">
+      <id column="id" property="id"/>
+      <result column="type" property="type"/>
+      <result column="name" property="name"/>
+    </association>
+  </resultMap>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from attraction_ticket
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.wolfcode.luowowo.article.domain.AttractionTicket" useGeneratedKeys="true" keyProperty="id" >
+    insert into attraction_ticket (coverUrl, praisenum, name, 
+      price, dest_id, state, 
+      sequence, theme_id)
+    values (#{coverUrl,jdbcType=VARCHAR}, #{praisenum,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{price,jdbcType=INTEGER}, #{dest.id,jdbcType=INTEGER}, #{state,jdbcType=VARCHAR},
+      #{sequence,jdbcType=VARCHAR}, #{theme.id,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.luowowo.article.domain.AttractionTicket" >
+    update attraction_ticket
+    set coverUrl = #{coverUrl,jdbcType=VARCHAR},
+      praisenum = #{praisenum,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      price = #{price,jdbcType=INTEGER},
+      dest_id = #{dest.id,jdbcType=INTEGER},
+      state = #{state,jdbcType=VARCHAR},
+      sequence = #{sequence,jdbcType=VARCHAR},
+      theme_id = #{theme.id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, coverUrl, praisenum, name, price, dest_id, state, sequence, theme_id
+    from attraction_ticket
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select
+    at.id,
+    at.coverUrl,
+    at.praisenum,
+    at.name,
+    at.price,
+    dest.id dest_id,
+    dest.name dest_name,
+    at.state,
+    at.sequence,
+    theme.id theme_id,
+    theme.type theme_type,
+    theme.name theme_name
+    from attraction_ticket at LEFT JOIN destination dest ON  at.dest_id=dest.id
+    LEFT JOIN destination_commend_theme theme ON  at.theme_id = theme.id
+  </select>
+
+
+</mapper>

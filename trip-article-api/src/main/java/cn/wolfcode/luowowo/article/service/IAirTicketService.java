@@ -21,4 +21,12 @@ public interface IAirTicketService {
      */
     List<AirTicket> search(String orgCity, String dstCity, String depTime);
 
+    /**
+     * 根据id查询航班信息
+     * @param id
+     * @return
+     */
+    AirTicket selectById(int id);
+
+   /* List<AirTicket> selectByIds(List<Long> ids);*/
 }

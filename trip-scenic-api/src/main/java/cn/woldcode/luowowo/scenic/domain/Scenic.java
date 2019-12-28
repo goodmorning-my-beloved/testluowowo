@@ -13,8 +13,35 @@ public class Scenic extends BaseDomain {
     // 景点名
     private String name;
 
+    // 景点英文名
+    private String enName;
+
     // 景点介绍
     private String intro;
+
+    // 景点电话
+    private String tel;
+
+    // 景点网址
+    private String url;
+
+    // 景点用时参考
+    private String travelTime;
+
+    //景点简介
+    private String summary;
+
+    // 景点交通内容
+    private String content;
+
+    // 景点门票
+    private String ticketInfo;
+
+    // 子景点
+    private List<Scenic> children;
+
+    // 上级景点 Id
+    private String parentId;
 
     // 景点所在的目的地
     private Destination destination;

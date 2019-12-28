@@ -151,5 +151,10 @@ public class UserInfoServcieImpl implements IUserInfoService {
         userInfoMapper.updatePassword(id,password);
     }
 
+    @Override
+    public void updateUserImg(String headImgUrl, Long id) {
+        userInfoMapper.updateUserImg(headImgUrl,id);
+    }
+
 
 }

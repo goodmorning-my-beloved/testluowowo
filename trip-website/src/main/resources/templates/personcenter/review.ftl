@@ -72,7 +72,7 @@
                         </li>
                         <li class="account _j_hoverclass" data-hoverclass="on" id="pnl_user_set">
                             <span class="t"><a class="infoItem" href="javascript:;"><img
-                                        src="http://b2-q.mafengwo.net/s12/M00/35/B7/wKgED1uqIs-AMYTwAAAX-VIKIo0071.png?imageMogr2%2Fthumbnail%2F%2132x32r%2Fgravity%2FCenter%2Fcrop%2F%2132x32%2Fquality%2F90"
+                                        src="${userInfo.headImgUrl}"
                                         width="32" height="32" align="absmiddle"><b></b></a></span>
                             <div class="uSet c">
                                 <div class="asset">
@@ -122,7 +122,7 @@
                         <li class="on"><a class="tags_link" href="/review" title="我的点评">我的点评</a></li>
                         <li id="_j_pathnav"><a class="tags_link" href="/travelcollection" title="我的收藏">我的收藏</a>
                         </li>
-                        <li><a class="tags_link" href="javascript:;" title="我的订单">我的订单</a></li>
+                        <li><a class="tags_link" href="/mytivketorder" title="我的订单">我的订单</a></li>
                         <li><a class="tags_link" href="/setting" title="设置">设置</a></li>
                     </ul>
                 </div>
@@ -163,7 +163,7 @@
                             data-lng="98.30631" data-lat="8.0986" data-typeid="2" data-itemid="191713351">
                             <span class="cover">
                                 <a href="javascript:;" target="_blank"><img
-                                        src="http://p1-q.mafengwo.net/s12/M00/74/F6/wKgED1urQOSAczCIAANNAp1Y29o80.jpeg?imageMogr2%2Fthumbnail%2F%21120x120r%2Fgravity%2FCenter%2Fcrop%2F%21120x120%2Fquality%2F90"
+                                        src="${comment.imgs}"
                                         style="width: 120px;height: 120px;"></a>
                             </span>
                             <div class="poi-detail">
@@ -171,7 +171,7 @@
                                     <a class="icon-ding disabled"></a>
                                     <span class="_j_dingnum hide">0</span>
                                 </span>
-                                <h3 class="title"><a href="javascript:;" target="_blank">普吉岛机场酒店<br><span>Phuket
+                                <h3 class="title"><a href="javascript:;" target="_blank">${comment.scenic}<br><span>Phuket
                                             Airport Inn</span></a></h3>
                                 <div class="rating" data-star="3" data-originstar="3">
                                     <div class="review-score" data-japp="comment_dialog" data-jappconf="path"
@@ -187,7 +187,7 @@
                                     </div>
                                 </div>
                                 <div class="poi-rev _j_comment">
-                                    普吉岛机场酒店 Phuket Airport Inn
+                                    ${comment.content}
                                 </div>
                             </div>
                             <div class="poi-btns">
@@ -207,7 +207,7 @@
                                 </div>
                             </div>
                             <div class="poi-btns">
-                                <span class="time">2019-05-22 17:52:19</span> </div>
+                                <span class="time">${comment.createTime?string('yyyy-MM-dd')}</span> </div>
                             <div class="reply hide">
                                 <ul>
 

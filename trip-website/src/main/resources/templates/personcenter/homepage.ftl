@@ -19,6 +19,7 @@
                     if(data.success){
                         $("#thumbnum").html(data.data.thumbsupnum);
                         popup("顶成功啦"); //
+                        window.location.reload();
                     }else{
                         if(data.code == 102){
                             popup(data.msg);
@@ -96,7 +97,7 @@
                         </li>
                         <li class="account _j_hoverclass" data-hoverclass="on" id="pnl_user_set">
                             <span class="t"><a class="infoItem" href="javascript:;"><img
-                                        src="http://b2-q.mafengwo.net/s12/M00/35/B7/wKgED1uqIs-AMYTwAAAX-VIKIo0071.png?imageMogr2%2Fthumbnail%2F%2132x32r%2Fgravity%2FCenter%2Fcrop%2F%2132x32%2Fquality%2F90"
+                                        src="${userInfo.headImgUrl}"
                                         width="32" height="32" align="absmiddle"><b></b></a></span>
                             <div class="uSet c">
                                 <div class="asset">
@@ -133,7 +134,7 @@
                         <li><a class="tags_link" href="/mytravelnotes" title="我的游记">我的游记</a></li>
                         <li><a class="tags_link" href="/review" title="我的点评">我的点评</a></li>
                         <li id="_j_pathnav"><a class="tags_link" href="/travelcollection" title="我的收藏">我的收藏</a></li>
-                        <li><a class="tags_link" href="javascript:;" title="我的订单">我的订单</a></li>
+                        <li><a class="tags_link" href="/mytivketorder" title="我的订单">我的订单</a></li>
                         <li><a class="tags_link" href="/setting" title="设置">设置</a></li>
                     </ul>
                 </div>
@@ -143,11 +144,11 @@
             <div class="side_bar flt1">
                 <div class="MAvatar">
                     <div class="MAvaImg hasAva">
-                        <img src="${userinfo.headImgUrl}"
+                        <img src="${userInfo.headImgUrl}"
                             height="120" width="120" alt="蚂蜂测试窝用户"><a href="javascript:;" class="MAvaUp"><i
                                 class="Mphoto"></i></a>
                     </div>
-                    <div class="MAvaName">${userinfo.nickname}
+                    <div class="MAvaName">${userInfo.nickname}
 
                         <i class="MGenderMale"></i>
                     </div>
@@ -159,13 +160,13 @@
                     </div>
                     <div class="MAvaInfo clearfix MAvaMyInfo">
                         <span class="MAvaLevel flt1">等级：<a href="javascript:;" title="Lv.5"
-                                target="_blank">${userinfo.level}</a></span>
-                        <span class="MAvaPlace flt1" title="广州">现居：${userinfo.city}</span> <span class="MAvaSet"><a title="设置"
+                                target="_blank">${userInfo.level}</a></span>
+                        <span class="MAvaPlace flt1" title="广州">现居：${userInfo.city}</span> <span class="MAvaSet"><a title="设置"
                                 href="javascript:;" target="_blank"></a></span>
                     </div>
                     <div id="_j_profilearea" class="MAvaProfile">
                         <div class="MProfile _j_showintrobox" data-intro="sdddds" style="display: block;">
-                            <pre>${(userinfo.info)!}</pre>
+                            <pre>${(userInfo.info)!}</pre>
                         </div>
                         <div class="MAvaInput _j_inputarea hide">
                             <textarea id="_j_introarea" placeholder="例：摄影师/旅居澳洲/潜水爱好者" maxlength="100"></textarea>
@@ -175,11 +176,11 @@
                     </div>
                     <div class="MAvaMore clearfix">
                         <div class="MAvaNums">
-                            <strong><a href="javascript:;" target="_blank">13</a></strong>
+                            <strong><a href="javascript:;" target="_blank">${facousNum}</a></strong>
                             <p>关注</p>
                         </div>
                         <div class="MAvaNums">
-                            <strong><a href="javascript:;" target="_blank">0</a></strong>
+                            <strong><a href="javascript:;" target="_blank">${fansNum}</a></strong>
                             <p>粉丝</p>
                         </div>
                         <div class="MAvaNums last">
@@ -194,63 +195,12 @@
                         <div class="MUsersAtom">
                             <ul class="clearfix _j_followlist">
                                 <li>
+                                    <#list userFacousInfo as facous>
                                     <a href="javascript:;" target="_blank">
-                                        <img src="http://b4-q.mafengwo.net/s12/M00/03/71/wKgED1wW0XCALX2IAADYXbhIC3Q65.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"
-                                            height="48" width="48" alt="桃小桃和她的喵" title="桃小桃和她的喵">
+                                        <img src="${facous.headImgUrl}"
+                                            height="48" width="48" alt="桃小桃和她的喵" title="${facous.nickname}">
                                     </a>
-                                    <p><a href="javascript:;" target="_blank" title="桃小桃和她的喵">桃小桃和她的喵</a></p>
-                                </li>
-                                <li>
-                                    <a href="javascript:;" target="_blank">
-                                        <img src="http://p3-q.mafengwo.net/s8/M00/ED/05/wKgBpVYUydOAKdaaAAlyxu5BVPc94.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"
-                                            height="48" width="48" alt="云云" title="云云">
-                                    </a>
-                                    <p><a href="javascript:;" target="_blank" title="云云">云云</a></p>
-                                </li>
-                                <li>
-                                    <a href="javascript:;" target="_blank">
-                                        <img src="http://b1-q.mafengwo.net/s12/M00/B0/D7/wKgED1xEOeCAepriAADB6P4hrk080.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"
-                                            height="48" width="48" alt="文刀水羊" title="文刀水羊">
-                                    </a>
-                                    <p><a href="javascript:;" target="_blank" title="文刀水羊">文刀水羊</a></p>
-                                </li>
-                                <li>
-                                    <a href="javascript:;" target="_blank">
-                                        <img src="http://n4-q.mafengwo.net/s11/M00/1A/8F/wKgBEFr-7WKAfFPiAABz4qeKy-c65.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"
-                                            height="48" width="48" alt="翔太" title="翔太">
-                                    </a>
-                                    <p><a href="javascript:;" target="_blank" title="翔太">翔太</a></p>
-                                </li>
-                                <li>
-                                    <a href="javascript:;" target="_blank">
-                                        <img src="http://b3-q.mafengwo.net/s9/M00/B2/19/wKgBs1aVP9uAeflmAASv31idm1M01.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"
-                                            height="48" width="48" alt="Sordino_Li" title="Sordino_Li">
-                                    </a>
-                                    <p><a href="javascript:;" target="_blank" title="Sordino_Li">Sordino_Li</a></p>
-                                </li>
-                                <li>
-                                    <a href="javascript:;" target="_blank">
-                                        <img src="http://n1-q.mafengwo.net/s9/M00/D3/93/wKgBs1da3ceAFTPMAACjdPpGr3M65.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"
-                                            height="48" width="48" alt="butterflyvalley" title="butterflyvalley">
-                                    </a>
-                                    <p><a href="javascript:;" target="_blank"
-                                            title="butterflyvalley">butterflyvalley</a></p>
-                                </li>
-                                <li>
-                                    <a href="javascript:;" target="_blank">
-                                        <img src="http://b4-q.mafengwo.net/s9/M00/C3/D2/wKgBs1hYqd-AIbARAAClh_wvlnc64.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"
-                                            height="48" width="48" alt="幸存者格蕾丝" title="幸存者格蕾丝">
-                                    </a>
-                                    <p><a href="javascript:;" target="_blank" title="幸存者格蕾丝">幸存者格蕾丝</a></p>
-                                </li>
-                                <li>
-                                    <a href="javascript:;" target="_blank">
-                                        <img src="http://p1-q.mafengwo.net/s10/M00/5F/95/wKgBZ1mWdF6AFf2fAAB1tTikS6w24.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"
-                                            height="48" width="48" alt="法系强迫症" title="法系强迫症">
-                                    </a>
-                                    <p><a href="javascript:;" target="_blank" title="法系强迫症">法系强迫症</a></p>
-                                </li>
-
+                                    </#list>
                             </ul>
                         </div>
                         <!-- <div class="MSimplePages _j_follow_page_action" data-total="13"><span
@@ -267,7 +217,7 @@
                                 <li data-order="1" data-top="0">
                                     <dl>
                                         <dt>
-                                            <a href="javascript:;" target="_blank" id="_j_coverlink_12894894"><img
+                                            <a href="/travel/detail?id=${map.travel.id}" target="_blank" id="_j_coverlink_12894894"><img
                                                     src="${map.travel.coverUrl!}"
                                                     height="400" width="680" alt="封面"></a>
                                             <div class="hover_item">

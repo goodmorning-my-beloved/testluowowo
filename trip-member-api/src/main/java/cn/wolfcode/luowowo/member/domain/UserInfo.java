@@ -3,6 +3,7 @@ package cn.wolfcode.luowowo.member.domain;
 import cn.wolfcode.luowowo.common.domain.BaseDomain;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.Date;
  */
 @Setter
 @Getter
+@ToString
 public class UserInfo extends BaseDomain {
 
     public static final int GENDER_SECRET = 0; //保密
