@@ -68,5 +68,6 @@ public class ScenicController {
         model.addAttribute("comments", scenicCommentService.selectCommentByScenicId(id));
 
         return "scenic/detail";
+
     }
 }
