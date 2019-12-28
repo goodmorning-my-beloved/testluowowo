@@ -31,6 +31,9 @@ public class ScenicComment implements Serializable{
     // 景点
     private String scenic;
 
+    // 景点封面
+    private String coverUrl;
+
     // 用户id
     private Long userId;
 
