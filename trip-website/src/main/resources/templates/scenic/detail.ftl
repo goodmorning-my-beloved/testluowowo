@@ -27,6 +27,9 @@
     <#include "../common/navbar.ftl">
 
 <!----------------------------------------->
+<form action="/coverImageUpload" method="post" id="coverForm">
+    <input type="file" name="pic" id="coverBtn" style="display: none;">
+</form>
 
 <div class="container" data-cs-t="景点详情页">
 
@@ -212,10 +215,7 @@
         <!-- 简介 S -->
         <div class="mod mod-detail" data-cs-p="概况">
             <div class="summary">
-                ·广州塔是广州的地标，塔高600米，为国内第一高塔，可以俯瞰广州全景。<br>
-                ·其头尾相当，腰身玲珑细长，又有“小蛮腰”之称，到晚上会亮灯，即使不游塔，也可来此拍摄外观。<br>
-                ·包括摩天轮、珠江摄影观景平台、蜘蛛侠栈道等景点，大部分以观景摄影为主。<br>
-                ·一般4点半-5点可以到达电视塔顶，观看日落及夜景。
+                ${scenic.summary!}
             </div>
 
             <ul class="baseinfo clearfix">
@@ -416,11 +416,13 @@
                                     </p>
 
                                     <div class="rev-img">
+                                        <#if c.imgList??>
                                         <#list c.imgList as imgs>
                                             <a href="/photo/poi/25091_440424016.html" target="_blank"><img
-                                                    src="${imgs.img}"
+                                                    src="${(imgs.img)!}"
                                                     width="200" height="120"></a>
                                         </#list>
+                                        </#if>
                                     </div>
 
                                     <div class="info clearfix">
@@ -433,20 +435,20 @@
 
                                     <div class="comment add-reply ">
                                         <ul class="more_reply_box comment_list">
-                                        <#--<#if c.commentList!=null>-->
-                                        <#--<#list c.commentList as list>
+                                        <#if c.commentList??>
+                                        <#list c.commentList as list>
                                         <li>
                                             <a href="/u/63107989.html" target="_blank">
                                                 <img src="http://b4-q.mafengwo.net/s9/M00/DA/0D/wKgBs1g919mAVdRVAACpgsqFw_Y38.jpeg?imageMogr2%2Fthumbnail%2F%2116x16r%2Fgravity%2FCenter%2Fcrop%2F%2116x16%2Fquality%2F90"
                                                      width="16" height="16">${list.username}
                                             </a>
-                                            ：${list.comment}
+                                            ：${list.content}
                                             <a class="_j_reply re_reply" data-id="625204" data-userId="${c.userId}" name="re_reply"
                                                data-username="${c.username}" title="添加回复">回复</a>
                                             <br><span class="time">${list.createTime?string('dd.MM.yyyy HH:mm:ss')}</span>
                                         </li>
-                                        </#list>-->
-                                        <#--</#if>-->
+                                        </#list>
+                                        </#if>
                                         </ul>
 
                                         <div class="add-comment hide reply-form">
@@ -494,21 +496,16 @@
                             <em>*</em>为必填选项
                         </h2>
                         <form id="editForm" action="/scenic/addAnswer" method="post" class="_j_commentdialogform" data-typeid="3">
-
+                            <input type="hidden" name="imgs" id="coverValue" >
                             <input type="hidden" name="scenicId" id="scenicId" value="${scenic.id}">
                         <#--利用当前登录用户赋值吧-->
                         <#--<input type="hidden" name="userId" id="userid" value="${user.id}">-->
                             <input type="hidden" name="type" value="0" id="commentType">
-                            <input type="hidden" name="refUserId" id="refAuthorId">
-                            <input type="hidden" name="refUsername" id="refUsername">
-                            <input type="hidden" name="refCommentId" id="commentid">
-                            <textarea style="display:none" name="comment" id="comment_reply"></textarea>
+                            <input type="hidden" name="refComment.userId" id="refAuthorId">
+                            <input type="hidden" name="refComment.username" id="refUsername">
+                            <input type="hidden" name="refComment.id" id="commentid">
+                            <textarea style="display:none" name="content" id="comment_reply"></textarea>
 
-
-                        <#--<input type="hidden" name="commentid" id="commentid" value="">-->
-                            <input type="hidden" name="act" value="updateComment">
-                            <input type="hidden" name="poiid" value="25091">
-                            <input type="hidden" name="source" value="2">
                             <div class="review-item item-star">
                                 <div class="label"><em>*</em>总体评价</div>
                                 <div class="review-star _j_rankblock" data-star="" name="rank">
@@ -583,7 +580,7 @@
                             <div class="review-item item-comment">
                                 <div class="label"><em>*</em>评价</div>
                                 <div class="content">
-                                <textarea class="_j_commentarea" name="comment" essential="1" data-inputname="点评内容"
+                                <textarea class="_j_commentarea" name="content" essential="1" data-inputname="点评内容"
                                           placeholder="详细、客观、真实，130字以上为佳！上传图片会加分哦！" data-minlen="15"
                                           data-maxlen="1000"></textarea>
                                     <p class="_j_commentcounttip">15-1000个字</p>
@@ -604,9 +601,7 @@
                                 </div>
                                 <input type="button" id="file_upload" value="选择图片">
 
-                                <form action="/coverImageUpload" method="post" id="coverForm">
-                                    <input type="file" name="pic" id="coverBtn" style="display: none;">
-                                </form>
+
                                 <script>
                                     $(function () {
                                         $("#file_upload").click(function () {
@@ -614,13 +609,15 @@
                                         })
                                         $("#coverBtn").change(function () {
                                             var hv;
+                                            var value = ($("._j_commentarea").val());
+                                            $("#comment_reply").val(value);
                                             if(this.value){
                                                 $("#coverForm").ajaxSubmit(function (data) {
                                                     console.log(data);
                                                     hv=data;
                                                     //$(".choseBtn").html(" + 重新选择");
                                                     $("#headImage").attr("src", "/" +data);
-                                                    //$("#coverValue").val("/" + data);
+                                                    $("#coverValue").val("/" + data);
 
                                                 })
                                             }
@@ -628,13 +625,6 @@
                                     })
 
                                 </script>
-
-
-
-
-
-
-
 
                                <#-- <div class="content">
                                     <dl class="upload-box _j_piclist">

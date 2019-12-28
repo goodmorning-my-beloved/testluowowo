@@ -28,6 +28,9 @@ public class Scenic extends BaseDomain {
     // 景点用时参考
     private String travelTime;
 
+    //景点简介
+    private String summary;
+
     // 景点交通内容
     private String content;
 

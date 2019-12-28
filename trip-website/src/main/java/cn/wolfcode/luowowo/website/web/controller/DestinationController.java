@@ -40,6 +40,7 @@ public class DestinationController {
     public Object index(Model model){
         model.addAttribute("hotRegions", regionService.queryHotRegions());
 
+        //主题推荐
         List<DestinationCommendTheme> list = destinationCommendThemeService.selectAll();
         List<DestinationCommendTheme> yearSuitableList = new ArrayList<>();//全年适宜
         List<DestinationCommendTheme> seasonList = new ArrayList<>();//季节
@@ -68,8 +69,17 @@ public class DestinationController {
         model.addAttribute("seasonList",seasonList);
         model.addAttribute("wayTravelList",wayTravelList);
         model.addAttribute("holidayList",holidayList);
+
+        //当季推荐
+        List<DestinationFilter> filterList = destinationFilterService.selectAll();
+        model.addAttribute("filterList",filterList);
+
         return "destination/index";
     }
+
+
+
+
 
     @RequestMapping("/destFilter")
     public Object destFilter(Model model,@ModelAttribute("qo") DestinationFilterQuery qo){
@@ -115,7 +125,7 @@ public class DestinationController {
     public Object getlist(Model model,@ModelAttribute("qo") DestinationFilterQuery qo){
         PageInfo pageInfo = destinationFilterService.query(qo);
         model.addAttribute("pageInfo",pageInfo);
-        return "";
+        return "destination/destFilterTpl";
     }
 
 

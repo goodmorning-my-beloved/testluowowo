@@ -12,4 +12,6 @@ public interface IScenicCommentRepository extends MongoRepository<ScenicComment,
     List<ScenicComment> findByScenicId(Long id);
 
     List<ScenicComment> findByUserId(Long id);
+    List<ScenicComment> findByScenicIdAndRefId(Long scenicId, String refId);
+    List<ScenicComment> findByRefId(String id);
 }
