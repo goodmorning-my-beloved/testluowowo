@@ -94,5 +94,27 @@
           </if>
         </where>
   </select>
+    <select id="selectById" resultMap="BaseResultMap">
+        select at.id, at.aircode, at.startCityId, at.startDate, at.arriveCityId, at.startTime, at.arriveTime,
+        at.arriveDate, at.planeType, sac.name sac_name, sac.airport sac_airport, sac.pinyin sac_pinyin,
+        aac.name aac_name, aac.airport aac_airport, aac.pinyin aac_pinyin
+        from air_ticket at LEFT JOIN air_city sac on at.startCityId = sac.id
+        LEFT JOIN air_city aac ON at.arriveCityId = aac.id
+        where at.id=#{id};
+    </select>
+   <!-- <select id="selectByIds" resultMap="BaseResultMap">
+        select at.id, at.aircode, at.startCityId, at.startDate, at.arriveCityId, at.startTime, at.arriveTime,
+        at.arriveDate, at.planeType, sac.name sac_name, sac.airport sac_airport, sac.pinyin sac_pinyin,
+        aac.name aac_name, aac.airport aac_airport, aac.pinyin aac_pinyin
+        from air_ticket at LEFT JOIN air_city sac on at.startCityId = sac.id
+        LEFT JOIN air_city aac ON at.arriveCityId = aac.id
+        <where>
+            at.id in
+            <foreach collection="array" open="(" separator="," close=")" item="ids">
+                #{ids}
+            </foreach>
+        </where>
+
+    </select>-->
 
 </mapper>

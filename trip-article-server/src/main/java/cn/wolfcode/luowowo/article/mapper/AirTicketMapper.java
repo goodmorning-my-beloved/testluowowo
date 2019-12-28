@@ -20,4 +20,8 @@ public interface AirTicketMapper {
     List<AirTicket> selectStartSiteByIshot();
 
     List<AirTicket> search(@Param("orgCity") String orgCity, @Param("dstCity") String dstCity, @Param("depTime") String depTime);
+    //订购查询
+    AirTicket selectById(int id);
+
+   /* List<AirTicket> selectByIds(List<Long> ids);*/
 }

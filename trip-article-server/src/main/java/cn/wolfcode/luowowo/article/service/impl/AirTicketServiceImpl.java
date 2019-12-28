@@ -51,4 +51,14 @@ public class AirTicketServiceImpl implements IAirTicketService{
     public List<AirTicket> search(String orgCity, String dstCity, String depTime) {
         return airTicketMapper.search(orgCity, dstCity, depTime);
     }
+
+    @Override
+    public AirTicket selectById(int id) {
+        return airTicketMapper.selectById(id);
+    }
+
+   /* @Override
+    public List<AirTicket> selectByIds(List<Long> ids) {
+        return airTicketMapper.selectByIds(ids);
+    }*/
 }

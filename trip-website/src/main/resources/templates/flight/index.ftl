@@ -134,7 +134,7 @@
             })
 
             /*订票机票点击事件*/
-            $(".btn_searchbuy").click(function () {
+            /*$(".btn_searchbuy").click(function () {
                 var r = confirm("确认是否订购该机票？");
                 if (r == true)
                 {
@@ -143,9 +143,19 @@
                 {
                     alert("取消预订!");
                 }
-            })
+            })*/
+           $("#airinfo").delegate("a","click",function () {
+               var h = $("#xxx").html();
+               console.log(h);
+               window.location.href="http://localhost:8888/flight/order?id="+h;
+           })
         });
+
+
+
+
     </script>
+
 </head>
 
 <body>
@@ -413,13 +423,23 @@
                             <p class="sub ng-binding" render-html="list.arriveCity.airport">降落机场</p>
                         </div>
                         <div class="item item-btn btn_search btn_hiddenbuy">
-                            <a class="btn_searchbuy">订购</a>
+                            <span id="xxx" style="display:none" render-html="list.id"></span>
+                            <a class="btn_searchbuy dinggoua">订购</a>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+<script>
+    $(function () {
+        /*$("#airinfo").delegate("dinggoua","click",function () {
+            console.log(1);
+        })*/
+
+    })
+</script>
 <#-- ----------------------------------------------- -->
 </div>
 <#include "../common/footer.ftl">

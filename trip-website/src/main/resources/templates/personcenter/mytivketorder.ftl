@@ -144,6 +144,7 @@
 
 
     <table  style="width: 60%;margin:auto">
+        <th>景点门票订单信息</th>
         <tr bgcolor="#d8bfd8">
             <th>封面</th>
             <th>景点名称</th>
@@ -169,6 +170,45 @@
                 $("#deleteOrder").click(function () {
                     var id = $(this).data("id");
                     $.get("/deletemytivketorder",{id:id},function (data) {
+                        if(data.success){
+                            alert("取消订单成功");
+                            window.location.reload();
+                        }else{
+                            alert("删除失败,稍后重试");
+                        }
+                    })
+                })
+            })
+        </script>
+    </table>
+    <#--航班-->
+    <table  style="width: 60%;margin:auto">
+       <th>航班订单信息</th>
+        <tr bgcolor="#d8bfd8">
+            <th>航班号</th>
+            <th>机型</th>
+            <th>出发时间</th>
+            <th>到达时间</th>
+            <th>下单时间</th>
+            <th>编辑</th>
+        </tr>
+        <#list airlist as order>
+            <tr style="text-align: center">
+                <td>${(order.airticket.aircode)!}</td>
+                <td>${(order.airticket.planeType)!}</td>
+                <td>${(order.airticket.startDate)!?string("yyyy-MM-dd")} +${order.airticket.startTime}</td>
+                <td>${(order.airticket.arriveDate)!?string("yyyy-MM-dd")} + ${order.airticket.arriveTime}</td>
+                <td>${order.creatime?string("yyyy-MM-dd HH:mm:ss")!}</td>
+                <td>
+                    <a id="deleteOrder1" href="#" data-id="${order.id}">取消订单</a>
+                </td>
+            </tr>
+        </#list>
+        <script>
+            $(function () {
+                $("#deleteOrder1").click(function () {
+                    var id = $(this).data("id");
+                    $.get("/deletemytivketorder1",{id:id},function (data) {
                         if(data.success){
                             alert("取消订单成功");
                             window.location.reload();
