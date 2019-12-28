@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.luowowo.article.mapper.AirTicketOrderMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.luowowo.article.domain.AirTicketOrder" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="ordernum" property="ordernum" jdbcType="INTEGER" />
+    <result column="creatime" property="creatime" jdbcType="TIMESTAMP" />
+    <result column="price" property="price" jdbcType="INTEGER" />
+    <association property="user" javaType="cn.wolfcode.luowowo.member.domain.UserInfo" columnPrefix="user_">
+        <id column="id" property="id"/>
+        <result property="nickname" column="nickname"/>
+    </association>
+     <association property="airticket" javaType="cn.wolfcode.luowowo.article.domain.AirTicket" columnPrefix="air_">
+         <id column="id" property="id"/>
+         <result property="startDate" column="startDate"/>
+         <result property="startTime" column="startTime"/>
+         <result property="arriveDate" column="arriveDate"/>
+         <result property="arriveTime" column="arriveTime"/>
+         <result property="planeType" column="planeType"/>
+         <result property="startCity.id" column="startCity"/>
+         <result property="aircode" column="aircode"/>
+     </association>
+
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from air_ticket_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.wolfcode.luowowo.article.domain.AirTicketOrder" useGeneratedKeys="true" keyProperty="id" >
+    insert into air_ticket_order (user_id, airticket_id, ordernum, creatime, price)
+             values (#{user.id}, #{airticket.id}, #{ordernum}, #{creatime}, #{price})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.luowowo.article.domain.AirTicketOrder" >
+    update air_ticket_order
+    set user_id = #{user_id,jdbcType=BIGINT},
+      airticket_id = #{airticket_id,jdbcType=BIGINT},
+      ordernum = #{ordernum,jdbcType=INTEGER},
+      creatime = #{creatime,jdbcType=TIMESTAMP},
+      price = #{price,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    	SELECT
+	ato.id,
+	ato.ordernum,
+	ato.creatime,
+	ato.price,
+	user.id user_id,
+	user.nickname user_nickname,
+	at.id air_id,
+	at.aircode air_aircode,
+	at.startCityId air_startCityId,
+	at.startDate air_startDate,
+	at.startTime air_startTime,
+	at.arriveCityId air_arriveCityId,
+	at.arriveDate air_arriveDate,
+	at.arriveTime air_arriveTime,
+	at.planeType air_planeType
+	FROM air_ticket_order ato LEFT JOIN air_ticket at on ato.airticket_id=at.id
+							  LEFT JOIN userinfo user on ato.user_id=user.id
+	where ato.id=#{id};
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    	SELECT
+	ato.id,
+	ato.ordernum,
+	ato.creatime,
+	ato.price,
+	user.id user_id,
+	user.nickname user_nickname,
+	at.id air_id,
+	at.aircode air_aircode,
+	at.startCityId air_startCityId,
+	at.startDate air_startDate,
+	at.startTime air_startTime,
+	at.arriveCityId air_arriveCityId,
+	at.arriveDate air_arriveDate,
+	at.arriveTime air_arriveTime,
+	at.planeType air_planeType
+	FROM air_ticket_order ato LEFT JOIN air_ticket at on ato.airticket_id=at.id
+							  LEFT JOIN userinfo user on ato.user_id=user.id
+	where ato.id=#{id};
+  </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT
+	ato.id,
+	ato.ordernum,
+	ato.creatime,
+	ato.price,
+	user.id user_id,
+	user.nickname user_nickname,
+	at.id air_id,
+	at.aircode air_aircode,
+	at.startCityId air_startCityId,
+	at.startDate air_startDate,
+	at.startTime air_startTime,
+	at.arriveCityId air_arriveCityId,
+	at.arriveDate air_arriveDate,
+	at.arriveTime air_arriveTime,
+	at.planeType air_planeType
+	FROM air_ticket_order ato LEFT JOIN air_ticket at on ato.airticket_id=at.id
+							  LEFT JOIN userinfo user on ato.user_id=user.id
+	where ato.user_id=#{id};
+    </select>
+</mapper>
