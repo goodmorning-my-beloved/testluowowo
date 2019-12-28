@@ -60,6 +60,12 @@ public class ScenicServiceImpl implements IScenicCommentService{
     }
 
     @Override
+    public List<ScenicComment> selectCommentById(Long id) {
+        return repository.findByUserId(id);
+
+    }
+
+    @Override
     public void addAnswer(ScenicComment comment, UserInfo userInfo) {
         comment.setUsername(userInfo.getNickname());
         comment.setHeadUrl(userInfo.getHeadImgUrl());

@@ -1,7 +1,9 @@
 package cn.wolfcode.luowowo.website.web.controller;
 
 import cn.wolfcode.luowowo.cache.service.ITravelStatisVOredisService;
+import cn.wolfcode.luowowo.comment.domain.ScenicComment;
 import cn.wolfcode.luowowo.comment.domain.TravelComment;
+import cn.wolfcode.luowowo.comment.service.IScenicCommentService;
 import cn.wolfcode.luowowo.comment.service.IStrategyCommentService;
 import cn.wolfcode.luowowo.comment.service.ITravelCommentService;
 import cn.wolfcode.luowowo.member.domain.UserInfo;
@@ -23,6 +25,8 @@ public class ReviewController {
     private ITravelCommentService travelCommentService;
     @Reference
     private IStrategyCommentService strategyCommentService;
+    @Reference
+    private IScenicCommentService scenicCommentService;
 
     @RequestMapping("/review")
     @RequireLogin
@@ -30,12 +34,16 @@ public class ReviewController {
         //用户信息
         model.addAttribute("userInfo",userInfo);
         //查询用户的点评攻略数
-        int commentNum=travelStatisVOredisService.selectUserCommentNum(userInfo.getId());
+       /* int commentNum=travelStatisVOredisService.selectUserCommentNum(userInfo.getId());
         model.addAttribute("commentNum",commentNum);
         //查询用户点评的的游记
         List<TravelComment> comments=travelCommentService.selectCommentByUserid(userInfo.getId());
         //页面需要游记的封面
-        model.addAttribute("comments",comments);
+        model.addAttribute("comments",comments);*/
+        List<ScenicComment> scenicComments = scenicCommentService.selectCommentById(userInfo.getId());
+        //查询用户的点评攻略数
+        model.addAttribute("commentNum",scenicComments.size());
+        model.addAttribute("comments",scenicComments);
         return "/personcenter/review";
     }
 }

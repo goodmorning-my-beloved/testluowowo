@@ -10,6 +10,8 @@ import java.util.List;
 @Repository
 public interface IScenicCommentRepository extends MongoRepository<ScenicComment,String> {
     List<ScenicComment> findByScenicId(Long id);
+
+    List<ScenicComment> findByUserId(Long id);
     List<ScenicComment> findByScenicIdAndRefId(Long scenicId, String refId);
     List<ScenicComment> findByRefId(String id);
 }

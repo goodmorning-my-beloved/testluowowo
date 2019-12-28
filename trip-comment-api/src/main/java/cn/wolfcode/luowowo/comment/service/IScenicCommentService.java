@@ -13,6 +13,13 @@ public interface IScenicCommentService {
      */
     public List<ScenicComment> selectCommentByScenicId(Long id);
 
+    /**
+     * 根据用户查评论
+     * @param id
+     * @return
+     */
+    List<ScenicComment> selectCommentById(Long id);
+
 
     /**
      *  增加评论
