@@ -35,8 +35,17 @@ public class Answer implements Serializable {
 
     private int thumbsupnum;//顶的数量
 
+    //private int replynum;//回答的次数
+
     private String summary;//部分回答的内容
 
     private String content;
 
+    private Answer refAnswer;
+
+    private int type = Answer.ANSWER_TYPE_COMMON;
+
+    public static final int ANSWER_TYPE_ANSWER = 1;//回答的回答
+
+    public static final int ANSWER_TYPE_COMMON = 0;//普通回答
 }

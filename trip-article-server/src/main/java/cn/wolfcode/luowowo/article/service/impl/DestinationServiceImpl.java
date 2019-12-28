@@ -233,4 +233,9 @@ public class DestinationServiceImpl implements IDestinationService {
         return list;
     }
 
+    @Override
+    public Destination getByDestName(String name) {
+        return destinationMapper.selectByDestName(name);
+    }
+
 }

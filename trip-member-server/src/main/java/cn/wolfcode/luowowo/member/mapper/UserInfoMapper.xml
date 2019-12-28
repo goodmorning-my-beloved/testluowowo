@@ -44,6 +44,21 @@
       state = #{state,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
+    <update id="updateUserInfo">
+      update userinfo set
+        nickname=#{nickname},
+        gender=#{gender},
+        city=#{city},
+        birthday=#{birthday},
+        info=#{info}
+      where id=#{id}
+    </update>
+  <update id="updatePassword">
+    update userinfo SET password=#{password} where id=#{id}
+  </update>
+  <update id="updateUserImg">
+    update userinfo SET headImgUrl=#{headImgUrl} where id=#{id}
+  </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select id, nickname, phone, email, password, level, gender, city, birthday, headImgUrl, 
     info, state
@@ -59,8 +74,13 @@
       SELECT count(id) from userinfo where phone=#{phone}
     </select>
   <select id="selectByUsernameAndPassword" resultType="cn.wolfcode.luowowo.member.domain.UserInfo">
-    select id, nickname,email, gender, city,headImgUrl,
+    select id, nickname,email, gender, city,headImgUrl,level,
       info, state
     from userinfo where phone=#{username} and password=#{password}
+  </select>
+  <select id="selectById" resultType="cn.wolfcode.luowowo.member.domain.UserInfo">
+    select id, nickname,email, gender, city,headImgUrl,
+      info, state
+    from userinfo where id=#{id}
   </select>
 </mapper>

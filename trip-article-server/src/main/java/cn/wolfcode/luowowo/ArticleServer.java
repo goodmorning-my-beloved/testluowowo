@@ -9,9 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableDubbo
 @MapperScan("cn.wolfcode.luowowo.article.mapper")
 public class ArticleServer {
-
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         SpringApplication.run(ArticleServer.class, args);
     }
 }

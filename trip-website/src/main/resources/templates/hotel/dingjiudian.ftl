@@ -190,24 +190,24 @@
     <form class="form-hotel" action="/hotel/h" method="get" id="editForm">
     <div class="hotel-searchbar clearfix">
         <div class="hs-item hs-item-search" id="_j_hotel_search">
-            <input type="text" value="" id="_j_search_input" autocomplete="off" name="name">
+            <input type="text" value="${(qo.name)!}" id="_j_search_input" autocomplete="off" name="name">
             <div class="hotel-suggest simsun" id="_j_search_suggest" style="display:none;"></div>
             <a class="hs-icon hs-icon-search" href="javascript:;" id="_j_search_btn"></a>
         </div>
         <div class="hs-item hs-item-date-wrapper" id="_j_booking_date">
             <div class="hs-item hs-item-date" id="_j_check_in_date">
-                <span></span>
+                <span>${(qo.checkIn)?string("yyyy-MM-dd")}</span>
                 <input type="text" placeholder="入住日期" readonly="" id="dp1563708930698" class="hasDatepicker" name="checkIn">
                 <i class="hs-icon hs-icon-date"></i>
             </div>
             <div class="hs-item hs-item-date" id="_j_check_out_date">
-                <span></span>
+                <span>${(qo.checkOut)?string("yyyy-MM-dd")}</span>
                 <input type="text" placeholder="离店日期" readonly="" id="dp1563708930699" class="hasDatepicker" name="checkOut">
                 <i class="hs-icon hs-icon-date"></i>
             </div>
         </div>
         <div class="hs-item hs-item-people number-guests-picker" id="_j_booking_number_guests">
-            <span></span>
+            <span>${(qo.adult)!0}</span>
             <i class="icon-person"></i>
             <div class="ngp-dropdown _j_ngp_dropdown" style="display:none;">
                 <div class="item _j_ngp_room_item">
@@ -537,7 +537,7 @@
         </div>
         <div class="area-wrapper" id="_j_region_wrapper" style="display:none;">
             <dl class="item-info clearfix _j_region_desc_list">
-                <dt style="">攻略:</dt>
+                <dt style="">攻略:</dt>        <#--  等待处理 -->
                 <dd data-id="-1" style="">
                     <div>
                         <p>台湾最大城市，初見看似陈旧，三线城市的外表下有着一线城市的丰富内涵。</p>
@@ -1162,14 +1162,14 @@
         <div class="n-content">
             <div class="hotel-loading" id="_j_hotel_list_loading" style="display: none;"><i class="loading-m"></i></div>
             <div class="hotel-list" id="_j_hotel_list">
-            <#list hotel! as h>
+            <#list hotel as h>
                 <div class="hotel-item clearfix _j_hotel_item" data-id="9031088" data-is-merge_room="0"
                      data-name="${h.name}" data-lat="25.042788" data-lng="121.50931" data-is-airbnb="0"
                      data-cs-t="酒店list页点击入口分布">
                     <div class="hotel-pic">
                         <a href="${h.url}" class="_j_hotel_info_link" target="_blank"
                            data-cs-p="图片">
-                            <img src="${h.img}"
+                            <img src="${h.coverUrl}"
                                  alt="" style="width: 330px;">
                         </a>
 

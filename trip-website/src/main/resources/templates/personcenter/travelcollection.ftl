@@ -9,6 +9,19 @@
     <script type="text/javascript" src="./js/jquery.js"></script>
     <script type="text/javascript" src="./js/travelcollection.js"></script>
     <script type="text/javascript" src="./js/common.js"></script>
+    
+    <script>
+        //游记收藏删除
+        $(function () {
+            $(".delPost").click(function () {
+                var sid = $(this).data("sid");
+                $.get("/travel/favor", {sid:sid},function (data) {
+                    window.location.reload();
+                })
+            })
+        })
+        
+    </script>
 </head>
 
 <body style="position: relative;">
@@ -73,7 +86,7 @@
                         </li>
                         <li class="account _j_hoverclass" data-hoverclass="on" id="pnl_user_set">
                             <span class="t"><a class="infoItem" href="javascript:;"><img
-                                        src="http://b2-q.mafengwo.net/s12/M00/35/B7/wKgED1uqIs-AMYTwAAAX-VIKIo0071.png?imageMogr2%2Fthumbnail%2F%2132x32r%2Fgravity%2FCenter%2Fcrop%2F%2132x32%2Fquality%2F90"
+                                        src="${user.headImgUrl}"
                                         width="32" height="32" align="absmiddle"><b></b></a></span>
                             <div class="uSet c">
                                 <div class="asset">
@@ -110,7 +123,7 @@
                     <div class="MAvatar clearfix">
                         <div class="MAvaImg flt1">
                             <img width="120" height="120" alt=""
-                                src="http://n1-q.mafengwo.net/s12/M00/35/98/wKgED1uqIreAU9QZAAAXHQMBZ74008.png?imageMogr2%2Fthumbnail%2F%21200x200r%2Fgravity%2FCenter%2Fcrop%2F%21200x200%2Fquality%2F90">
+                                src="${user.headImgUrl}">
                         </div>
                         <div class="MAvaEasyWord flt1">
                             <span class="MAvaName">${user.nickname}(${user.city})</span>
@@ -200,14 +213,14 @@
                     <form name="favorite" action="" method="post">
                         <#list travels as travel>
                         <li class="post_item">
-                            <a class="delPost hide" href="javascript:void(0)" data-id="6555539" data-type="0"
+                            <a class="delPost hide" href="javascript:void(0)" data-id="6555539" data-type="0" data-sid="${travel.id}"
                                 title="删除"></a>
                             <div class="pic"><a href="javascript:;" target="_blank"><img
                                         src="http://n1-q.mafengwo.net/s8/M00/7B/C7/wKgBpVhrvpKAa9hdAAtQcGOc1Bw13.jpeg?imageMogr2%2Fthumbnail%2F%21196x140r%2Fgravity%2FCenter%2Fcrop%2F%21196x140%2Fquality%2F90"></a>
                             </div>
                             <dl class="clearfix">
                                 <dd>
-                                    <h2><a href="javascript:;" target="_blank">${travel.title}</a></h2>
+                                    <h2><a href="/travel/detail?id=${travel.id}" target="_blank">${travel.title}</a></h2>
                                     <div class="count"><b></b><a href="javascript:void(0);">${travel.thumbsupnum}/${travel.viewnum}</a></div>
                                     <div class="author">
                                         <p class="authorA">
@@ -236,7 +249,7 @@
                     <#list strategies as strategie>
                     <li class="post-item clearfix">
                         <div class="post-cover">
-                            <a href="javascript:;" target="_blank">
+                            <a href="/strategy/detail?id=${strategie.id}" target="_blank">
                                 <img class="lazy" width="215" height="135" alt="带着母亲去三亚悠闲的自由行，高性价比的出行方式_游记"
                                     src="${strategie.coverUrl}"
                                     style="display: inline;"></a>

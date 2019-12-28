@@ -16,9 +16,30 @@
         var split = search.split("=");
         console.log(split[1]);
         $("#questionId").val(split[1]);
-        //提出回答
+
+        var index = 0;
+        //回复
+        $("._j_reply").click(function () {
+            var username = $(this).data("username");
+            var aid = $(this).data("aid");
+            $("#content").focus();
+            $("#content").attr("placeholder","回复：" + username );
+            $("#commentType").val(1);
+            $("#refAnswerId").val(aid);
+        })
+        //发表回复
         $("._j_submit_answer_btn").click(function () {
-            console.log(1);
+            if(!$("#content").val()){
+                alert("评论不能为空");
+                return;
+            }
+            /*$("#commentForm").ajaxSubmit(function (data) {
+                $("#commentContent").val("");
+                $("#commentContent").attr("placeholder","");
+
+                $("#_j_reply_list").append(data);
+
+            })*/
             //绑定事件,提交表单
             $("#editForm").ajaxSubmit(function (data) {
                 if(data.success){
@@ -27,9 +48,75 @@
                     popup(data.msg);
                 }
             })
+            $("#commentType").val(0);
+        })
+
+        //顶操作
+        $(".answerThumbsup").click(function () {
+            var s = "";
+            var userId = $(this).data("userid");
+            var answerId = $(this).data("answerid");
+            console.log(userId,answerId);
+            $.get("/wenda/answerThumbsup",{answerId:answerId,userId:userId,questionId:split[1]},function (data) {
+                if(data.success){
+                    s = ("顶"+data.data);
+                    //将这个数据设置到这个value值中
+                    alert("顶成功了");
+                    $.get("/wenda/subtractBrowseNum",{id:split[1]},function (data) {
+                        if(data.success){
+                            window.location.reload();
+                            return;
+                        }
+                    })
+                }else{
+                    alert("顶失败了");
+                }
+            })
+        })
+
+        //查看所有的回答
+        $(".view_all").click(function () {
+            $(".view_one").show();
+            $(".view_all").hide();
+            $(".answer_one").hide();
+            $(".answer_list").show();
+        })
+
+        $(".view_one").click(function () {
+            $(".view_all").show();
+            $(".view_one").hide();
+            $(".answer_list").hide();
+            $(".answer_one").show();
+        })
+
+
+        //关注操作和取消关注操作
+        $("._j_same_question").click(function () {
+            //获取状态
+            var status = $(this).data("status");
+            var questionId = $(this).data("questionId");
+            $.get("/wenda/focusStatus",{questionId:split[1]},function (data) {
+                if(data.success){
+                    $(this).addClass("on-i02");
+                    alert("关注成功");
+                }else{
+                    if(data.code==102){
+                        alert(data.msg);
+                    }else{
+                        alert("取消关注");
+                    }
+                }
+                $.get("/wenda/subtractBrowseNum",{id:split[1]},function (data) {
+                    if(data.success){
+                        window.location.reload();
+                        return;
+                    }
+                })
+            })
 
         })
     })
+
 
 </script>
 <body style="position: relative;">
@@ -130,9 +217,9 @@
         <div class="q-detail">
           <div class="q-content">
             <div class="q-title">
-              <a href="/wenda/area-10065.html" target="_blank" class="location"><i></i>${(question.destName)!}</a>
+              <a href="#" class="location"><i></i>${(question.destName)!}</a>
               <h1>
-                <a href="/wenda/detail-18458675.html">${(question.title)!}</a>
+                <a href="#">${(question.title)!}</a>
               </h1>
             </div>
             <div class="q-desc">
@@ -140,13 +227,13 @@
               </div>
             <div class="q-info1 clearfix">
               <div class="q-tags fl">
-                <a class="a-tag" href="/wenda/area-10065.html" target="_blank">${(question.destName)!}</a>
+                <a class="a-tag" href="#">${(question.destName)!}</a>
               </div>
               <div class="pub-bar fr">
-                <a href="/wenda/u/43303516/answer.html" class="photo" target="_blank"> <img
+                <a href="#" class="photo _j_filter_click avatar" target="_blank"> <img
                     src="${(question.headUrl)!}"
-                    width="16" height="16"></a>
-                <a class="name" href="/wenda/u/43303516/answer.html" target="_blank">${(question.username)!}</a>
+                    width="30" height="30"></a>
+                <a class="name" href="#">${(question.username)!}</a>
                 <span class="time"><span>${(question.createTime)?string('yyyy-MM-dd HH:mm:ss')}</span></span>
               </div>
             </div>
@@ -169,7 +256,7 @@
               </div>
               <!-- 举报 -->
               <div class="admin_hide tip-off">
-                <a data-japp="report" data-refer="http://www.mafengwo.cn/wenda/detail-18458675.html"
+                <a data-japp="report" data-refer="#"
                   data-refer-uid="43303516" data-app="qa.question" data-busi-id="qid:18458675">举报</a>
               </div>
             </div>
@@ -177,18 +264,62 @@
               <span class="atten-num">${(question.browsenum)!0}浏览</span>
               <span class="atten-num"><span class="_j_same_num">${(question.focusnum)!0}</span>人关注</span>
 
-              <a class="btn-atten _j_same_question " rel="nofollow" data-status="1"><span>关注</span></a>
+              <a class="btn-atten _j_same_question" rel="nofollow" data-status="1"
+                 data-questionId="${(question.id)!}"><span id="focus_status">
+                  ${(focusUserList?? && focusUserList?seq_contains((userInfo.id)!-1))?string('取消关注','关注')}
+                  </span></a>
             </div>
           </div>
         </div>
         <div class="answer-wrap">
           <div class="hd">
             <a href="javascript:;" class="view_all">查看全部${(question.answernum)!}个回答</a>
+            <a href="javascript:;" class="view_one">收起</a>
+              <script>
+                  $(".view_one").hide();
+              </script>
             <div style="display:none;"><span id="_j_anum">${(question.answernum)!}</span>个回答</div>
           </div>
-          <#if question.list??>
+            <#if answer??>
+            <div class="bd _j_pager_box answer_one">
+                <ul class="answer-list answer_detail">
+                    <div>
+                        <li>
+                            <div class="answer-side _js_answerAva">
+                                <!-- <a class="btn-ding _js_zan "><i></i><span data-real_num="3">3</span></a> -->
+                            </div>
+                            <div class="answer-content _js_answer_content">
+                                <div class="answer-info clearfix">
+                                    <div class="user-bar fl">
+                                        <a class="_j_filter_click avatar" href="javascript:;"><img
+                                                src="${(answer.headUrl)!}"
+                                                width="50" height="50" class="photo"></a>
+                                        <a class="name" href="javascript:;" >${(answer.username)!}</a>
+                                        <a class="level" href="javascript:;" rel="nofollow">LV.${(answer.level)!0}</a>
+                                    </div>
+                                    <#--<input class="btn-comment answerThumbsup" data-userId="${(answer.userId)!}"
+                                           data-answerId="${(answer.id)!}"  type="button" value="顶${(answer.thumbsupnum)!}">-->
+                      <#if (answer.medal)?? && answer.medal==1>
+                      <ul class="answer-medal fr">
+                          <li class="gold">
+                              <div class="btn"><i></i><a href="javascript:;">金牌回答</a></div>
+                          </li>
+                      </ul>
+                      </#if>
+                            </div>
+                            <!-- 回答内容 -->
+                            <div class="_j_short_answer_item hide" style="display: block;">
+                            ${(answer.content)!}
+                            </div>
+                            </div>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+            </#if>
+          <#if (question.list)??>
           <#list (question.list)! as a>
-          <div class="bd _j_pager_box">
+          <div class="bd _j_pager_box answer_list">
             <ul class="answer-list answer_detail">
               <div>
                 <li>
@@ -198,44 +329,67 @@
                   <div class="answer-content _js_answer_content">
                     <div class="answer-info clearfix">
                       <div class="user-bar fl">
-                        <a class="_j_filter_click avatar" href="javascript:;" target="_blank"><img
-                            src="${(a.headUrl)!}"
-                            width="20" height="20" class="photo"></a>
-                        <a class="name" href="javascript:;" target="_blank">${(a.username)!}</a>
-                        <a class="level" href="javascript:;" target="_blank" rel="nofollow">LV.${(a.level)!0}</a>
-
+                        <a class="_j_filter_click avatar" href="javascript:";> <img src="${(a.headUrl)!}" width="50" height="50" class="photo"></a>
+                        <a class="name" href="javascript:;">${(a.username)!}</a>
+                        <a class="level" href="javascript:;" rel="nofollow">LV.${(a.level)!0}</a>
                       </div>
+                      <input class="btn-comment answerThumbsup" data-userId="${(a.userId)!}"
+                           data-answerId="${(a.id)!}"  type="button" value="顶${(a.thumbsupnum)!}">
                       <#if a.medal?? && a.medal==1>
                       <ul class="answer-medal fr">
                         <li class="gold">
-                          <div class="btn"><i></i><a href="javascript:;" target="_blank">金牌回答</a></div>
+                          <div class="btn"><i></i><a href="javascript:;">金牌回答</a></div>
                         </li>
                       </ul>
                       </#if>
                     </div>
                     <!-- 回答内容 -->
+                      <#if a.type==0>
                     <div class="_j_short_answer_item hide" style="display: block;">
                       ${(a.content)!}
                     </div>
+                      </#if>
+                      <#if a.type==1>
+                            <div class="_j_short_answer_item">
+                                <p>引用 ${(a.refAnswer.username)!} 发表于 ${(a.refAnswer.replytime?string('yyyy-MM-dd HH:ss'))!} 的回答：</p>
+                                <p class="_j_reply_content">${(a.refAnswer.content)!}</p>
+                            </div>
+                            <br>
+                            <div class="_j_short_answer_item">
+                                <p class="_j_reply_content" >回复${(a.refAnswer.username)!}：${(a.content)!}</p>
+                            </div>
+                      </#if>
+                      <div class="_j_short_answer_item">
+                          <br>
+                          <div class="time">回答时间:${(a.replytime?string('yyyy-MM-dd HH:ss'))!}</div>
+                          <div class="option">
+                              <a role="button" class="reply-report">举报</a>
+                              <a role="button" class="_j_reply replyBtn" data-username="${a.username!}" data-aid="${a.id!}">回复</a>
+                          </div>
+                      </div>
                   </div>
                 </li>
               </div>
             </ul>
           </div>
           </#list>
+          <script>
+              $(".answer_list").hide();
+          </script>
           </#if>
           <div class="bd _j_pager_box">
             <div class="aa-hd">
-              <a class="aa-avatar" href="/wenda/u/53383161/answer.html"><img
+              <#--<a class="aa-avatar" href="/wenda/u/53383161/answer.html"><img
                   src="${(userInfo.headImgUrl)!}"
                   class="photo" width="20px" height="20px"></a>
-              <a class="aa-name">${(userInfo.nickname)!}</a>
+              <a class="aa-name">${(userInfo.nickname)!}</a>-->
             </div>
               <form class="forms" action="/wenda/saveAnswer" method="post" id="editForm">
                   <input type="hidden" id="questionId" value="" name="questionId">
+                  <input type="hidden" name="type" value="0" id="commentType">
+                  <input type="hidden" name="refAnswer.id" id="refAnswerId">
             <div class="editor-outer _j_editorOuter _js_editorWrap _js_forFixTitle">
-              <textarea name="content" id="content">
-              </textarea>
+              <textarea name="content" id="content"></textarea>
             </div>
             <div class="aa-ft">
               <input class="btn-comment _j_submit_answer_btn" type="button" value="提交回答"/>

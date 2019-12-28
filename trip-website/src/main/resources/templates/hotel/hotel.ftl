@@ -62,8 +62,20 @@
     <script language="javascript"
             src="http://js.mafengwo.net/js/cv/js+jquery-1.8.1.min:js+global+json2:js+M+Module:js+M+M:js+M+Log:js+m.statistics:js+advert+inspector:js+corelib+underscore-1.6.0:js+corelib+backbone-1.1.2^YlBQ^1562232559.js"
             type="text/javascript" crossorigin="anonymous"></script>
-
-
+   <script>
+       // $(function () {
+       //     $("#_j_check_in_date").click(function () {
+       //         $("input[name=checkIn]").val('')
+       //         var checkIn = document.getElementById("_j_check_in_date").innerText;
+       //         $("input[name=checkIn]").val(checkIn);
+       //     })
+       //     $("#_j_check_out_date").click(function () {
+       //         $("input[name=checkOut]").val('')
+       //         var checkOut = document.getElementById("_j_check_out_date").innerText;
+       //         $("input[name=checkOut]").val(checkOut);
+       //     })
+       // })
+    </script>
 </head>
 <body>
 <#assign currentNav="hotel">
@@ -71,19 +83,20 @@
 <div class="hotel-main">
     <div class="h-title">订酒店</div>
     <form class="form-hotel" action="/hotel/h" method="get" id="editForm">
+        <#--<input type="hidden" name="checkIn" value="">-->
+        <#--<input type="hidden" name="checkOut" value="">-->
+
         <div class="clearfix date-warp">
             <div class="add-travle">
                 <input type="text" placeholder="出行目的地" id="_j_search_input" autocomplete="off" name="name">
                 <div class="not-cont" id="_j_search_shortcut_mdds" style="display:none;">
                     <ul>
                         <li class="clearfix">
-
                             <h2>国内</h2>
                             <p>
                             <#list dests as d >
                                 <a href="#" data-id="${d.id}" data-name="${d.name}"
                                    >${d.name}</a>
-
                             </#list>
                             </p>
                         </li>
@@ -92,7 +105,6 @@
                         <#list overseas as d >
                             <a href="#"  data-id="${d.id}" data-name="${d.name}"
                                >${d.name}</a>
-
                         </#list>
                             </p>
                         </li>
@@ -509,6 +521,10 @@
 
     $(function () {
         $(".btn-sss").click(function () {
+
+
+
+
             $("#editForm").submit()
         })
     })

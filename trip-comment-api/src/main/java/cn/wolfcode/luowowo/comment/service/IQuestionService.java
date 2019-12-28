@@ -31,4 +31,20 @@ public interface IQuestionService {
      * @return
      */
     List<Question> selectAll();
+
+    /**
+     * 问题的关注和取消关注的功能接口
+     * @param questionId 问题的id
+     * @param userId    用户的id
+     * @return
+     */
+    boolean focusStatus(String questionId,long userId);
+
+    /**
+     * 问答模块的回答的点赞数增加+1
+     * @param questionId 问题的id
+     * @param answerId  回答的id
+     * @param num  增加量
+     */
+    int increaseAnswerThumbsupnum(String questionId, String answerId,int num);
 }

@@ -47,4 +47,31 @@ public interface IUserInfoService {
 
 
     List<UserInfo> list();
+
+    /**
+     * 跟新设置用户信息
+     * @param userInfo
+     */
+    void updateUserInfo(UserInfo userInfo);
+
+    /**
+     * 根据id查用户,用来在redis中储存用户信息
+     * @param id
+     * @return
+     */
+    UserInfo selectById(Long id);
+
+    /**
+     * 更改密码
+     * @param id
+     * @param password
+     */
+    void updatePassword(Long id, String password);
+
+    /**
+     * 更改用户头像地址
+     * @param headImgUrl
+     * @param id
+     */
+    void updateUserImg(String headImgUrl, Long id);
 }

@@ -68,4 +68,11 @@ $(function () {
         $('.content').addClass('hide');
         $('.content').eq(7).removeClass('hide');
     })
+   /* $(".submitBtn").click(function () {
+        $("#_j_form").ajaxForm(function (data) {
+            if(data.success){
+                window.location.reload();
+            }
+        })
+    })*/
 });

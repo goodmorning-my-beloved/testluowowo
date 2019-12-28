@@ -20,4 +20,12 @@ public interface UserInfoMapper {
     int selectCountByPhone(String phone);
 
     UserInfo selectByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
+
+    void updateUserInfo(UserInfo userInfo);
+
+    UserInfo selectById(Long id);
+
+    void updatePassword(@Param("id") Long id, @Param("password") String password);
+
+    void updateUserImg(@Param("headImgUrl") String headImgUrl, @Param("id") Long id);
 }

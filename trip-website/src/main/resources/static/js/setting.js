@@ -28,7 +28,7 @@ $(function () {
         $('#fileupload').click();
     });
     // 图片上传
-    $('#fileupload').fileupload({
+  /*  $('#fileupload').fileupload({
         dataType: 'json',
         url: '/upload/file', // 服务器路径
         add: function (e, data) {
@@ -39,7 +39,7 @@ $(function () {
         done: function (e, data) {
             console.log('done:' + data)
         }
-    });
+    });*/
 
     $('#set-pw-btn').click(function () {
         if ($(this).next().hasClass('hide')) {

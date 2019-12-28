@@ -11,6 +11,29 @@
   <script type="text/javascript" src="/js/wenda.js"></script>
 </head>
 
+<script>
+    $(function () {
+        $("._j_rank_change_flag").click(function () {
+            $(this).addClass("on");
+            //拿到状态
+            var data = $(this).data("rank");
+            if(data == 0){
+                $("#replyRank").hide();
+                $("#thumbsupRank").hide();
+                $("#medalRank").show();
+            }else if(data == 1){
+                $("#replyRank").show();
+                $("#thumbsupRank").hide();
+                $("#medalRank").hide();
+            }else if(data == 2){
+                $("#replyRank").hide();
+                $("#thumbsupRank").show();
+                $("#medalRank").hide();
+            }
+        })
+    })
+</script>
+
 <body style="position: relative;">
   <div class="topBar">
     <div class="topBarC">
@@ -149,139 +172,84 @@
     <div class="col-side">
       <div class="rank _j_rank" style="margin-top: 20px;">
         <div class="hd">排行榜<ul class="tab-time">
-            <li class="_j_rank_change_date" data-type="0"><span>今日</span></li>
-            <li class="_j_rank_change_date on" data-type="1"><span>本周</span></li>
-            <li class="_j_rank_change_date" data-type="2"><span>本月</span></li>
-          </ul>
         </div>
         <div class="bd">
-          <ul class="tab-num" data-cs-p="rank_list">
-            <li class="_j_rank_change_flag" data-rank="0" data-cs-d="金牌数">金牌数</li>
-            <li class="_j_rank_change_flag on" data-rank="1" data-cs-d="回答数">回答数</li>
-            <li class="_j_rank_change_flag" data-rank="2" data-cs-d="被顶次数">被顶次数</li>
+            <div hidden id="medalRank">
+                <ul class="tab-num" data-cs-p="rank_list">
+                    <li class="_j_rank_change_flag" data-rank="0" data-cs-d="金牌数">金牌数</li>
+                    <li class="_j_rank_change_flag" data-rank="1" data-cs-d="回答数">回答数</li>
+                    <li class="_j_rank_change_flag" data-rank="2" data-cs-d="被顶次数">被顶次数</li>
 
-          </ul>
-          <ul class="rank-list _j_rank_list">
-            <li class="r-top r-top1 clearfix">
-              <em class="num">1</em>
-              <div class="user no_qid">
-                <a class="avatar" href="javascript:;" target="_blank" rel="nofollow"><img
-                    src="http://n4-q.mafengwo.net/s10/M00/EB/B7/wKgBZ1nHyJqAHa5AAARhrrVoCtE88.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
-                <span class="name"><a href="javascript:;" target="_blank"
-                    rel="nofollow">大愿尊者之王者归来</a></span>
-                <span class="level"><a href="javascript:;" target="_blank"
-                    rel="nofollow">LV.19</a></span>
-              </div>
-              <span class="num">144</span>
-            </li>
-            <li class="r-top r-top2 clearfix">
-              <em class="num">2</em>
-              <div class="user no_qid">
-                <a class="avatar" href="javascript:;" target="_blank" rel="nofollow"><img
-                    src="http://p3-q.mafengwo.net/s10/M00/3B/2D/wKgBZ1jlwDiAEub5AABorL-ZUME853.png?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
-                <span class="name"><a href="javascript:;" target="_blank"
-                    rel="nofollow">藿香正气</a></span>
-                <span class="level"><a href="javascript:;" target="_blank"
-                    rel="nofollow">LV.35</a></span>
-              </div>
-              <span class="num">101</span>
-            </li>
-            <li class="r-top r-top3 clearfix">
-              <em class="num">3</em>
-              <div class="user no_qid">
-                <a class="avatar" href="javascript:;" target="_blank" rel="nofollow"><img
-                    src="http://b3-q.mafengwo.net/s9/M00/C1/8E/wKgBs1fPrFKAEXzIAAClaEwD1QY29.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
-                <span class="name"><a href="javascript:;" target="_blank"
-                    rel="nofollow">azalea</a></span>
-                <span class="level"><a href="javascript:;" target="_blank"
-                    rel="nofollow">LV.17</a></span>
-              </div>
-              <span class="num">92</span>
-            </li>
-            <li class="clearfix">
-              <em class="num">4</em>
-              <div class="user no_qid">
-                <a class="avatar" href="javascript:;" target="_blank" rel="nofollow"><img
-                    src="http://n4-q.mafengwo.net/s11/M00/89/CB/wKgBEFpjiE-AXxGMAAAQyvR6UoU51.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
-                <span class="name"><a href="javascript:;" target="_blank"
-                    rel="nofollow">新疆趣哪里-桃桃</a></span>
-                <span class="level"><a href="javascript:;" target="_blank"
-                    rel="nofollow">LV.19</a></span>
-              </div>
-              <span class="num">80</span>
-            </li>
-            <li class="clearfix">
-              <em class="num">5</em>
-              <div class="user no_qid">
-                <a class="avatar" href="javascript:;" target="_blank" rel="nofollow"><img
-                    src="http://n1-q.mafengwo.net/s14/M00/E0/89/wKgE2l0q8v6AMky_AAb9GrkBRZg01.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
-                <span class="name"><a href="javascript:;" target="_blank"
-                    rel="nofollow">朗风丽日时</a></span>
-                <span class="level"><a href="javascript:;" target="_blank"
-                    rel="nofollow">LV.27</a></span>
-              </div>
-              <span class="num">77</span>
-            </li>
-            <li class="clearfix">
-              <em class="num">6</em>
-              <div class="user no_qid">
-                <a class="avatar" href="javascript:;" target="_blank" rel="nofollow"><img
-                    src="http://n3-q.mafengwo.net/s5/M00/FD/37/wKgB21B4ECD5jGoTAAEmz8kxP0088.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
-                <span class="name"><a href="javascript:;" target="_blank" rel="nofollow">一頁書</a></span>
-                <span class="level"><a href="javascript:;" target="_blank"
-                    rel="nofollow">LV.34</a></span>
-              </div>
-              <span class="num">62</span>
-            </li>
-            <li class="clearfix">
-              <em class="num">7</em>
-              <div class="user no_qid">
-                <a class="avatar" href="javascript:;" target="_blank" rel="nofollow"><img
-                    src="http://b2-q.mafengwo.net/s14/M00/00/41/wKgE2l0pwvuAOgeXAAAOkfX1NwI78.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
-                <span class="name"><a href="javascript:;" target="_blank"
-                    rel="nofollow">马蜂窝用户</a></span>
-                <span class="level"><a href="javascript:;" target="_blank"
-                    rel="nofollow">LV.9</a></span>
-              </div>
-              <span class="num">61</span>
-            </li>
-            <li class="clearfix">
-              <em class="num">8</em>
-              <div class="user no_qid">
-                <a class="avatar" href="javascript:;" target="_blank" rel="nofollow"><img
-                    src="http://p2-q.mafengwo.net/s13/M00/11/4F/wKgEaVycQk2AO4q9AAFVJZKc11k15.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
-                <span class="name"><a href="javascript:;" target="_blank"
-                    rel="nofollow">一路有你驴行网</a></span>
-                <span class="level"><a href="javascript:;" target="_blank"
-                    rel="nofollow">LV.15</a></span>
-              </div>
-              <span class="num">54</span>
-            </li>
-            <li class="clearfix">
-              <em class="num">9</em>
-              <div class="user no_qid">
-                <a class="avatar" href="javascript:;" target="_blank" rel="nofollow"><img
-                    src="http://n2-q.mafengwo.net/s11/M00/4D/6F/wKgBEFqRGFaAXJECAAAMCbfJkzc01.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
-                <span class="name"><a href="javascript:;" target="_blank" rel="nofollow">lorin
-                    江流天地外</a></span>
-                <span class="level"><a href="javascript:;" target="_blank"
-                    rel="nofollow">LV.31</a></span>
-              </div>
-              <span class="num">52</span>
-            </li>
-            <li class="clearfix">
-              <em class="num">10</em>
-              <div class="user no_qid">
-                <a class="avatar" href="javascript:;" target="_blank" rel="nofollow"><img
-                    src="http://p1-q.mafengwo.net/s13/M00/78/D0/wKgEaVyIYJ6AJE9zAACxk3gGqLo65.jpeg?imageMogr2%2Fthumbnail%2F%2148x48r%2Fgravity%2FCenter%2Fcrop%2F%2148x48%2Fquality%2F90"></a>
-                <span class="name"><a href="javascript:;" target="_blank"
-                    rel="nofollow">享世界~陈奕佳</a></span>
-                <span class="level"><a href="javascript:;" target="_blank"
-                    rel="nofollow">LV.15</a></span>
-              </div>
-              <span class="num">50</span>
-            </li>
-          </ul>
+                </ul>
+                <ul class="rank-list _j_rank_list">
+                    <#list medalRank! as m>
+                    <li class="r-top r-top1 clearfix">
+                        <em class="num">${m_index+1}</em>
+                        <div class="user no_qid">
+                            <a class="avatar" href="javascript:;" target="_blank" rel="nofollow"><img
+                                    src="${(m.headUrl)!}" width="50px" height="50px"></a>
+                            <span class="name"><a href="javascript:;" target="_blank"
+                                                  rel="nofollow">${(m.username)!}</a></span>
+                            <span class="level"><a href="javascript:;" target="_blank"
+                                                   rel="nofollow">LV.${(m.level)!1}</a></span>
+                        </div>
+                        <span class="num">${(m.medalnum)!}</span>
+                    </li>
+                    </#list>
+                </ul>
+            </div>
+
+
+            <div id="replyRank">
+                <ul class="tab-num" data-cs-p="rank_list">
+                  <li class="_j_rank_change_flag" data-rank="0" data-cs-d="金牌数">金牌数</li>
+                  <li class="_j_rank_change_flag" data-rank="1" data-cs-d="回答数">回答数</li>
+                  <li class="_j_rank_change_flag" data-rank="2" data-cs-d="被顶次数">被顶次数</li>
+                </ul>
+                <ul class="rank-list _j_rank_list">
+                  <#list replyRank! as r>
+                  <li class="r-top r-top1 clearfix">
+                    <em class="num">${r_index+1}</em>
+                    <div class="user no_qid">
+                      <a class="avatar" href="javascript:;" target="_blank" rel="nofollow"><img
+                          src="${(r.headUrl)!}" width="50px" height="50px"></a>
+                      <span class="name"><a href="javascript:;" target="_blank"
+                          rel="nofollow">${(r.username)!}</a></span>
+                      <span class="level"><a href="javascript:;" target="_blank"
+                          rel="nofollow">LV.${(r.level)!1}</a></span>
+                    </div>
+                    <span class="num">${(r.replynum)!}</span>
+                  </li>
+                  </#list>
+                </ul>
+          </div>
+
+            <div hidden id="thumbsupRank">
+                <ul class="tab-num" data-cs-p="rank_list">
+                    <li class="_j_rank_change_flag" data-rank="0" data-cs-d="金牌数">金牌数</li>
+                    <li class="_j_rank_change_flag" data-rank="1" data-cs-d="回答数">回答数</li>
+                    <li class="_j_rank_change_flag" data-rank="2" data-cs-d="被顶次数">被顶次数</li>
+
+                </ul>
+                <ul class="rank-list _j_rank_list">
+                    <#list thumbsupRank! as t>
+                    <li class="r-top r-top1 clearfix">
+                        <em class="num">${t_index+1}</em>
+                        <div class="user no_qid">
+                            <a class="avatar" href="javascript:;" target="_blank" rel="nofollow"><img
+                                    src="${(t.headUrl)!}" width="50px" height="50px"></a>
+                            <span class="name"><a href="javascript:;" target="_blank"
+                                                  rel="nofollow">${(t.username)!}</a></span>
+                            <span class="level"><a href="javascript:;" target="_blank"
+                                                   rel="nofollow">LV.${(t.level)!1}</a></span>
+                        </div>
+                        <span class="num">${(t.thumbsupnum)!}</span>
+                    </li>
+                    </#list>
+                </ul>
+            </div>
+
+
         </div>
       </div>
     </div>

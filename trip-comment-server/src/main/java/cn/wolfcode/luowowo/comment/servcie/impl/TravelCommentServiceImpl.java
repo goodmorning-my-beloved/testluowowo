@@ -71,7 +71,6 @@ public class TravelCommentServiceImpl implements ITravelCommentService {
         Query query=new Query();
         query.addCriteria(Criteria.where("travelId").is(id)).with(Sort.by(Sort.Direction.DESC,"createTime"));
         return template.find(query,TravelComment.class);
-
     }
 
     @Override
