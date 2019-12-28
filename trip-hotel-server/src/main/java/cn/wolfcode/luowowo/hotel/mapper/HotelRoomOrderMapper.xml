@@ -41,7 +41,7 @@
     select id, hotel_room_type_id, check_in, check_out, state, user_id
     from hotel_room_order WHERE hotel_room_type_id = #{hotelTypeId} and state = 1
   </select>
-  <select id="selectByUserId" resultType="cn.wolfcode.luowowo.hotel.domain.HotelRoomOrder">
+  <select id="selectByUserId" resultMap="BaseResultMap">
     select id, hotel_room_type_id, check_in, check_out, state, user_id
     from hotel_room_order WHERE user_id = #{userId} and state = 1
   </select>

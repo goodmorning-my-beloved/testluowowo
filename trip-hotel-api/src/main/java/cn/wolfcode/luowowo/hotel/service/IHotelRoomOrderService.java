@@ -30,4 +30,6 @@ public interface IHotelRoomOrderService {
      * @return
      */
     List<HotelRoomOrder> queryHotelOrderByUserId(Long userId);
+
+    void deleteByPrimaryKey(Long id);
 }

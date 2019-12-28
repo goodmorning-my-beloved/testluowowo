@@ -63,4 +63,9 @@ public class HotelRoomOrderServiceImpl implements IHotelRoomOrderService{
     public List<HotelRoomOrder> queryHotelOrderByUserId(Long userId) {
        return  hotelRoomOrderMapper.selectByUserId(userId);
     }
+
+    @Override
+    public void deleteByPrimaryKey(Long id) {
+        hotelRoomOrderMapper.deleteByPrimaryKey(id);
+    }
 }

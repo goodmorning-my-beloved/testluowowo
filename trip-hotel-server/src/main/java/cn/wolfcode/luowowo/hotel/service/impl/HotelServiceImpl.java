@@ -17,9 +17,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class HotelServiceImpl implements IHotelService {
@@ -39,17 +37,18 @@ public class HotelServiceImpl implements IHotelService {
 
     /**
      * 根据目的地位置,查询当地酒店,可能需要校验时间
+     *
      * @param qo
      * @return
      */
     @Override
     public PageInfo queryHotelByCityNameAndSoOn(HotelQuery qo) {
-        PageHelper.startPage(qo.getCurrentPage(),qo.getPageSize(),qo.getOrderBy());
+        PageHelper.startPage(qo.getCurrentPage(), qo.getPageSize(), qo.getOrderBy());
         List<Hotel> hotels = hotelMapper.selectByDestId(qo);
         // 进行处理
         Date checkIn = qo.getCheckIn();
         Date checkOut = qo.getCheckOut();
-        if(checkIn !=null|| checkOut !=null){
+        if (checkIn != null || checkOut != null) {
             ArrayList<Object> list = new ArrayList<>();
             for (Hotel hotel : hotels) {
                 int flag = 0;
@@ -63,15 +62,15 @@ public class HotelServiceImpl implements IHotelService {
                         long checkOutTime = checkOut.getTime();
                         long orderCheckIn = hotelRoomOrder.getCheckIn().getTime();
                         long orderCheckOut = hotelRoomOrder.getCheckOut().getTime();
-                        if((orderCheckIn<checkInTime & checkInTime<orderCheckOut)||(orderCheckIn<checkOutTime & checkOutTime<orderCheckOut)){
-                            totalRoomNum=totalRoomNum-1;
+                        if ((orderCheckIn < checkInTime & checkInTime < orderCheckOut) || (orderCheckIn < checkOutTime & checkOutTime < orderCheckOut)) {
+                            totalRoomNum = totalRoomNum - 1;
                         }
                     }
-                    if(totalRoomNum>0){
+                    if (totalRoomNum > 0) {
                         flag = 1;
                     }
                 }
-                if(flag==0){
+                if (flag == 0) {
                     hotels.remove(hotel);
                 }
                 // 长度
@@ -83,25 +82,40 @@ public class HotelServiceImpl implements IHotelService {
 
     /**
      * 根据酒店id,查询酒店
+     *
      * @param id
      * @return
      */
     @Override
     public Hotel getHotelInfoByPrimaryKey(Long id) {
-        return  hotelMapper.selectByPrimaryKey(id);
+        return hotelMapper.selectByPrimaryKey(id);
     }
 
 
     @Override
     public List<Hotel> queryHotelDeatilInfomationByUserId(Long userId) {
-        List<Object> list = new ArrayList<>();
+        List<Hotel> hotelList = new ArrayList<>();
+//        List<Object> checkList = new ArrayList<>();
         List<HotelRoomOrder> orders = hotelRoomOrderService.queryHotelOrderByUserId(userId);
         for (HotelRoomOrder order : orders) {
             HotelRoomType hotelRoomType = hotelRoomTypeService.getHotelRoomTypeById(order.getHotelRoomTypeId());
             Long hotelId = hotelRoomType.getHotelId();
-            list.add(hotelId);
 
+//            checkList.add(hotelId);
+//            if(!checkList.contains(hotelId)){
+            Hotel hotel = hotelMapper.selectByPrimaryKey(hotelId);
+            // 入住时间 退房时间
+            Date checkIn = order.getCheckIn();
+            Date checkOut = order.getCheckOut();
+            Long orderId = order.getId();
+            Map<String, Object> map = new HashMap<>();
+            map.put("checkIn",checkIn);
+            map.put("checkOut",checkOut);
+            map.put("orderId",orderId);
+            hotel.setTool(map);
+            hotelList.add(hotel);
+//            }
         }
-        return null;
+        return hotelList;
     }
 }

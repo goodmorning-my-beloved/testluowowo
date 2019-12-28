@@ -221,6 +221,48 @@
         </script>
     </table>
 
+    <#--酒店-->
+    <table  style="width: 60%;margin:auto">
+        <th>酒店订单信息</th>
+        <tr bgcolor="#d8bfd8">
+            <th>酒店封面</th>
+            <th>酒店名称</th>
+            <th>酒店地址</th>
+            <th>入住时间</th>
+            <th>退房时间</th>
+            <th>编辑</th>
+        </tr>
+        <#list hotels as order>
+            <tr style="text-align: center">
+                <td><img src="${(order.coverUrl)!}"width="120" height="60"> </td>
+                <td>${(order.name)!}</td>
+                <td>${(order.address)!}</td>
+                <td>${(order.tool.checkIn)!?string("yyyy-MM-dd")}</td>
+                <td>${(order.tool.checkOut)!?string("yyyy-MM-dd")}</td>
+                <td>
+                    <a id="deleteOrder2" href="#" data-id="${order.tool.orderId}">取消订单</a>
+                </td>
+            </tr>
+        </#list>
+        <script>
+            $(function () {
+                $("#deleteOrder2").click(function () {
+                    var id = $(this).data("id");
+                    $.get("/deletemytivketorder2",{id:id},function (data) {
+                        if(data.success){
+                            alert("取消订单成功");
+                            window.location.reload();
+                        }else{
+                            alert("删除失败,稍后重试");
+                        }
+                    })
+                })
+            })
+        </script>
+    </table>
+
+
+
 <div id="footer">
     <div class="ft-content" style="width: 1105px">
         <div class="ft-info clearfix">
