@@ -91,11 +91,12 @@
                 <input type="text" placeholder="出行目的地" id="_j_search_input" autocomplete="off" name="name">
                 <div class="not-cont" id="_j_search_shortcut_mdds" style="display:none;">
                     <ul>
+                        快捷搜索
                         <li class="clearfix">
                             <h2>国内</h2>
                             <p>
                             <#list dests as d >
-                                <a href="#" data-id="${d.id}" data-name="${d.name}"
+                                <a href="/hotel/h?name=${d.name}" data-id="${d.id}" data-name="${d.name}"
                                    >${d.name}</a>
                             </#list>
                             </p>
@@ -126,11 +127,6 @@
             <script>
 
             </script>
-
-            <div class="hs-item hs-item-people" id="_j_booking_number_guests">
-                <span>人数</span>
-                <i class="icon-person"></i>
-            </div>
 
 
             <div class="btn-search" id="_A_search_btn">

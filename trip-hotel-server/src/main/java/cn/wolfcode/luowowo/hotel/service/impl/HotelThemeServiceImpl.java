@@ -6,6 +6,7 @@ import cn.wolfcode.luowowo.hotel.service.IHotelThemeServie;
 import com.alibaba.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,5 +31,29 @@ public class HotelThemeServiceImpl implements IHotelThemeServie {
     @Override
     public HotelTheme getHotelTheme(long themeId) {
        return  hotelThemeMapper.selectByPrimaryKey(themeId);
+    }
+
+    /**
+     * 查询目的地下酒店主题
+     * @param destId
+     * @return
+     */
+    @Override
+    public List<HotelTheme> queryHotelThemeOnly6ByDestId(Long destId) {
+        List<HotelTheme> list = new ArrayList<>();
+        List<HotelTheme> selectAll = hotelThemeMapper.selectAll();
+        for (HotelTheme hotelTheme : selectAll) {
+            Long[] refIds = hotelTheme.getRefIds();
+            for (Long refId : refIds) {
+                if(refId.equals(destId)){
+                    list.add(hotelTheme);
+                    continue;
+                }
+            }
+            if(list.size()==6){
+                break;
+            }
+        }
+        return list;
     }
 }

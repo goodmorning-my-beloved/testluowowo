@@ -20,6 +20,18 @@ public interface IHotelService {
      * @return
      */
     PageInfo queryHotelByCityNameAndSoOn(HotelQuery qo);
+
+    /**
+     * 根据酒店的id,查询酒店信息
+     * @param id
+     * @return
+     */
+    Hotel getHotelInfoByPrimaryKey(Long id);
+
+    /**
+     * 根据用户的id,查询该用户目前尚未入住的酒店订单.
+     */
+    List<Hotel> queryHotelDeatilInfomationByUserId(Long userId);
 }
 
 

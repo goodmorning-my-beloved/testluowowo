@@ -43,20 +43,23 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select id, name, english, coverUrl, dest_id, score, url, price,address,hotel_theme_id,haveRoom,sales=#{sales},hotel_region_id
+    select id, name, english, coverUrl, dest_id, score, url, price,address,hotel_theme_id,haveRoom,sales,hotel_region_id
     from hotel
     where id = #{id,jdbcType=BIGINT}
+
+
+
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, name, english, coverUrl, dest_id, score, url, price,address,hotel_theme_id,haveRoom,sales=#{sales},hotel_region_id
+    select id, name, english, coverUrl, dest_id, score, url, price,address,hotel_theme_id,haveRoom,sales,hotel_region_id
     from hotel
   </select>
   <select id="selectSpecialOfferHotelByDestIdTop8" resultMap="BaseResultMap">
-    select id, name, english, coverUrl, dest_id, score, url, price,address,hotel_theme_id,haveRoom,sales=#{sales},hotel_region_id
+    select id, name, english, coverUrl, dest_id, score, url, price,address,hotel_theme_id,haveRoom,sales,hotel_region_id
     from hotel WHERE dest_id = #{destId} and price &lt;= 600 limit 8
   </select>
   <select id="selectByDestId" resultMap="BaseResultMap">
-    select id, name, english, coverUrl, dest_id, score, url, price,address,hotel_theme_id,haveRoom,sales=#{sales},hotel_region_id
+    select id, name, english, coverUrl, dest_id, score, url, price,address,hotel_theme_id,haveRoom,sales,hotel_region_id
     from hotel
     <where>
       <if test="haveRoom != -1">
@@ -71,9 +74,15 @@
       <if test="maxPrice!=null">
         and price &lt;= #{maxPrice}
       </if>
-      <if test="hotelName!=null">
+      <if test="keyword!=null and keyword!=''">
         and name  like concat('%',#{keyword} ,'%')
       </if>
+      <if test="hotelRegion!=-1">
+        and hotel_region_id  = #{hotelRegion}
+      </if>
+      <!-- 等待处理时间 -->
+
+
       and dest_id = #{destId}
     </where>
 

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.luowowo.hotel.mapper.HotelRoomOrderMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.luowowo.hotel.domain.HotelRoomOrder" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="hotel_room_type_id" property="hotelRoomTypeId" jdbcType="BIGINT" />
+    <result column="check_in" property="checkIn" jdbcType="TIMESTAMP" />
+    <result column="check_out" property="checkOut" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="BIT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from hotel_room_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.wolfcode.luowowo.hotel.domain.HotelRoomOrder" useGeneratedKeys="true" keyProperty="id" >
+    insert into hotel_room_order (hotel_room_type_id, check_in, check_out,
+      state, user_id)
+    values (#{hotelRoomTypeId,jdbcType=BIGINT}, #{checkIn,jdbcType=TIMESTAMP}, #{checkOut,jdbcType=TIMESTAMP},
+      #{state,jdbcType=BIT}, #{userId,jdbcType=BIGINT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.luowowo.hotel.domain.HotelRoomOrder" >
+    update hotel_room_order
+    set hotel_room_type_id = #{hotelRoomTypeId,jdbcType=BIGINT},
+      check_in = #{checkIn,jdbcType=TIMESTAMP},
+      check_out = #{checkOut,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=BIT},
+      user_id = #{userId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, hotel_room_type_id, check_in, check_out, state, user_id
+    from hotel_room_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, hotel_room_type_id, check_in, check_out, state, user_id
+    from hotel_room_order
+  </select>
+  <select id="selectEffectiveByHotelRoomTypeId" resultMap="BaseResultMap">
+    select id, hotel_room_type_id, check_in, check_out, state, user_id
+    from hotel_room_order WHERE hotel_room_type_id = #{hotelTypeId} and state = 1
+  </select>
+  <select id="selectByUserId" resultType="cn.wolfcode.luowowo.hotel.domain.HotelRoomOrder">
+    select id, hotel_room_type_id, check_in, check_out, state, user_id
+    from hotel_room_order WHERE user_id = #{userId} and state = 1
+  </select>
+</mapper>

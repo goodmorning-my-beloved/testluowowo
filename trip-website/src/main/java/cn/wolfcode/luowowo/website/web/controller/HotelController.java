@@ -4,19 +4,20 @@ import cn.wolfcode.luowowo.article.domain.Destination;
 import cn.wolfcode.luowowo.article.domain.Travel;
 import cn.wolfcode.luowowo.article.service.IDestinationService;
 import cn.wolfcode.luowowo.article.service.ITravelService;
-import cn.wolfcode.luowowo.hotel.domain.Hotel;
-import cn.wolfcode.luowowo.hotel.domain.HotelRegion;
-import cn.wolfcode.luowowo.hotel.domain.HotelTheme;
+import cn.wolfcode.luowowo.common.exception.LogicException;
+import cn.wolfcode.luowowo.common.util.AjaxResult;
+import cn.wolfcode.luowowo.hotel.domain.*;
 import cn.wolfcode.luowowo.hotel.query.HotelQuery;
-import cn.wolfcode.luowowo.hotel.service.IHotelRegionService;
-import cn.wolfcode.luowowo.hotel.service.IHotelService;
-import cn.wolfcode.luowowo.hotel.service.IHotelThemeServie;
+import cn.wolfcode.luowowo.hotel.service.*;
+import cn.wolfcode.luowowo.member.domain.UserInfo;
+import cn.wolfcode.luowowo.website.web.annotation.UserParam;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,10 @@ public class HotelController {
     private IHotelThemeServie hotelThemeServie;
     @Reference
     private IHotelRegionService hotelRegionService;
+    @Reference
+    private IHotelRoomTypeService hotelRoomTypeService;
+    @Reference
+    private IHotelRoomOrderService hotelRoomOrderService;
 
     /**
      * 订酒店 ____首页
@@ -139,6 +144,9 @@ public class HotelController {
      */
     @RequestMapping("/h")             // 回显搜索条件
     public Object goHotel(Model model, @ModelAttribute("qo") HotelQuery qo) {
+//        if(qo.getName()==null){
+//            throw new LogicException("请输入地名");
+//        }
         // 根据输入地名,查询详细目的地信息
         Destination theSearchDest = destinationService.getByDestName(qo.getName());
         model.addAttribute("theSearchDest", theSearchDest);
@@ -153,6 +161,10 @@ public class HotelController {
         // 查询出目的地的info介绍
 //        Destination theSearchDest = toasts.get(toasts.size() - 1);
 //        model.addAttribute("theSearchDest",theSearchDest);
+        // 查询酒店主题
+        List<HotelTheme> hotelThemes = hotelThemeServie.queryHotelThemeOnly6ByDestId(theSearchDest.getId());
+        model.addAttribute("hotelThemes", hotelThemes);
+
         return "hotel/dingjiudian";
     }
 
@@ -164,13 +176,29 @@ public class HotelController {
      * @return
      */
     @RequestMapping("/checkHotel")
-    public Object checkHotel(Model model, @ModelAttribute("qo") HotelQuery qo) {
-        PageInfo<Hotel> pageInfo = hotelService.queryHotelByCityNameAndSoOn(qo);
+    public Object checkHotel(Model model, @ModelAttribute("qo") HotelQuery qo, @UserParam UserInfo userInfo) {
+        model.addAttribute("userInfo",userInfo);
+        PageInfo<Hotel> pageInfo = hotelService.queryHotelByCityNameAndSoOn(qo); // 查时间
         List<Hotel> list = pageInfo.getList();
+        for (Hotel hotel : list) {
+            List<HotelRoomType> hotelRoomTypes = hotelRoomTypeService.queryHotelRoomTypeByHotelId(hotel.getId());
+            for (HotelRoomType hotelRoomType : hotelRoomTypes) {
+                Boolean flag = hotelRoomOrderService.checkSoldOut(qo, hotelRoomType);
+                hotelRoomType.setTool(flag);
+            }
+            hotel.setTool(hotelRoomTypes);
+        }
         model.addAttribute("hotel", list);
-        return "bookAHotel/hotelIntroTPL";
+        model.addAttribute("pageInfo", pageInfo);
+        return "hotel/hotelIntroTPL";
     }
 
+    @RequestMapping("/takeOrder")
+    @ResponseBody
+    public Object takeOrder(HotelRoomOrder hotelRoomOrder) {
+        hotelRoomOrderService.save(hotelRoomOrder);
+        return AjaxResult.SUCCESS;
+    }
     /**
      * 根据 酒店区域id,查询区域的详细信息
      * @param model
@@ -178,15 +206,31 @@ public class HotelController {
      * @return
      */
     @RequestMapping("/queryHotelRegion")
-    public String queryHotelRegion(Model model, Long id,Long destId) {
-        if(id == -1){
+    public String queryHotelRegion(Model model, Long id, Long destId) {
+        if (id == -1) {
             Destination region = destinationService.getById(destId);
             model.addAttribute("region", region);
-        }else {
+        } else {
             HotelRegion region = hotelRegionService.getByPrimaryId(id);
             model.addAttribute("region", region);
             model.addAttribute("flag", 1);
         }
         return "hotel/hotelRegionDetail";
     }
+
+//    /**
+//     * 根据酒店id,获得酒店信息,跳转酒店页面
+//     * @param model
+//     * @param id
+//     * @return
+//     */
+//    @RequestMapping("/hotelInfo")
+//    public Object hotelInfo(Model model, Long id) {
+//        Hotel hotel = hotelService.getHotelInfoByPrimaryKey(id);
+//        List<Destination> toasts = destinationService.getToasts(hotel.getDestId());
+//        model.addAttribute("toasts", toasts);
+//        return "hotel/oneHotel";
+//    }
+
+
 }

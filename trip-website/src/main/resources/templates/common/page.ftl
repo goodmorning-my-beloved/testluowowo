@@ -16,7 +16,6 @@
                     $("#currentPage").val(page);
                     $("#searchForm").submit();
                 }
-
             }
     })
 </script>

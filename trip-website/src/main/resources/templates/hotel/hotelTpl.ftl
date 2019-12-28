@@ -5,7 +5,7 @@
         <li>
             <div class="fc-item"
                  style="transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);">
-                <a href="${h.url!}" target="_blank" data-type="mdd" class="theme" data-name="${h.name}">
+                <a href="/hotel/h?name=${h.name!}" target="_blank" data-type="mdd" class="theme" data-name="${h.name}">
                     <div class="pic">
                         <img width="318" height="240" style="width:318px;height:240px;"
                              src="${h.coverUrl!}"

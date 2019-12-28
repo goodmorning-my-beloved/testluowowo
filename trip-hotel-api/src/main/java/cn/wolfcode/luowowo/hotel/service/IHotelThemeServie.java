@@ -18,4 +18,10 @@ public interface IHotelThemeServie {
      */
     HotelTheme getHotelTheme(long themeId);
 
+    /**
+     * 查询目的地下酒店主题
+     * @param destId
+     * @return
+     */
+    List<HotelTheme> queryHotelThemeOnly6ByDestId(Long destId);
 }

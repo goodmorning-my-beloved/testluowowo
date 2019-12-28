@@ -64,7 +64,7 @@
 		</javaClientGenerator>
 
 
-		<table tableName="hotel_region" domainObjectName="HotelRegion">
+		<table tableName="hotel_room_order" domainObjectName="HotelRoomOrder">
 			<!-- 参考 javaModelGenerator 的 constructorBased属性 -->
 			<property name="constructorBased" value="false" />
 			<property name="useActualColumnNames" value="true" />

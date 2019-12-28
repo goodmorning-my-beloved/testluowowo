@@ -20,20 +20,19 @@ public class HotelQuery extends HotelQueryObject{
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date checkOut;  // 退房时间
     private Long destId;   // 酒店所在地id
-    private int orderType=-1;   // 排序规则,默认按照分数降序
+    private String orderType;   // 排序规则,默认按照分数降序
     private String orderBy="score desc";  // 排序规则,默认按照分数降序
     private Long haveRoom = -1L;  // 默认仅查询有房
     private Long hotelThemeId = -1L;  // 默认查询全部主题的酒店
     private BigDecimal minPrice ;
     private BigDecimal maxPrice ;  // 查询的价格范围
+    private Long hotelRegion = -1L;  // 酒店所在地的区域
     public String getOrderBy(){
-        if(orderType == 1){
+        if("hot".equals(orderType)){
             return "sales desc";   //销量
-        }else if(orderType == 2){
-            return "price desc";  // 价格降序
-        }else if(orderType == 3){
-            return "price ";   // 价格升序
+        }else if("price".equals(orderType)){
+            return "price";  // 价格升序
         }
-        return "score desc " ;  // 排序规则,默认按照分数降序
+        return "score desc" ;  // 排序规则,默认按照分数降序
     }
 }

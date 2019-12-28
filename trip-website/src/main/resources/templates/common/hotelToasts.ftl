@@ -13,7 +13,7 @@
     <#list toasts as t>
     <div class="item">
       <div class="drop">
-            <span class="hd"><a href="/hotel/hotel" target="_blank">${t.name!}酒店<i></i></a></span>
+            <span class="hd"><a href="/hotel/h?name=${t.name!}" target="_blank">${t.name!}酒店<i></i></a></span>
             <div class="bd">
                 <i class="arrow"><b></b></i>
                 <div class="col">

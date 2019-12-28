@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.luowowo.hotel.mapper.HotelRoomTypeMapper" >
+  <resultMap id="BaseResultMap" type="cn.wolfcode.luowowo.hotel.domain.HotelRoomType" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="hotel_id" property="hotelId" jdbcType="BIGINT" />
+    <result column="roomType" property="roomType" jdbcType="VARCHAR" />
+    <result column="total_room_num" property="totalRoomNum" jdbcType="BIGINT" />
+    <result column="room_price" property="roomPrice" jdbcType="DECIMAL" />
+    <result column="max_live_num" property="maxLiveNum" jdbcType="BIGINT" />
+    <result column="special_offer" property="specialOffer" jdbcType="BIT" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from hotel_room_type
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.wolfcode.luowowo.hotel.domain.HotelRoomType" useGeneratedKeys="true" keyProperty="id" >
+    insert into hotel_room_type (hotel_id, roomType, total_room_num, 
+      room_price, max_live_num, special_offer
+      )
+    values (#{hotelId,jdbcType=BIGINT}, #{roomType,jdbcType=VARCHAR}, #{totalRoomNum,jdbcType=BIGINT}, 
+      #{roomPrice,jdbcType=DECIMAL}, #{maxLiveNum,jdbcType=BIGINT}, #{specialOffer,jdbcType=BIT}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.luowowo.hotel.domain.HotelRoomType" >
+    update hotel_room_type
+    set hotel_id = #{hotelId,jdbcType=BIGINT},
+      roomType = #{roomType,jdbcType=VARCHAR},
+      total_room_num = #{totalRoomNum,jdbcType=BIGINT},
+      room_price = #{roomPrice,jdbcType=DECIMAL},
+      max_live_num = #{maxLiveNum,jdbcType=BIGINT},
+      special_offer = #{specialOffer,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select id, hotel_id, roomType, total_room_num, room_price, max_live_num, special_offer
+    from hotel_room_type
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, hotel_id, roomType, total_room_num, room_price, max_live_num, special_offer
+    from hotel_room_type
+  </select>
+  <select id="selectByHotelId" resultMap="BaseResultMap">
+    select id, hotel_id, roomType, total_room_num, room_price, max_live_num, special_offer
+    from hotel_room_type WHERE hotel_id=#{hotelId}
+  </select>
+</mapper>
