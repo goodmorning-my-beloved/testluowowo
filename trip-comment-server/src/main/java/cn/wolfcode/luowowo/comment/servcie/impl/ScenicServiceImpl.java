@@ -35,4 +35,10 @@ public class ScenicServiceImpl implements IScenicCommentService{
         //List<ScenicComment> all = repository.findAll();
         return scenicComments;
     }
+
+    @Override
+    public List<ScenicComment> selectCommentById(Long id) {
+        return repository.findByUserId(id);
+
+    }
 }
