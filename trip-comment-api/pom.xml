@@ -44,5 +44,6 @@
             <groupId>cn.wolfcode.luowowo</groupId>
             <artifactId>trip-cache-api</artifactId>
         </dependency>
+
     </dependencies>
 </project>

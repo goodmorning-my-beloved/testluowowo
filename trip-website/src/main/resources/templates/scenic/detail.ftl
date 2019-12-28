@@ -405,11 +405,11 @@
                                 <li class="rev-item comment-item clearfix">
                                     <div class="user"><a class="avatar" href="/u/52068941.html" target="_blank"><img
                                             src="${c.headUrl!}"
-                                            width="48" height="48"></a><span class="level">LV.21</span></div>
+                                            width="48" height="48"></a><span class="level">Lv${c.level!}</span></div>
                                     <a class="useful" data-id="191407415" title="点赞">
                                         <i></i><span class="useful-num">1</span>
                                     </a>
-                                    <a class="name" href="/u/52068941.html" target="_blank">${c.username}</a>
+                                    <a class="name" href="/u/52068941.html" target="_blank">${c.username!}</a>
                                     <span class="s-star s-star4"></span>
                                     <p class="rev-txt">${(c.content)!}<br>
 
@@ -440,25 +440,24 @@
                                         <li>
                                             <a href="/u/63107989.html" target="_blank">
                                                 <img src="http://b4-q.mafengwo.net/s9/M00/DA/0D/wKgBs1g919mAVdRVAACpgsqFw_Y38.jpeg?imageMogr2%2Fthumbnail%2F%2116x16r%2Fgravity%2FCenter%2Fcrop%2F%2116x16%2Fquality%2F90"
-                                                     width="16" height="16">${list.username}
+                                                     width="16" height="16">${list.username!}
                                             </a>
-                                            ：${list.content}
-                                            <a class="_j_reply re_reply" data-id="625204" data-userId="${c.userId}" name="re_reply"
-                                               data-username="${c.username}" title="添加回复">回复</a>
-                                            <br><span class="time">${list.createTime?string('dd.MM.yyyy HH:mm:ss')}</span>
+                                            ：${list.content!}
+                                            <a class="_j_reply re_reply" data-id="625204" data-userId="${c.userId!}" name="re_reply"
+                                               data-username="${c.username!}" title="添加回复">回复</a>
+                                            <br><span class="time">${list.createTime!?string('dd.MM.yyyy HH:mm:ss')}</span>
                                         </li>
                                         </#list>
                                         </#if>
                                         </ul>
 
-                                        <div class="add-comment hide reply-form">
-                                    <textarea class="comment_reply"
-                                              data-poi_name="广州塔"
+                                        <div class="add-comment hide reply-form ">
+                                    <textarea class="comment_reply replycontent"
                                               data-parent_id="" data-parent_uid="" data-parent_username=""
                                               style="overflow: hidden; color: rgb(204, 204, 204);"></textarea>
                                             <a class="btn btn_submit_reply"
-                                               data-userid="${c.userId}"
-                                               data-username="${c.username}" data-scenicid="${c.scenicId}"  data-commentid="${c.id}"
+                                               data-userid="${c.userId!}"
+                                               data-username="${c.username!}" data-scenicid="${c.scenicId!}"  data-commentid="${c.id!}"
                                             >回复</a>
                                         </div>
                                     </div>
@@ -504,6 +503,7 @@
                             <input type="hidden" name="refComment.userId" id="refAuthorId">
                             <input type="hidden" name="refComment.username" id="refUsername">
                             <input type="hidden" name="refComment.id" id="commentid">
+                            <input type="hidden" name="content" id="reply_content">
                             <textarea style="display:none" name="content" id="comment_reply"></textarea>
 
                             <div class="review-item item-star">
@@ -587,12 +587,6 @@
                                 </div>
                             </div>
 
-
-
-
-
-
-
                             <div class="review-item item-photo">
                                 <div class="label">上传照片</div>
                                 <div class="avatar" id="_j_avatar_box">
@@ -609,8 +603,6 @@
                                         })
                                         $("#coverBtn").change(function () {
                                             var hv;
-                                            var value = ($("._j_commentarea").val());
-                                            $("#comment_reply").val(value);
                                             if(this.value){
                                                 $("#coverForm").ajaxSubmit(function (data) {
                                                     console.log(data);
@@ -704,8 +696,11 @@
 //                            var scenicid = $(this).data(scenicid);已经有了 form
                             var userid = $(this).data("userid");
                             var commentid = $(this).data("commentid");
+                            var value = ($(".replycontent").val());
 
-                            console.log(userid);
+                            console.log(value);
+                            $("#reply_content").val(value);
+
                             console.log(username);
                             console.log(commentid);
                             $("#commentType").val(1);
@@ -713,8 +708,6 @@
                             $("#refUsername").val(username);
                             $("#commentid").val(commentid);
 
-                            var html = $(".comment_reply").val();
-                            $("#comment_reply").val(html);
 
                             $("#editForm").ajaxSubmit(function (data) {
                                 if(data.success){

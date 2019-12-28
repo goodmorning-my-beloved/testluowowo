@@ -413,13 +413,19 @@
                             <p class="sub ng-binding" render-html="list.arriveCity.airport">降落机场</p>
                         </div>
                         <div class="item item-btn btn_search btn_hiddenbuy">
-                            <a class="btn_searchbuy">订购</a>
+                            <a class="btn_searchbuy"><span render-value="list.id"></span>订购</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        $("#airinfo").delegate("a","click",function () {
+            var val = $(this).val();
+            console.log(val);
+        })
+    </script>
 <#-- ----------------------------------------------- -->
 </div>
 <#include "../common/footer.ftl">

@@ -1,13 +1,15 @@
 package cn.wolfcode.luowowo.comment.servcie.impl;
 
+import cn.woldcode.luowowo.scenic.domain.Scenic;
+import cn.woldcode.luowowo.scenic.service.IScenicService;
 import cn.wolfcode.luowowo.comment.domain.ScenicComment;
 import cn.wolfcode.luowowo.comment.repository.IScenicCommentRepository;
 import cn.wolfcode.luowowo.comment.service.IScenicCommentService;
 import cn.wolfcode.luowowo.comment.util.ImgUtil;
 import cn.wolfcode.luowowo.member.domain.UserInfo;
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.wiring.ClassNameBeanWiringInfoResolver;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -19,6 +21,10 @@ public class ScenicServiceImpl implements IScenicCommentService{
 
     @Autowired
     private IScenicCommentRepository repository;
+
+
+    @Reference
+    private IScenicService scenicService;
 
     @Override
     public List<ScenicComment> selectCommentByScenicId(Long id) {
@@ -59,6 +65,14 @@ public class ScenicServiceImpl implements IScenicCommentService{
         comment.setHeadUrl(userInfo.getHeadImgUrl());
         comment.setLevel(userInfo.getLevel());
         comment.setUserId(userInfo.getId());
+
+        // 查询评论的景点信息
+        Scenic scenic = scenicService.queryScenicById(comment.getScenicId());
+        // 设置相关数据
+        String coverUrl = scenic.getCoverUrls()[0];
+        comment.setCoverUrl(coverUrl);
+        comment.setScenic(scenic.getName());
+        comment.setCity(scenic.getDestination().getName());
 
         //添加或更新
         if (!StringUtils.hasLength(comment.getId())) {
