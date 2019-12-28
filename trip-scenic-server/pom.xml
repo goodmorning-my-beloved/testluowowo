@@ -17,6 +17,7 @@
             <groupId>cn.wolfcode.luowowo</groupId>
             <artifactId>trip-scenic-api</artifactId>
         </dependency>
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
