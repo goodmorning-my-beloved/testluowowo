@@ -210,7 +210,7 @@
                     </div>
                 </div>
                 <div class="pic">
-                    <a href="/poi/25091.html" target="_blank" title="广州塔">
+                    <a href="/scenic/detail?id=${sct.id}" target="_blank" title="广州塔">
                         <div class="large">
                             <img src="${(sct.coverUrls[0])!}"
                                  width="380" height="270">
@@ -241,7 +241,7 @@
             <div class="bd">
                 <div class="grid grid-two">
                     <div class="figure">
-                        <a href="/poi/5178221.html" target="_blank" title="广州塔">
+                        <a href="/scenic/detail?id=${hsc.id}" target="_blank" title="广州塔">
                             <img src="${hsc.coverUrls[0]}"
                                  width="485" height="320">
                             <h3 class="title">${hsc.name}</h3>
