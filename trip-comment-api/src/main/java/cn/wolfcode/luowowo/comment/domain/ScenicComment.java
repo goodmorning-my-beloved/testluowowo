@@ -59,8 +59,14 @@ public class ScenicComment implements Serializable{
     // 评论内容
     private String content;
 
+    // 关联的评论id
+    private String refId;
+
     // 关联的评论
-   // private ScenicComment refComment;
+    private ScenicComment refComment;
+
+    // 评论的评论
+    private List<ScenicComment> commentList = new ArrayList<>();
 
     private List<ImgUtil> imgList;
 

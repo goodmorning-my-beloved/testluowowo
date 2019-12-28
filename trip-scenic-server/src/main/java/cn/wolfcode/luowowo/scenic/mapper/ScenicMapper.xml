@@ -9,6 +9,7 @@
     <result column="url" property="url"/>
     <result column="travelTime" property="travelTime"/>
     <result column="content" property="content"/>
+    <result column="summary" property="summary"/>
     <result column="ticketInfo" property="ticketInfo"/>
     <result column="parentId" property="parentId"/>
     <result column="destId" property="destination.id"/>
@@ -53,7 +54,7 @@
     </select>
 
     <select id="selectScenicById" resultMap="baseResultMap">
-        SELECT s.id, s.destId, s.name,s.enName, s.intro, s.coverUrl,s.commentNum,
+        SELECT s.id, s.destId, s.name,s.enName, s.intro, s.coverUrl,s.commentNum, s.summary,
         s.tel, s.url, s.travelTime, s.content, s.ticketInfo,
         d.id d_id, d.name d_name
         FROM scenic s LEFT JOIN destination d ON s.destId = d.id
