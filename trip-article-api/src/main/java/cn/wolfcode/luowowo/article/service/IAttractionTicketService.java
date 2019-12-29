@@ -18,4 +18,5 @@ public interface IAttractionTicketService {
 
     int updateByPrimaryKey(AttractionTicket record);
 
+    List<AttractionTicket> selectByDestId(Long ajaxDestId);
 }

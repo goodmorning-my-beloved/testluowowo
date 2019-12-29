@@ -52,7 +52,7 @@
             $("#form").ajaxSubmit(function (data) {
                 if(data.success){
                     alert("已经为您下单");
-                    window.location.href="http://localhost:8888/mytivketorder"
+                    window.location.href="/mytivketorder"
                 }else{
                     alert("下单失败")
                 }

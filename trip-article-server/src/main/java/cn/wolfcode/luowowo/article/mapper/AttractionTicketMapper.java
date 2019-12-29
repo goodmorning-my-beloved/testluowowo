@@ -11,7 +11,8 @@ public interface AttractionTicketMapper {
     AttractionTicket selectByPrimaryKey(Long id);
 
     List<AttractionTicket> selectAll();
-
+    List<AttractionTicket> selectByDestId(Long destId);
     int updateByPrimaryKey(AttractionTicket record);
+
 
 }

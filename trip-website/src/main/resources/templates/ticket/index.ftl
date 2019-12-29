@@ -130,16 +130,18 @@
         <div class="main_box">
             <h3 class="main_tit">景点推荐<a id="smartShelfUrl" href="javascript:void(0);">查看更多<span>&gt;</span></a></h3>
             <div class="main_content_box main_recommend clearfix">
+
                 <ul class="recommend_tab_t">
                     <#list destlist as list>
                     <li class="city_js active" data="${list.dest.id}" data2="">${list.dest.name}</li>
-                    </#list>
+
                     <#--<li class="city_js" data="231" data2="">深圳</li>
                     <li class="city_js" data="232" data2="">珠海</li>
                     <li class="city_js" data="234" data2="">佛山</li>
                     <li class="city_js" data="245" data2="">清远</li>
                     <li class="city_js" data="240" data2="">惠州</li>
                     <li class="city_js" data="246" data2="">东莞</li>-->
+                    </#list>
                 </ul>
 
                 <!-- 主题列表 -->
@@ -158,9 +160,10 @@
                             <li class=" subject_js" data="11">田园度假<i class="ticket_icon"></i></li>-->
                         </ul>
                     </div>
+                    <#list list as l>
                     <ul class="promotion_list clearfix" style="display: block;">
-                            <#list list as l>
-                              <#if l.dest.id==3261>
+
+
                                 <#--推荐门票-->
                                 <li>
                                     <a href="/ticket/detail?tid=${l.id}" target="_blank" onclick="cmcTag('门票频道页-PC-站点-P4-景点推荐-${l.theme.name}-001-${l.name}','PC门票频道页景点推荐');">
@@ -174,10 +177,11 @@
                                         </div>
                                     </a>
                                 </li>
-                              </#if>
-                            </#list>
+
+
 
                     </ul>
+                    </#list>
                 </div>
                 <!-- 城市列表 -->
                 <div class="recommend_list_content" style="display: none;">
@@ -354,7 +358,7 @@
                     if(subjectDiv.find('ul').length == 0) {
                         $.ajax({
                             type: "POST",
-                            url: "/homePage/reloadSubAndProd.do",
+                            url: "/homePage/reloadSubAndProd",
                             data: {
                                 ajaxDestId: destId
                             },
@@ -380,7 +384,7 @@
                         var destId = $("ul.recommend_tab_t").find("li.active").attr("data");
                         $.ajax({
                             type: "POST",
-                            url: "/homePage/reloadProd.do",
+                            url: "/homePage/reloadProd",
                             data: {
                                 ajaxDestId: destId,
                                 ajaxSubjectId: subjectId
