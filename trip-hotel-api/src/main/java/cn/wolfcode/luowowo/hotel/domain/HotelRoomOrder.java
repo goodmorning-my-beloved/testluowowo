@@ -20,4 +20,7 @@ public class HotelRoomOrder extends BaseDomain{
 
     private Boolean state;
     private Long userId;
+
+
+    private Object tool;
 }

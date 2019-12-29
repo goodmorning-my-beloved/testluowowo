@@ -35,4 +35,5 @@ public class HotelQuery extends HotelQueryObject{
         }
         return "score desc" ;  // 排序规则,默认按照分数降序
     }
+    public Boolean flag;
 }

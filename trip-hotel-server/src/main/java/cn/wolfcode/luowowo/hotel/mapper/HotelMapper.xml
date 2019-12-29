@@ -56,7 +56,7 @@
   </select>
   <select id="selectSpecialOfferHotelByDestIdTop8" resultMap="BaseResultMap">
     select id, name, english, coverUrl, dest_id, score, url, price,address,hotel_theme_id,haveRoom,sales,hotel_region_id
-    from hotel WHERE dest_id = #{destId} and price &lt;= 600 limit 8
+    from hotel WHERE dest_id = #{destId}  limit 8
   </select>
   <select id="selectByDestId" resultMap="BaseResultMap">
     select id, name, english, coverUrl, dest_id, score, url, price,address,hotel_theme_id,haveRoom,sales,hotel_region_id

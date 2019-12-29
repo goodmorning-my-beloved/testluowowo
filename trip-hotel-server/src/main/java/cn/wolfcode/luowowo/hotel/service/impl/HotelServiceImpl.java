@@ -62,7 +62,8 @@ public class HotelServiceImpl implements IHotelService {
                         long checkOutTime = checkOut.getTime();
                         long orderCheckIn = hotelRoomOrder.getCheckIn().getTime();
                         long orderCheckOut = hotelRoomOrder.getCheckOut().getTime();
-                        if ((orderCheckIn < checkInTime & checkInTime < orderCheckOut) || (orderCheckIn < checkOutTime & checkOutTime < orderCheckOut)) {
+                        if ((orderCheckIn <= checkInTime & checkInTime <= orderCheckOut) || (orderCheckIn <= checkOutTime & checkOutTime <= orderCheckOut)
+                                || (checkInTime<=orderCheckIn & checkOutTime>=orderCheckOut)) {
                             totalRoomNum = totalRoomNum - 1;
                         }
                     }

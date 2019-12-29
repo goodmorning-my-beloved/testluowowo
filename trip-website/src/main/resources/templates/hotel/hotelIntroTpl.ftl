@@ -47,6 +47,7 @@
                                 </div>
                                 <p class="tips" style="display:none;"></p>
                             </div>
+                            <input id="checkFuck" type="hidden" value="${((type.tool==true)?string('','售罄'))!}">
                             <div class="price _j_booking_price">
                                 <strong>￥</strong><strong>${(type.roomPrice)!}</strong><strong
                                     style="font-size: 12px;color: #666;padding-left: 2px;vertical-align: 1px;">均价</strong>
@@ -69,25 +70,27 @@
                                     var userId = ${(userInfo.id)!};
                                     var checkIn =  $('#checkInQuery').val()
                                     var checkOut = $('#checkOutQuery').val()
+                                     var tool = $('#checkFuck').val();
+                                    <#--var tool = ${type.tool};-->
                                    /* $.get('/hotel/h',{name:'上海'},function(){
                                         alert(11.)
                                     })*/
-                                    $.get('/hotel/takeOrder',{hotelRoomTypeId:hotelRoomTypeId,userId:userId,checkIn:checkIn,checkOut:checkOut,state:1},function (data) {
-                                        if(data.success){
-                                            alert("下订单成功")
-                                            $('#kkk').detach()
-                                            $('.n-content').detach();
-                                            $('#contentForm').ajaxSubmit(function(data){
-                                                $('.hotel-sortbar').after(data);
-                                            })
-                                        }else {
-                                            alert(data.msg)
-                                        }
-                                    })
-                                }
-                                else{
+                                       $.get('/hotel/takeOrder',{hotelRoomTypeId:hotelRoomTypeId,userId:userId,checkIn:checkIn,checkOut:checkOut,state:1,tool:tool},function (data) {
+                                           if(data.success){
+                                               alert("下订单成功")
+                                               $('#kkk').detach()
+                                               $('.n-content').detach();
+                                               $('#contentForm').ajaxSubmit(function(data){
+                                                   $('.hotel-sortbar').after(data);
+                                               })
+                                           }else {
+                                               alert(data.msg)
+                                           }
+                                       })
+                                   }
+                                    else{
                                     alert("停止下订单");
-                                }
+                                    }
 
 
                                 <#--$("#editFormTpl").clearForm(true);-->

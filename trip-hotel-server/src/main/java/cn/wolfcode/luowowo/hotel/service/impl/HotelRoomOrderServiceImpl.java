@@ -45,11 +45,12 @@ public class HotelRoomOrderServiceImpl implements IHotelRoomOrderService{
             long checkOutTime = checkOut.getTime();
             long orderCheckIn = hotelRoomOrder.getCheckIn().getTime();
             long orderCheckOut = hotelRoomOrder.getCheckOut().getTime();
-            if((orderCheckIn<checkInTime & checkInTime<orderCheckOut)||(orderCheckIn<checkOutTime & checkOutTime<orderCheckOut)){
+            if((orderCheckIn<=checkInTime & checkInTime<=orderCheckOut)||(orderCheckIn<=checkOutTime & checkOutTime<=orderCheckOut)
+                    ||(checkInTime<=orderCheckIn & checkOutTime>=orderCheckOut)){
                 totalRoomNum=totalRoomNum-1;
             }
         }
-        if(totalRoomNum==0){   // 代表售罄
+        if(totalRoomNum<=0){   // 代表售罄
             return false;
         }
         return true;
@@ -62,6 +63,9 @@ public class HotelRoomOrderServiceImpl implements IHotelRoomOrderService{
         }
         if(hotelRoomOrder.getCheckOut().getTime()-hotelRoomOrder.getCheckIn().getTime()<0){
             throw new LogicException("劳烦退房时间不要早于订房时间");
+        }
+        if("售罄".equals(hotelRoomOrder.getTool())){
+            throw new LogicException("该房型已售罄,请重新考虑");
         }
         hotelRoomOrderMapper.insert(hotelRoomOrder);
     }
