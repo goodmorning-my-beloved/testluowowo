@@ -147,7 +147,7 @@
            $("#airinfo").delegate("a","click",function () {
                var h = $("#xxx").html();
                console.log(h);
-               window.location.href="http://localhost:8888/flight/order?id="+h;
+               window.location.href="/flight/order?id="+h;
            })
         });
 

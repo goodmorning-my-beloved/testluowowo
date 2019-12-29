@@ -45,4 +45,9 @@ public class AttractionTicketServiceImpl implements IAttractionTicketService {
         return attractionTicketMapper.updateByPrimaryKey(record);
     }
 
+    @Override
+    public List<AttractionTicket> selectByDestId(Long ajaxDestId) {
+        return attractionTicketMapper.selectByDestId(ajaxDestId);
+    }
+
 }

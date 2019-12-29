@@ -67,5 +67,24 @@
     LEFT JOIN destination_commend_theme theme ON  at.theme_id = theme.id
   </select>
 
+    <select id="selectByDestId" resultMap="BaseResultMap">
+        select
+    at.id,
+    at.coverUrl,
+    at.praisenum,
+    at.name,
+    at.price,
+    dest.id dest_id,
+    dest.name dest_name,
+    at.state,
+    at.sequence,
+    theme.id theme_id,
+    theme.type theme_type,
+    theme.name theme_name
+    from attraction_ticket at LEFT JOIN destination dest ON  at.dest_id=dest.id
+    LEFT JOIN destination_commend_theme theme ON  at.theme_id = theme.id
+    where at.dest_id=#{destId}
+    </select>
+
 
 </mapper>

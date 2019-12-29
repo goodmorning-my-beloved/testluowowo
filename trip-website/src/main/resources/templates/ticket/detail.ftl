@@ -776,7 +776,7 @@
 			</span>
 
                 <div class="titbox">
-                    <h1 class="tit" title="广州塔">${(ticket.name)!}</h1><span class="mp_star"><i>4A</i>级景区</span>
+                    <h1 class="tit" title="广州塔">${(ticketDetail.name)!}</h1><span class="mp_star"><i>4A</i>级景区</span>
                     <span class="tags-revision"
                           tip-content="即日起至2019年12月31日发表门票订单游记，审核通过即返20元。更多游记活动请查看游记频道。">游记返现</span>
                 </div>

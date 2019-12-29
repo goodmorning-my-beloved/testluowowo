@@ -161,13 +161,13 @@
                 <td>${order.order_num!}</td>
                 <td>${order.creatime?string("yyyy-MM-dd HH:mm:ss")!}</td>
                 <td>
-                    <a id="deleteOrder" href="#" data-id="${order.id}">取消订单</a>
+                    <a class="deleteOrder" href="#" data-id="${order.id}">取消订单</a>
                 </td>
             </tr>
         </#list>
         <script>
             $(function () {
-                $("#deleteOrder").click(function () {
+                $(".deleteOrder").click(function () {
                     var id = $(this).data("id");
                     $.get("/deletemytivketorder",{id:id},function (data) {
                         if(data.success){
@@ -200,13 +200,13 @@
                 <td>${(order.airticket.arriveDate)!?string("yyyy-MM-dd")} + ${order.airticket.arriveTime}</td>
                 <td>${order.creatime?string("yyyy-MM-dd HH:mm:ss")!}</td>
                 <td>
-                    <a id="deleteOrder1" href="#" data-id="${order.id}">取消订单</a>
+                    <a class="deleteOrder1" href="#" data-id="${order.id}">取消订单</a>
                 </td>
             </tr>
         </#list>
         <script>
             $(function () {
-                $("#deleteOrder1").click(function () {
+                $(".deleteOrder1").click(function () {
                     var id = $(this).data("id");
                     $.get("/deletemytivketorder1",{id:id},function (data) {
                         if(data.success){
@@ -240,13 +240,13 @@
                 <td>${(order.tool.checkIn)!?string("yyyy-MM-dd")}</td>
                 <td>${(order.tool.checkOut)!?string("yyyy-MM-dd")}</td>
                 <td>
-                    <a id="deleteOrder2" href="#" data-id="${order.tool.orderId}">取消订单</a>
+                    <a class="deleteOrder2" href="#" data-id="${order.tool.orderId}">取消订单</a>
                 </td>
             </tr>
         </#list>
         <script>
             $(function () {
-                $("#deleteOrder2").click(function () {
+                $(".deleteOrder2").click(function () {
                     var id = $(this).data("id");
                     $.get("/deletemytivketorder2",{id:id},function (data) {
                         if(data.success){

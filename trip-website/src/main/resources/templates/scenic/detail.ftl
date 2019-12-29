@@ -284,7 +284,7 @@
                         <ul class="clearfix">
                         <#list innerScenic as insc>
                             <li>
-                                <a href="#" target="_blank" title="${(insc.name)!}">
+                                <a href="/scenic/detail?id=${insc.id}" target="_blank" title="${(insc.name)!}">
                                     <img src="${(insc.coverUrls[0])!}"
                                          width="235" height="150">
                                     <span class="num num-top">${(insc_index+1)!}</span>
