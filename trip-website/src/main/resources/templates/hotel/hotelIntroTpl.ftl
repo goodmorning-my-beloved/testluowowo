@@ -67,8 +67,8 @@
                                 if(a){
                                     var hotelRoomTypeId = ${(type.id)!};
                                     var userId = ${(userInfo.id)!};
-                                    var checkIn =  $('#theCheckIn').html()
-                                    var checkOut = $('#theCheckOut').html()
+                                    var checkIn =  $('#checkInQuery').val()
+                                    var checkOut = $('#checkOutQuery').val()
                                    /* $.get('/hotel/h',{name:'上海'},function(){
                                         alert(11.)
                                     })*/
@@ -80,9 +80,8 @@
                                             $('#contentForm').ajaxSubmit(function(data){
                                                 $('.hotel-sortbar').after(data);
                                             })
-
                                         }else {
-                                            alert("系统异常,请稍后再做尝试")
+                                            alert(data.msg)
                                         }
                                     })
                                 }

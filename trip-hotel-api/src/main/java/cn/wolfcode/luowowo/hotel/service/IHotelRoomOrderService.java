@@ -1,5 +1,6 @@
 package cn.wolfcode.luowowo.hotel.service;
 
+import cn.wolfcode.luowowo.common.exception.LogicException;
 import cn.wolfcode.luowowo.hotel.domain.HotelRoomOrder;
 import cn.wolfcode.luowowo.hotel.domain.HotelRoomType;
 import cn.wolfcode.luowowo.hotel.query.HotelQuery;
@@ -22,7 +23,7 @@ public interface IHotelRoomOrderService {
      */
     Boolean checkSoldOut(HotelQuery qo, HotelRoomType roomTypeId);
 
-    void save(HotelRoomOrder hotelRoomOrder);
+    void save(HotelRoomOrder hotelRoomOrder) throws LogicException;
 
     /**
      * 根据用户id查询用户拥有的订单

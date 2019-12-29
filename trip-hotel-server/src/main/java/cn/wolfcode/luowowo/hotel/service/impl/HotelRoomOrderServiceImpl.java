@@ -1,5 +1,6 @@
 package cn.wolfcode.luowowo.hotel.service.impl;
 
+import cn.wolfcode.luowowo.common.exception.LogicException;
 import cn.wolfcode.luowowo.hotel.domain.HotelRoomOrder;
 import cn.wolfcode.luowowo.hotel.domain.HotelRoomType;
 import cn.wolfcode.luowowo.hotel.mapper.HotelRoomOrderMapper;
@@ -55,7 +56,13 @@ public class HotelRoomOrderServiceImpl implements IHotelRoomOrderService{
     }
 
     @Override
-    public void save(HotelRoomOrder hotelRoomOrder) {
+    public void save(HotelRoomOrder hotelRoomOrder) throws LogicException{
+        if(hotelRoomOrder.getCheckIn()==null||hotelRoomOrder.getCheckOut()==null){
+            throw new LogicException("请在搜索栏输入预订入住时间,再重新提交订单");
+        }
+        if(hotelRoomOrder.getCheckOut().getTime()-hotelRoomOrder.getCheckIn().getTime()<0){
+            throw new LogicException("劳烦退房时间不要早于订房时间");
+        }
         hotelRoomOrderMapper.insert(hotelRoomOrder);
     }
 

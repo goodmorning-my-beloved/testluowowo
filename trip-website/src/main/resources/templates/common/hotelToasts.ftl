@@ -17,7 +17,7 @@
             <div class="bd">
                 <i class="arrow"><b></b></i>
                 <div class="col">
-                    <h3>下属地区</h3>
+                    <h3>下属地区酒店导引</h3>
                     <#--<ul class="clearfix">-->
                         <#list t.children as tc>
                         <#if tc_index lt 5 >

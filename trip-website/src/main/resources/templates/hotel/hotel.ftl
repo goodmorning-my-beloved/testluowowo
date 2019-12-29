@@ -62,6 +62,7 @@
     <script language="javascript"
             src="http://js.mafengwo.net/js/cv/js+jquery-1.8.1.min:js+global+json2:js+M+Module:js+M+M:js+M+Log:js+m.statistics:js+advert+inspector:js+corelib+underscore-1.6.0:js+corelib+backbone-1.1.2^YlBQ^1562232559.js"
             type="text/javascript" crossorigin="anonymous"></script>
+    <script href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup:css+mfw-header.2015%5EYlVS%5E1566868943.css"></script>
    <script>
        // $(function () {
        //     $("#_j_check_in_date").click(function () {

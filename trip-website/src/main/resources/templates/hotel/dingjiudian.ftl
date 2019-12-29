@@ -95,6 +95,7 @@
         }
     }
 
+
     .hotel-btns {
         position: relative;
     }
@@ -225,6 +226,18 @@
             <button type="submit" class="hs-btn btn-sss">查看价格</button>
         </div>
     </form>
+    <script>
+        $(function () {
+            $('#theCheckOut').click(function () {
+                var theCheckOutVal = $('#theCheckOut').val()
+                $('#checkOutQuery').val(theCheckOutVal)
+            })
+            $('#theCheckIn').click(function () {
+                var theCheckInVal = $('#theCheckIn').val()
+                $('#checkInQuery').val(theCheckInVal)
+            })
+        })
+    </script>
     <div class="area-main clearfix">
         <div class="area-wrapper" id="_j_area_wrapper" style="">
             <dl class="item-area clearfix _j_area_list">
@@ -337,13 +350,19 @@
             // //
             var minPriceQuery = $('#priceFormMin').val()
             $('#minPriceQuery').val(minPriceQuery)
-            // //
+            //
             var maxPriceQuery = $('#priceFormMax').val()
             $('#maxPriceQuery').val(maxPriceQuery)
-            // //
             //
             var keywordQuery = $('#keywordEnter').val()
             $('#keywordQuery').val(keywordQuery)
+            //
+            var theCheckOutQuery = $('#theCheckOut').val()
+            $('#checkOutQuery').val(theCheckOutQuery)
+
+            var theCheckInQuery = $('#theCheckIn').val()
+            $('#checkInQuery').val(theCheckInQuery)
+            //
 
             $('#contentForm').ajaxSubmit(function(data){
                 $('.hotel-sortbar').after(data);
@@ -373,7 +392,7 @@
 
                             $('#kkk').detach()
                             $('.n-content').detach();
-                            $('#regionQuery').val(vid)
+                            // $('#regionQuery').val(vid)
                             $('#contentForm').ajaxSubmit(function(data){
                                 $('.hotel-sortbar').after(data);
                             })
@@ -404,7 +423,7 @@
 
                                 $('#kkk').detach()
                                 $('.n-content').detach();
-                                $('#regionQuery').val(vid)
+                                // $('#regionQuery').val(vid)
                                 $('#contentForm').ajaxSubmit(function(data){
                                     $('.hotel-sortbar').after(data);
                                 })
@@ -424,7 +443,7 @@
             <form id="priceForm">
                 <input type="number" id="priceFormMin" placeholder="最低价格" name="checkIn">~~
                 <input type="number" id="priceFormMax" placeholder="最高价格" name="checkOut">
-                <button type="button" class="btn btn-lg btn-primary btn-block" id="btn_submit">查找价格</button>
+                <button type="button" class="btn btn-lg btn-primary btn-block" id="btn_submit">查找价格(仅针对普通房型)</button>
             </form>
             <script>
                 $(function () {
@@ -449,7 +468,7 @@
                 <div class="sortbar-info">
                 <#-- <div class="total" id="_j_total_text">共<span>567</span> 家酒店</div>-->  <#-- 代做,将该标签存于模板中 -->
                     <span class="hotel-switch " id="_j_available_switch">
-                有房<span class="mui-switch"><i></i></span>全部酒店
+                <#--有房<span class="mui-switch"><i></i></span>全部酒店-->
             </span>
                     <div class="htb-search" id="_j_keyword_filter">
                         <div class="htb-searchbar">
